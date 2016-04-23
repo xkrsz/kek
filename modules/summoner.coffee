@@ -15,7 +15,7 @@ exports.find = (summoner, callback) ->
 				message		: e
 			}
 		else if r.statusCode == 200
-			b = JSON.parse(b)[key]
+			b = JSON.parse(b)[summoner.key]
 			log.info {summoner: b}, 'Got summoner.'
 			summoner = {
 				key 			: summoner.key
