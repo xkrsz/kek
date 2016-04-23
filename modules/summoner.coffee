@@ -78,5 +78,19 @@ exports.update = (summoner, callback) -> # summoner = {id, region, platform}
 		else if r.statusCode == 200
 			b = JSON.parse(b)
 			log.info 'Got mastery data'
-			
-
+			Summoner.findOne {
+				id 		: summoner.id
+				region 	: summoner.region
+			}, (e, cachedSummoner) ->
+				if e
+					log.error e
+				else
+					if cachedSummoner
+						cachedSummoner.championMasteries = b
+						cachedSummoner.save (e, cachedSummoner) ->
+							if e
+								log.error e
+							else if cachedSummoner
+								log.info 'Champion masteries saved.'
+					else
+						log.error 'Tried to update summoner, but he doesn\'t exists in database.'
