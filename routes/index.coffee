@@ -10,4 +10,11 @@ module.exports = (router) ->
 		region = req.body.region.toLowerCase().replace ' ', ''
 		res.redirect '/summoner/' + region + '/' + key
 
+	router.route('/champions')
+	.get (req, res) ->
+		Champion.find {}, (e, champions) ->
+			if e
+				log.error e
+			res.json champions
+
 	return router
