@@ -10,6 +10,7 @@ module.exports = (router) ->
 			region 		: req.params.region
 		}, (r) ->
 			res.json r
+
 	router.route('/summoners')
 	.get (req, res) ->
 		Summoner.find {}, (e, summoners) ->
@@ -18,5 +19,18 @@ module.exports = (router) ->
 			else if summoners.length > 0
 				res.json summoners
 			else res.json {message: 'No summoners saved.'}
+
+	router.route('/best')
+	.get (req, res) ->
+		Summoner.find {}, (e, summoners) ->
+			if e
+				log.error e
+			if summoners.length > 0
+				best = []
+				for mastery in summoners[0].championMasteries
+					if mastery.championLevel == 5
+						best.push mastery
+				res.json best
+			else res.json {message: 'No entries found.'}
 
 	return router
