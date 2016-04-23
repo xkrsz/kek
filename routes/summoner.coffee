@@ -10,6 +10,13 @@ module.exports = (router) ->
 			region 		: req.params.region
 		}, (r) ->
 			res.json r
-
+	router.route('/summoners')
+	.get (req, res) ->
+		Summoner.find {}, (e, summoners) ->
+			if e
+				log.error e
+			else if summoners.length > 0
+				res.json summoners
+			else res.json {message: 'No summoners saved.'}
 
 	return router

@@ -24,7 +24,7 @@ db.once 'open', ->
 	log.info 'Connected to database!'
 
 # Models
-
+global.Summoner = require './models/summoner'
 
 # Routes
 app.use '/', require('./routes/index')(router)
@@ -32,4 +32,4 @@ app.use '/', require('./routes/summoner')(router)
 
 # Server listener
 http.listen port, ->
-	log.info 'Listening on port' + port + '...'
+	log.info 'Listening on port ' + port + '...'

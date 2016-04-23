@@ -2,7 +2,7 @@ bunyan 					= require 'bunyan'
 log 					= bunyan.createLogger {name: 'kek/modules/summoner'}
 request 				= require 'request'
 
-exports.find = (summoner, callback) ->
+exports.find = (summoner, callback) -> # summoner = {key, region}
 	log.info 'Finding summoner...'
 	summoner.key = summoner.key.toLowerCase().replace ' ', ''
 	summoner.region = summoner.region.toLowerCase().replace ' ', ''
@@ -23,7 +23,37 @@ exports.find = (summoner, callback) ->
 				id 				: b.id
 				profileIconId	: b.profileIconId
 				summonerLevel 	: b.summonerLevel
+				region 			: summoner.region
+				platform 		: 'EUN1' # TODO	
 			}
+
+			Summoner.findOne {
+				id 		: summoner.id
+				region 	: summoner.region
+			}, (e, cachedSummoner) ->
+				if e
+					log.error e
+				else
+					if cachedSummoner
+						log.info 'Found summoner in database.'
+					else
+						log.info 'Summoner not found in database.'
+						newSummoner = new Summoner summoner
+						newSummoner.save (e, newSummoner) ->
+							if e
+								if e.code == 11000
+									log.error 'Summoner already exists in database.'
+								else
+									log.error e
+							else
+								log.info 'New summoner saved.'
+					exports.update {
+						id 			: summoner.id
+						region		: summoner.region
+						platform	: summoner.platform
+					}, (r) ->
+
+
 			callback {
 				success 		: true
 				summoner 		: summoner
@@ -40,3 +70,13 @@ exports.find = (summoner, callback) ->
 				message 		: 'An error occured. Please try again later.'
 				statusCode 		: r.statusCode
 			}
+exports.update = (summoner, callback) -> # summoner = {id, region, platform}
+	log.info 'Updating summoner...'
+	request 'https://' + summoner.region + '.api.pvp.net/championmastery/location/' + summoner.platform + '/player/' + summoner.id + '/champions?api_key=' + process.env.KEY, (e, r, b) ->
+		if e
+			log.error e
+		else if r.statusCode == 200
+			b = JSON.parse(b)
+			log.info 'Got mastery data'
+			
+
