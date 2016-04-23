@@ -1,0 +1,10 @@
+extends base
+block vars
+	- var title = 'Home'
+block body
+	h1 kek
+
+	form(action='/', method='post')
+		input(type='text' name='key')
+		input(type='text' name='region')
+		input(type='submit')

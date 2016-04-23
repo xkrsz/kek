@@ -10,6 +10,7 @@ log 					= bunyan.createLogger {name: 'kek'}
 mongoose 				= require 'mongoose'
 
 # Express config
+app.set 'view engine', 'pug'
 app.use bodyParser.urlencoded {extended: true}
 app.use bodyParser.json()
 port = process.env.PORT || 3000
@@ -27,6 +28,7 @@ db.once 'open', ->
 
 # Routes
 app.use '/', require('./routes/index')(router)
+app.use '/', require('./routes/summoner')(router)
 
 # Server listener
 http.listen port, ->

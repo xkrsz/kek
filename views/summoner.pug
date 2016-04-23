@@ -1,0 +1,8 @@
+extends base
+block vars
+	- var title = 'Summoner'
+block body
+	h1 Summoner
+	if summoner
+		p #{summoner.name}
+		p #{summoner.region}
