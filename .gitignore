@@ -1,3 +1,6 @@
 node_modules
-*.js
+models/*.js
+modules/*.js
+routes/*.js
+server.js
 key.txt
