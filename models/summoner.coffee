@@ -4,6 +4,8 @@ Schema 			= mongoose.Schema
 ChampionMastery = new Schema {
 	championId 		:
 		type 			: Number
+	championName 	:
+		type			: String
 	championLevel 	:
 		type 			: Number
 	championPoints 	:

@@ -52,12 +52,10 @@ exports.find = (summoner, callback) -> # summoner = {key, region}
 						region		: summoner.region
 						platform	: summoner.platform
 					}, (r) ->
-
-
-			callback {
-				success 		: true
-				summoner 		: summoner
-				}
+						callback {
+							success 		: true
+							summoner 		: r.summoner
+						}
 		else if r.statusCode == 429
 			callback {
 				success 		: false
@@ -86,17 +84,28 @@ exports.getChampionMasteries = (summoner, callback) -> # summoner = {id, region,
 					log.error e
 				else
 					if cachedSummoner
-						cachedSummoner.championMasteries = b
-						exports.roleScores cachedSummoner, (r) ->
-							if r.success
-								cachedSummoner.rolesPoints = r.roles
-								cachedSummoner.save (e, cachedSummoner) ->
-									if e
-										log.error e
-									else if cachedSummoner
-										log.info 'Champion masteries saved.'
-									else
-										log.error 'Couldn\'t save champion masteries.'
+						Champion.find {}, (e, champions) ->
+							if e
+								log.error e
+							if champions.length > 0
+								for mastery in b
+									for champion in champions
+										if champion.id == mastery.championId
+											mastery.championName = champion.name
+								cachedSummoner.championMasteries = b
+								exports.roleScores cachedSummoner, (r) ->
+									if r.success
+										cachedSummoner.rolesPoints = r.roles
+										cachedSummoner.save (e, cachedSummoner) ->
+											if e
+												log.error e
+												callback {success: false, message: e}
+											else if cachedSummoner
+												log.info 'Champion masteries saved.'
+												callback {success: true, summoner: cachedSummoner}
+											else
+												log.error 'Couldn\'t save champion masteries.'
+												callback {success: false, message: 'Couldn\'t save champion masteries.'}
 					else
 						log.error 'Tried to update summoner, but he doesn\'t exists in database.'
 
