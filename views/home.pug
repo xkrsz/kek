@@ -1,10 +1,17 @@
 extends base
 block vars
-	- var title = 'Home'
+    - var title = 'Home'
 block body
-	h1 kek
-
-	form(action='/', method='post')
-		input(type='text' name='key')
-		input(type='text' name='region')
-		input(type='submit')
+    .container.form-container
+        .row
+            .col-lg-12
+                h1 kek
+                    form(action='/', method='post')
+                        div(class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label')
+                            input(type='text' name='key', class='mdl-textfield__input', id='key')
+                            label(class='mdl-textfield__label', for='key') Key
+                        div(class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label')
+                            input(type='text', name='region', class='mdl-textfield__input', id='region')
+                            label(class='mdl-textfield__label', for='region') Region
+                        div
+                            input(type='submit', value='GO', class='mdl-button mdl-js-button mdl-button--raised')
