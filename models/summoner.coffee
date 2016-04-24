@@ -39,4 +39,11 @@ module.exports = mongoose.model 'summoner', new Schema {
 	updateAt		:
 		type			: Date
 	championMasteries: [ChampionMastery]
+	rolesPoints		:
+		Assassin 		: Number
+		Fighter 		: Number
+		Mage 			: Number
+		Marksman 		: Number
+		Support 		: Number
+		Tank 			: Number
 }

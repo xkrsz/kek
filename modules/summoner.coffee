@@ -87,18 +87,16 @@ exports.getChampionMasteries = (summoner, callback) -> # summoner = {id, region,
 				else
 					if cachedSummoner
 						cachedSummoner.championMasteries = b
-						cachedSummoner.save (e, cachedSummoner) ->
-							if e
-								log.error e
-							else if cachedSummoner
-								log.info 'Champion masteries saved.'
-								exports.roleScores cachedSummoner, (r) ->
-									if r.success
-										log.info r.roles
+						exports.roleScores cachedSummoner, (r) ->
+							if r.success
+								cachedSummoner.rolesPoints = r.roles
+								cachedSummoner.save (e, cachedSummoner) ->
+									if e
+										log.error e
+									else if cachedSummoner
+										log.info 'Champion masteries saved.'
 									else
-										log.error r.message
-							else
-								log.error 'Couldn\'t save champion masteries.'
+										log.error 'Couldn\'t save champion masteries.'
 					else
 						log.error 'Tried to update summoner, but he doesn\'t exists in database.'
 
