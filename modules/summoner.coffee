@@ -24,7 +24,7 @@ exports.find = (summoner, callback) -> # summoner = {key, region}
 				profileIconId	: b.profileIconId
 				summonerLevel 	: b.summonerLevel
 				region 			: summoner.region
-				platform 		: 'EUN1' # TODO	
+				platform 		: exports.toPlatform summoner.region
 			}
 
 			Summoner.findOne {
@@ -94,3 +94,17 @@ exports.update = (summoner, callback) -> # summoner = {id, region, platform}
 								log.info 'Champion masteries saved.'
 					else
 						log.error 'Tried to update summoner, but he doesn\'t exists in database.'
+
+exports.toPlatform = (region) ->
+	switch region
+		when 'eune' 	then return 'EUN1'
+		when 'euw' 		then return 'EUW1'
+		when 'br'		then return 'BR1'
+		when 'jp'		then return 'JP1'
+		when 'kr' 		then return 'KR'
+		when 'lan' 		then return 'LA1'
+		when 'las' 		then return 'LA2'
+		when 'na' 		then return 'NA1'
+		when 'oce' 		then return 'OC1'
+		when 'ru' 		then return 'RU'
+		when 'tr'		then return 'TR1'

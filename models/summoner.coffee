@@ -28,6 +28,8 @@ module.exports = mongoose.model 'summoner', new Schema {
 		type			: String
 	region 			:
 		type			: String
+	platform 		:
+		type 			: String
 	summonerLevel 	:
 		type			: Number
 	profileIconId	:
