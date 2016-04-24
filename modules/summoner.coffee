@@ -47,7 +47,7 @@ exports.find = (summoner, callback) -> # summoner = {key, region}
 									log.error e
 							else
 								log.info 'New summoner saved.'
-					exports.update {
+					exports.getChampionMasteries {
 						id 			: summoner.id
 						region		: summoner.region
 						platform	: summoner.platform
@@ -70,7 +70,7 @@ exports.find = (summoner, callback) -> # summoner = {key, region}
 				message 		: 'An error occured. Please try again later.'
 				statusCode 		: r.statusCode
 			}
-exports.update = (summoner, callback) -> # summoner = {id, region, platform}
+exports.getChampionMasteries = (summoner, callback) -> # summoner = {id, region, platform}
 	log.info 'Updating summoner...'
 	request 'https://' + summoner.region + '.api.pvp.net/championmastery/location/' + summoner.platform + '/player/' + summoner.id + '/champions?api_key=' + process.env.KEY, (e, r, b) ->
 		if e
@@ -92,6 +92,13 @@ exports.update = (summoner, callback) -> # summoner = {id, region, platform}
 								log.error e
 							else if cachedSummoner
 								log.info 'Champion masteries saved.'
+								exports.roleScores cachedSummoner, (r) ->
+									if r.success
+										log.info r.roles
+									else
+										log.error r.message
+							else
+								log.error 'Couldn\'t save champion masteries.'
 					else
 						log.error 'Tried to update summoner, but he doesn\'t exists in database.'
 
@@ -108,3 +115,36 @@ exports.toPlatform = (region) ->
 		when 'oce' 		then return 'OC1'
 		when 'ru' 		then return 'RU'
 		when 'tr'		then return 'TR1'
+
+exports.findChampion = (id, callback) ->
+	Champion.findOne {id: id}, (e, champion) ->
+		if e
+			log.error e
+			callback {success: false, message: e}
+		if champion
+			callback {success: true, champion: champion}
+		else
+			callback {success: false, message: 'Champion not found.'}
+
+exports.roleScores = (summoner, callback) ->
+	Champion.find {}, (e, champions) ->
+		if e
+			log.error e
+			callback {success: false, message: e}
+		else if champions
+			roles = {
+				"Assassin" 	: 0
+				"Fighter" 	: 0
+				"Mage" 		: 0
+				"Support" 	: 0
+				"Tank"		: 0
+				"Marksman" 	: 0
+			}
+			for mastery in summoner.championMasteries 				# loop through all saved champion masteries
+				for champion in champions 							# loop through all champions to find matching one
+					if champion.id == mastery.championId			# found champion
+						for tag in champion.tags					# loop through champion tags and assign score
+							roles[tag] += mastery.championPoints
+			callback {success: true, roles: roles}
+		else
+			callback {success: false, message: 'No champions found in database.'}
