@@ -38,7 +38,7 @@ module.exports = mongoose.model 'summoner', new Schema {
 		type			: Number
 	createdAt		:
 		type			: Date
-	updateAt		:
+	updatedAt		:
 		type			: Date
 	championMasteries: [ChampionMastery]
 	rolesPoints		:

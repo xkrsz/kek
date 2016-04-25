@@ -9,7 +9,7 @@ module.exports = (router) ->
 			key 		: req.params.key
 			region 		: req.params.region
 		}, (r) ->
-			res.json r
+			res.render 'summoner.pug', r
 
 	router.route('/summoners')
 	.get (req, res) ->
