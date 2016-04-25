@@ -31,6 +31,7 @@ global.Champion = require './models/champion'
 # Routes
 app.use '/', require('./routes/index')(router)
 app.use '/', require('./routes/summoner')(router)
+app.use '/', require('./routes/api-summoner')(router)
 
 # Initial jobs
 request 'https://global.api.pvp.net/api/lol/static-data/eune/v1.2/champion?champData=tags&api_key=' + process.env.KEY, (e, r, b) ->

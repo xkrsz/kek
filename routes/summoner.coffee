@@ -3,10 +3,18 @@ log 					= bunyan.createLogger {name: 'kek/routes/summoner'}
 summonerModule 			= require '../modules/summoner'
 
 module.exports = (router) ->
-	router.route('/summoner/:region/:key')
+	router.route('/summoner/n/:region/:key')
+	.get (req, res) ->
+		summonerModule.redirectToProper {
+			key: req.params.key
+			region: req.params.region
+		}, (r) ->
+			res.redirect '/summoner/' + r.summoner.region + '/' + r.summoner.id
+
+	router.route('/summoner/:region/:id')
 	.get (req, res) ->
 		summonerModule.find {
-			key: req.params.key
+			id: req.params.id
 			region: req.params.region
 		}, (r) ->
 			res.render 'summoner.pug', r
@@ -19,11 +27,5 @@ module.exports = (router) ->
 			else if summoners.length > 0
 				res.json summoners
 			else res.json {message: 'No summoners saved.'}
-
-	router.route('/api/summoner/mastery-data/:region/:id')
-	.get (req, res) ->
-		summonerModule.getChampionMasteries {id: req.params.id, region: req.params.region}, (r) ->
-			res.json r
-
 
 	return router
