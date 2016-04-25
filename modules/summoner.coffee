@@ -132,7 +132,7 @@ exports.getChampionMasteries = (identity, callback) -> # identity = {id, region}
 			log.error e
 		if cachedSummoner
 			log.info 'Found summoner in database.'
-			timeDiff = moment().diff(moment(cachedSummoner.data.championMastery.updatedAt), 'minutes') ||
+			timeDiff = moment().diff(moment(cachedSummoner.data.championMastery.updatedAt), 'minutes') || 0
 			if timeDiff > 30 || !cachedSummoner.data.championMastery.updatedAt
 				log.info 'Summoner eligible for update.'
 				request 'https://' + cachedSummoner.identity.region + '.api.pvp.net/championmastery/location/' + cachedSummoner.identity.platform + '/player/' + cachedSummoner.identity.id + '/champions?api_key=' + process.env.KEY, (e, r, b) ->
