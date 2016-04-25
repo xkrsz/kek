@@ -3,16 +3,24 @@ log 					= bunyan.createLogger {name: 'kek/routes/summoner'}
 summonerModule 			= require '../modules/summoner'
 
 module.exports = (router) ->
-	router.route('/summoner/:region/:key')
+	router.route('/summoner/n/:region/:key')
+	.get (req, res) ->
+		summonerModule.redirectToProper {
+			key: req.params.key
+			region: req.params.region
+		}, (r) ->
+			res.redirect '/summoner/' + r.summoner.region + '/' + r.summoner.id
+
+	router.route('/summoner/:region/:id')
 	.get (req, res) ->
 		summonerModule.find {
-			key 		: req.params.key
-			region 		: req.params.region
+			id: req.params.id
+			region: req.params.region
 		}, (r) ->
 			res.render 'summoner.pug', r
 
 	router.route('/summoners')
-	.get (req, res) ->
+    .get (req, res) ->
 		Summoner.find {}, (e, summoners) ->
 			if e
 				log.error e
@@ -20,17 +28,10 @@ module.exports = (router) ->
 				res.json summoners
 			else res.json {message: 'No summoners saved.'}
 
-	router.route('/best')
+	router.route('/api/summoner/mastery-data/:region/:id')
 	.get (req, res) ->
-		Summoner.find {}, (e, summoners) ->
-			if e
-				log.error e
-			if summoners.length > 0
-				best = []
-				for mastery in summoners[0].championMasteries
-					if mastery.championLevel == 5
-						best.push mastery
-				res.json best
-			else res.json {message: 'No entries found.'}
+		summonerModule.getChampionMasteries {id: req.params.id, region: req.params.region}, (r) ->
+			res.json r
+
 
 	return router
