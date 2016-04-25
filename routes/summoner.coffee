@@ -1,6 +1,6 @@
 bunyan 					= require 'bunyan'
 log 					= bunyan.createLogger {name: 'kek/routes/summoner'}
-summonerModule 			= require '../modules/summoner'
+summonerModule			= require '../modules/summoner'
 
 module.exports = (router) ->
 	router.route('/summoner/:region/:key')
@@ -12,7 +12,7 @@ module.exports = (router) ->
 			res.render 'summoner.pug', r
 
 	router.route('/summoners')
-    .get (req, res) ->
+	.get (req, res) ->
 		Summoner.find {}, (e, summoners) ->
 			if e
 				log.error e
