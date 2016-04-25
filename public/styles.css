@@ -7,3 +7,19 @@ html{
     left: 50%;
     transform: translate(-50%, -50%);
 }
+.mdl-select {
+    position: relative;
+    font-size: 16px;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 300px;
+    max-width: 100%;
+    margin: 0;
+    padding: 20px 0;
+}
+.region-dropdown {
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    margin-left: 5%;
+    padding: 4px 0;
+}
