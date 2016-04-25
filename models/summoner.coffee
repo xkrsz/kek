@@ -20,7 +20,7 @@ ChampionMastery = new Schema {
 		type 			: String
 }
 
-module.exports = mongoose.model 'summoner', new Schema {
+Summoner = new Schema {
 	identity		:
 		id				:
 			type 			: Number
@@ -54,3 +54,6 @@ module.exports = mongoose.model 'summoner', new Schema {
 	createdAt		: Number
 	updatedAt 		: Number
 }
+Summoner.index {id: 1, region: 1}, {unique: true}
+
+module.exports = mongoose.model 'summoner', Summoner
