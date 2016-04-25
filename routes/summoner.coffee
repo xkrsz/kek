@@ -3,18 +3,10 @@ log 					= bunyan.createLogger {name: 'kek/routes/summoner'}
 summonerModule 			= require '../modules/summoner'
 
 module.exports = (router) ->
-	router.route('/summoner/n/:region/:key')
-	.get (req, res) ->
-		summonerModule.redirectToProper {
-			key: req.params.key
-			region: req.params.region
-		}, (r) ->
-			res.redirect '/summoner/' + r.summoner.region + '/' + r.summoner.id
-
-	router.route('/summoner/:region/:id')
+	router.route('/summoner/:region/:key')
 	.get (req, res) ->
 		summonerModule.find {
-			id: req.params.id
+			key: req.params.key
 			region: req.params.region
 		}, (r) ->
 			res.render 'summoner.pug', r

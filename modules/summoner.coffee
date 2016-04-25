@@ -3,12 +3,12 @@ log 					= bunyan.createLogger {name: 'kek/modules/summoner'}
 request 				= require 'request'
 moment 					= require 'moment'
 
-exports.find = (summoner, callback) -> # summoner = {id, region}
+exports.find = (summoner, callback) -> # summoner = {key, region}
 	log.info 'Finding summoner...'
-	summoner.key = summoner.id.toLowerCase().replace ' ', ''
+	summoner.key = summoner.key.toLowerCase().replace ' ', ''
 	summoner.region = summoner.region.toLowerCase().replace ' ', ''
 
-	request 'https://' + summoner.region + '.api.pvp.net/api/lol/' + summoner.region + '/v1.4/summoner/' + summoner.id + '?api_key=' + process.env.KEY, (e, r, b) ->
+	request 'https://' + summoner.region + '.api.pvp.net/api/lol/' + summoner.region + '/v1.4/summoner/by-name/' + summoner.key + '?api_key=' + process.env.KEY, (e, r, b) ->
 		if e
 			log.error e
 			callback {
@@ -83,8 +83,13 @@ exports.getChampionMasteries = (summoner, callback) -> # summoner = {id, region}
 		if cachedSummoner
 			log.info 'Found summoner in database.'
 			timeDiff = moment().diff(moment(cachedSummoner.updatedAt), 'minutes')
+			log.info timeDiff
 			if timeDiff < 30
 				log.info 'Not updating, too soon.'
+				callback {
+					success: true
+					summoner: cachedSummoner
+				}
 			else
 				log.info 'Summoner eligible for update.'
 				request 'https://' + cachedSummoner.region + '.api.pvp.net/championmastery/location/' + cachedSummoner.platform + '/player/' + cachedSummoner.id + '/champions?api_key=' + process.env.KEY, (e, r, b) ->
