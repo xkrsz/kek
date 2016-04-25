@@ -51,9 +51,8 @@ Summoner = new Schema {
 				Tank 			: Number
 			createdAt 		: Date
 			updatedAt		: Date
-	createdAt		: Number
-	updatedAt 		: Number
+	createdAt		: Date
+	updatedAt 		: Date
 }
-Summoner.index {id: 1, region: 1}, {unique: true}
 
 module.exports = mongoose.model 'summoner', Summoner

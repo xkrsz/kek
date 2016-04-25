@@ -3,12 +3,12 @@ log 					= bunyan.createLogger {name: 'kek/modules/summoner'}
 request 				= require 'request'
 moment 					= require 'moment'
 
-exports.find = (summoner, callback) -> # summoner = {key, region}
+exports.find = (identity, callback) -> # identity = {key, region}
 	log.info 'Finding summoner...'
-	summoner.key = summoner.key.toLowerCase().replace ' ', ''
-	summoner.region = summoner.region.toLowerCase().replace ' ', ''
+	identity.key = identity.key.toLowerCase().replace ' ', ''
+	identity.region = identity.region.toLowerCase().replace ' ', ''
 
-	request 'https://' + summoner.region + '.api.pvp.net/api/lol/' + summoner.region + '/v1.4/summoner/by-name/' + summoner.key + '?api_key=' + process.env.KEY, (e, r, b) ->
+	request 'https://' + identity.region + '.api.pvp.net/api/lol/' + identity.region + '/v1.4/summoner/by-name/' + identity.key + '?api_key=' + process.env.KEY, (e, r, b) ->
 		if e
 			log.error e
 			callback {
@@ -16,37 +16,58 @@ exports.find = (summoner, callback) -> # summoner = {key, region}
 				message		: e
 			}
 		else if r.statusCode == 200
-			b = JSON.parse(b)[summoner.key]
+			b = JSON.parse(b)[identity.key]
 			log.info 'Got summoner.'
-			summoner = {
-				key 			: summoner.key
+			identity = {
+				key 			: identity.key
 				name 			: b.name
 				id 				: b.id
 				profileIconId	: b.profileIconId
 				summonerLevel 	: b.summonerLevel
-				region 			: summoner.region
-				platform 		: exports.toPlatform summoner.region
+				region 			: identity.region
+				platform 		: exports.toPlatform identity.region
 			}
-
 			Summoner.findOne {
-				id 		: summoner.id
-				region 	: summoner.region
+				"identity.id"		: identity.id
+				"identity.region"	: identity.region
 			}, (e, cachedSummoner) ->
 				if e
 					log.error e
 				else
 					if cachedSummoner
 						log.info 'Found summoner in database.'
-
-						callback {
-						    success     : true
-						    summoner    : cachedSummoner
-						}
+						cachedSummoner.identity.key = identity.key
+						cachedSummoner.identity.name = identity.name
+						cachedSummoner.identity.profileIconId = identity.profileIconId
+						cachedSummoner.identity.summonerLevel = identity.summonerLevel
+						now = moment()
+						cachedSummoner.identity.updatedAt = now
+						cachedSummoner.updatedAt = now
+						cachedSummoner.save (e, cachedSummoner) ->
+							if e
+								if e.code == 11000
+									log.error 'Summoner already exists in database.'
+									callback {
+										success: false
+										message: e
+									}
+								else
+									log.error e
+							if cachedSummoner
+								callback {
+								    success     : true
+								    summoner    : cachedSummoner
+								}
 					else
 						log.info 'Summoner not found in database.'
 						now = moment() # that's to ensure createdAt and updatedAt are the same
-						summoner.createdAt = now
-						summoner.updatedAt = now
+						identity.createdAt = now
+						identity.updatedAt = now
+						summoner = {
+							identity 	: identity
+							createdAt 	: now
+							updatedAt 	: now
+						}
 						newSummoner = new Summoner summoner
 						newSummoner.save (e, newSummoner) ->
 							if e
@@ -72,27 +93,20 @@ exports.find = (summoner, callback) -> # summoner = {key, region}
 				message 		: 'An error occured. Please try again later.'
 				statusCode 		: r.statusCode
 			}
-exports.getChampionMasteries = (summoner, callback) -> # summoner = {id, region}
+exports.getChampionMasteries = (identity, callback) -> # identity = {id, region}
 	log.info 'Processing champion masteries request...'
 	Summoner.findOne {
-		id 		: summoner.id
-		region 	: summoner.region
+			"identity.id" 		: identity.id
+			"identity.region" 	: identity.region
 	}, (e, cachedSummoner) ->
 		if e
 			log.error e
 		if cachedSummoner
 			log.info 'Found summoner in database.'
-			timeDiff = moment().diff(moment(cachedSummoner.updatedAt), 'minutes')
-			log.info timeDiff
-			if timeDiff < 30
-				log.info 'Not updating, too soon.'
-				callback {
-					success: true
-					summoner: cachedSummoner
-				}
-			else
+			timeDiff = moment().diff(moment(cachedSummoner.data.championMastery.updatedAt), 'minutes') ||
+			if timeDiff > 30 || !cachedSummoner.data.championMastery.updatedAt
 				log.info 'Summoner eligible for update.'
-				request 'https://' + cachedSummoner.region + '.api.pvp.net/championmastery/location/' + cachedSummoner.platform + '/player/' + cachedSummoner.id + '/champions?api_key=' + process.env.KEY, (e, r, b) ->
+				request 'https://' + cachedSummoner.identity.region + '.api.pvp.net/championmastery/location/' + cachedSummoner.identity.platform + '/player/' + cachedSummoner.identity.id + '/champions?api_key=' + process.env.KEY, (e, r, b) ->
 					if e
 						log.error e
 					else if r.statusCode == 200
@@ -106,23 +120,38 @@ exports.getChampionMasteries = (summoner, callback) -> # summoner = {id, region}
 									for champion in champions
 										if champion.id == mastery.championId
 											mastery.championName = champion.name
-								cachedSummoner.championMasteries = b
-								exports.roleScores cachedSummoner, (r) ->
+								championMastery = {champions: b}
+								exports.roleScores championMastery, (r) ->
 									if r.success
-										cachedSummoner.rolesPoints = r.roles
+										for prop of r.championMastery
+											championMastery[prop] = r.championMastery[prop]
+										now = moment()
+										championMastery.createdAt = now
+										championMastery.updatedAt = now
+										cachedSummoner.data.championMastery = championMastery
+										cachedSummoner.updatedAt = now
 										cachedSummoner.save (e, cachedSummoner) ->
 											if e
 												log.error e
 												callback {success: false, message: e}
 											else if cachedSummoner
 												log.info 'Champion masteries saved.'
-												callback {success: true, summoner: cachedSummoner}
+												callback {
+													success: true
+													championMastery: cachedSummoner.data.championMastery
+												}
 											else
 												log.error 'Couldn\'t save champion masteries.'
 												callback {success: false, message: 'Couldn\'t save champion masteries.'}
+			else
+				log.info 'Not updating, too soon.'
+				callback {
+					success: true
+					championMastery: cachedSummoner.data.championMastery
+				}
 		else
 			log.info 'Summoner not found in database.'
-			exports.platinumCardCompletePremiumBundle {id: summoner.id, region: summoner.region}, (r) ->
+			exports.platinumCardCompletePremiumBundle {id: identity.id, region: identity.region}, (r) ->
 				callback r
 exports.toPlatform = (region) ->
 	switch region
@@ -148,7 +177,7 @@ exports.findChampion = (id, callback) ->
 		else
 			callback {success: false, message: 'Champion not found.'}
 
-exports.roleScores = (summoner, callback) ->
+exports.roleScores = (championMastery, callback) ->
 	Champion.find {}, (e, champions) ->
 		if e
 			log.error e
@@ -162,13 +191,21 @@ exports.roleScores = (summoner, callback) ->
 				"Tank"		: 0
 				"Marksman" 	: 0
 			}
-			for mastery in summoner.championMasteries 				# loop through all saved champion masteries
+			totalPoints = 0
+			for mastery in championMastery.champions				# loop through all saved champion masteries
 				for champion in champions 							# loop through all champions to find matching one
 					if champion.id == mastery.championId			# found champion
 						for tag in champion.tags					# loop through champion tags and assign score
 							roles[tag] += mastery.championPoints
-			callback {success: true, roles: roles}
+				totalPoints += mastery.championPoints
+			callback {
+				success: true
+				championMastery	: {
+					totalPoints		: totalPoints
+					rolesPoints		: roles
+				}
+			}
 		else
 			callback {success: false, message: 'No champions found in database.'}
 
-exports.platinumCardCompletePremiumBundle = (summoner, callback) -> # summoner = {id, region}
+exports.platinumCardCompletePremiumBundle = (identity, callback) -> # identity = {id, region}
