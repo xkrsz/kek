@@ -82,17 +82,46 @@ exports.find = (identity, callback) -> # identity = {key, region}
 								    summoner    : newSummoner
 								}
 		else if r.statusCode == 429
-			callback {
-				success 		: false
-				message 		: 'Rate limit exceeded.'
-			}
+			Summoner.findOne {
+				"identity.id" : identity.id
+				"identity.region" : identity.region
+			}, (e, cachedSummoner) ->
+				if e
+					log.error e
+				if cachedSummoner
+					log.info 'Found summoner in database.'
+					callback {
+						success 		: true
+						summoner 		: cachedSummoner
+						message 		: 'Rate limit exceeded.'
+					}
+				else
+					callback {
+						success: false
+						message: 'Rate limit exceeded.'
+						statusCode: r.statusCode
+					}
 		else
-			log.error 'An error occured.'
-			callback {
-				success 		: false
-				message 		: 'An error occured. Please try again later.'
-				statusCode 		: r.statusCode
-			}
+			Summoner.findOne {
+				"identity.id" : identity.id
+				"identity.region" : identity.region
+			}, (e, cachedSummoner) ->
+				if e
+					log.error e
+				if cachedSummoner
+					log.info 'Found summoner in database.'
+					callback {
+						success 		: true
+						summoner 		: cachedSummoner
+						message 		: 'An error occured while updating from API.'
+						statusCode 		: r.statusCode
+					}
+				else
+					callback {
+						success: false
+						message: 'An error occured. Please try again later.'
+						statusCode: r.statusCode
+					}
 exports.getChampionMasteries = (identity, callback) -> # identity = {id, region}
 	log.info 'Processing champion masteries request...'
 	Summoner.findOne {
