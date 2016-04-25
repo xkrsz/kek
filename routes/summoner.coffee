@@ -1,5 +1,5 @@
-bunya					= require 'bunyan'
-lo						= bunyan.createLogger {name: 'kek/routes/summoner'}
+bunyan					= require 'bunyan'
+log						= bunyan.createLogger {name: 'kek/routes/summoner'}
 summonerModule			= require '../modules/summoner'
 
 module.exports = (router) ->
