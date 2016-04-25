@@ -9,5 +9,9 @@ block body
                     div(class='mdl-tabs__tab-bar')
                         a(href='#overview' class='mdl-tabs__tab is-active') Overview
                         a(href='#champions' class='mdl-tabs__tab') Champions
-                    div(class='mdl-tabs__panel is-active' id='overview') Content
+                    div(class='mdl-tabs__panel is-active' id='overview')
+                        .container
+                            .row
+                                .col-lg-6 #{summoner.name}
+                                .col-lg-6 Haa
                     div(class='mdl-tabs__panel' id='champions')
