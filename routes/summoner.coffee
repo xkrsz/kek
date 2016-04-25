@@ -1,6 +1,6 @@
-bunyan					= require 'bunyan'
-log						= bunyan.createLogger {name: 'kek/routes/summoner'}
-summonerModule			= require '../modules/summoner'
+bunyan = require 'bunyan'
+log = bunyan.createLogger {name: 'kek/routes/summoner'}
+summonerModule = require '../modules/summoner'
 
 module.exports = (router) ->
 	router.route('/summoner/:region/:key')
