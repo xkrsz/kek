@@ -1,6 +1,7 @@
 bunyan 					= require 'bunyan'
 log 					= bunyan.createLogger {name: 'kek/modules/summoner'}
 request 				= require 'request'
+moment 					= require 'moment'
 
 exports.find = (summoner, callback) -> # summoner = {key, region}
 	log.info 'Finding summoner...'
@@ -17,6 +18,7 @@ exports.find = (summoner, callback) -> # summoner = {key, region}
 		else if r.statusCode == 200
 			b = JSON.parse(b)[summoner.key]
 			log.info {summoner: b}, 'Got summoner.'
+			now = moment() # that's to ensure createdAt and updatedAt are the same
 			summoner = {
 				key 			: summoner.key
 				name 			: b.name
@@ -25,6 +27,8 @@ exports.find = (summoner, callback) -> # summoner = {key, region}
 				summonerLevel 	: b.summonerLevel
 				region 			: summoner.region
 				platform 		: exports.toPlatform summoner.region
+				createdAt	 	: now
+				updatedAt 		: now
 			}
 
 			Summoner.findOne {
