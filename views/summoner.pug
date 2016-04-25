@@ -1,8 +1,13 @@
 extends base
 block vars
-	- var title = 'Summoner'
+    - var title = 'Summoner'
 block body
-	h1 Summoner
-	if summoner
-		p #{summoner.name}
-		p #{summoner.region}
+    .container
+        .row
+            .col-lg-12
+                div(class='mdl-tabs mdl-js-tabs')
+                    div(class='mdl-tabs__tab-bar')
+                        a(href='#overview' class='mdl-tabs__tab is-active') Overview
+                        a(href='#champions' class='mdl-tabs__tab') Champions
+                    div(class='mdl-tabs__panel is-active' id='overview') Content
+                    div(class='mdl-tabs__panel' id='champions')
