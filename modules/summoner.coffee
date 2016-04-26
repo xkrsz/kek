@@ -3,12 +3,15 @@ log 					= bunyan.createLogger {name: 'kek/modules/summoner'}
 request 				= require 'request'
 moment 					= require 'moment'
 
-exports.find = (identity, callback) -> # identity = {key, region}
+exports.find = (identity, callback) -> # identity = {key || id, region}
 	log.info 'Finding summoner...'
-	identity.key = identity.key.toLowerCase().replace ' ', ''
 	identity.region = identity.region.toLowerCase().replace ' ', ''
-
-	request 'https://' + identity.region + '.api.pvp.net/api/lol/' + identity.region + '/v1.4/summoner/by-name/' + identity.key + '?api_key=' + process.env.KEY, (e, r, b) ->
+	if identity.id
+		link = 'https://' + identity.region + '.api.pvp.net/api/lol/' + identity.region + '/v1.4/summoner/' + identity.id + '?api_key=' + process.env.KEY
+	if identity.key
+		identity.key = identity.key.toLowerCase().replace ' ', ''
+		link = 'https://' + identity.region + '.api.pvp.net/api/lol/' + identity.region + '/v1.4/summoner/by-name/' + identity.key + '?api_key=' + process.env.KEY
+	request link, (e, r, b) ->
 		if e
 			log.error e
 			callback {
@@ -16,7 +19,7 @@ exports.find = (identity, callback) -> # identity = {key, region}
 				message		: e
 			}
 		else if r.statusCode == 200
-			b = JSON.parse(b)[identity.key]
+			b = JSON.parse(b)[identity.key || identity.id]
 			log.info 'Got summoner.'
 			identity = {
 				key 			: identity.key
@@ -238,6 +241,15 @@ exports.roleScores = (championMastery, callback) ->
 			callback {success: false, message: 'No champions found in database.'}
 
 exports.platinumCardCompletePremiumBundle = (identity, callback) -> # identity = {id, region}
+	exports.find identity, (r) ->
+		if r.success
+			exports.getChampionMasteries identity, (r) ->
+				if r.success
+					log.info 'Platinum card complete premium bundle completed with no issues.'
+					callback {
+						success: true
+						reload: true
+					}
 
 exports.apiSummonerOverview = (identity, callback) -> # identity = {id, region}
 	exports.getChampionMasteries identity, (r) ->
