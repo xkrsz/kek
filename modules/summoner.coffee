@@ -239,17 +239,21 @@ exports.roleScores = (championMastery, callback) ->
 
 exports.platinumCardCompletePremiumBundle = (identity, callback) -> # identity = {id, region}
 
-exports.apiOverview = (identity, callback) -> # identity = {id, region}
+exports.apiSummonerOverview = (identity, callback) -> # identity = {id, region}
 	exports.getChampionMasteries identity, (r) ->
 		if r.success
-		 	mainRole = ""
-			mainRoleScore = 0
-			for key of r.rolesPoints
-				if r.rolesPoints.hasOwnProperty key && r.rolesPoints[key] > mainRoleScore
-					mainRole = key
-					mainRoleScore = r.rolesPoints[key]
-			log.info mainRole
+			# roles
+			rolesPoints = r.championMastery.rolesPoints.toObject()
+			rolesArray = Object.keys(rolesPoints).map (key) -> [key, rolesPoints[key]]
+			rolesArray.sort (a, b) -> b[1] - a[1]
+			rolesPoints = {}
+			rolesPoints[role[0]] = role[1] for role in rolesArray # that's why I like CoffeeScript
+
+			# top 3 champions
+			topChampions = r.championMastery.champions.slice 0, 3
+
 			callback {
 				success: true
-				mainRole: mainRole #NOT WORKING, TODO
+				roles: rolesPoints
+				topChampions: topChampions
 			}

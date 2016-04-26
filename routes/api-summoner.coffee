@@ -10,7 +10,7 @@ module.exports = (router) ->
 
 	router.route('/api/summoner/overview/:region/:id')
 	.get (req, res) ->
-		summonerModule.apiOverview {id: req.params.id, region: req.params.region}, (r) ->
+		summonerModule.apiSummonerOverview {id: req.params.id, region: req.params.region}, (r) ->
 			res.json r
 
 	return router
