@@ -31,6 +31,7 @@ global.Champion = require './models/champion'
 # Routes
 app.use '/', require('./routes/index')(router)
 app.use '/', require('./routes/summoner')(router)
+app.use '/', require('./routes/api-summoner')(router)
 
 # Static files
 app.use '/static', express.static('public')
