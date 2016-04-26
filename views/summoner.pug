@@ -10,8 +10,17 @@ block body
                         a(href='#overview' class='mdl-tabs__tab is-active') Overview
                         a(href='#champions' class='mdl-tabs__tab') Champions
                     div(class='mdl-tabs__panel is-active' id='overview')
-                        .container
+                        .container.layout
                             .row
-                                .col-lg-6 #{summoner.name}
-                                .col-lg-6
+                                .col-lg-12.role-centered
+                                    h1 You are Assasin
+                                .col-lg-12.role-centered
+                                    h2 100000
+                                .col-lg-12.icons-container
+                                    .outer-icon.icon
+                                        img(src='http://cdn.dota2.com/steamcommunity/public/images/avatars/https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/82/82555198850074cf87a4601cedbafa930b119ea5_full.jpg')
+                                    .big-icon.icon
+                                        img(src='http://cdn.dota2.com/steamcommunity/public/images/avatars/https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/82/82555198850074cf87a4601cedbafa930b119ea5_full.jpg')
+                                    .outer-icon.icon
+                                        img(src='http://cdn.dota2.com/steamcommunity/public/images/avatars/https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/82/82555198850074cf87a4601cedbafa930b119ea5_full.jpg')
                     div(class='mdl-tabs__panel' id='champions')

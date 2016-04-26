@@ -1,6 +1,15 @@
 html{
     position: relative;
 }
+body {
+    background: url('http://eune.leagueoflegends.com/sites/default/files/upload/bbviahri-banner.jpg') center / cover;
+    background-attachment: fixed;
+    color: white;
+}
+.layout {
+    background: #222222;
+    height: 100%;
+}
 .form-container {
     position: absolute;
     top: 50%;
@@ -22,4 +31,29 @@ html{
     border-bottom: 1px solid rgba(0,0,0,.12);
     margin-left: 5%;
     padding: 4px 0;
+}
+
+/* SUMMONER STYLES */
+
+.role-centered {
+    text-align: center;
+}
+.icons-container {
+    text-align: center;
+    margin-top: 5%;
+}
+.icon {
+    display: inline-block;
+}
+.big-icon {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.big-icon img {
+    width: 120px;
+    height: 120px;
+}
+.outer-icon img {
+    width: 100px;
+    height: 100px;
 }
