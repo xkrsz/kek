@@ -275,9 +275,10 @@ exports.apiSummonerOverview = (identity, callback) -> # identity = {id, region}
 
 exports.apiSummonerChampions = (identity, callback) ->
 	if !identity.id || !identity.region
+		log.error 'Data missing in apiSummonerChampions request.'
 		callback {
 			success: false
-			message: ''
+			message: 'U no gib enough data dude come on.'
 		}
 	exports.updateChampionMastery identity, (r) ->
 		if r.success
@@ -287,3 +288,5 @@ exports.apiSummonerChampions = (identity, callback) ->
 				success: true
 				champions: champions
 			}
+		else
+			log.error 'Something\'s wrong with apiSummonerChampions: ' + r.message
