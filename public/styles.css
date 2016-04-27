@@ -6,6 +6,10 @@ body {
     background: url('http://eune.leagueoflegends.com/sites/default/files/upload/bbviahri-banner.jpg') center / cover;
     background-attachment: fixed;
     color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
 }
 .layout {
     background: #222222;
