@@ -11,6 +11,12 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', sans-serif;
 }
+a:link {
+  text-decoration: none;
+}
+a:focus, a:hover {
+    color: #23527c !important;
+}
 .layout {
     background: #222222;
     border-radius: 0px 0px 10px 10px;
@@ -52,9 +58,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* PROFILE STYLES */
-.summoner-row {
-    margin-top: 5%;
-}
 .summoner-icon {
     background: url('http://ddragon.leagueoflegends.com/cdn/6.8.1/img/profileicon/588.png') center / cover;
     width: 128px;
@@ -83,6 +86,7 @@ h1, h2, h3, h4, h5, h6 {
 .division img {
     margin-left: auto;
     margin-right: auto;
+    max-width: 50%;
 }
 
 /* OVERVIEW STYLES */
@@ -108,3 +112,13 @@ h1, h2, h3, h4, h5, h6 {
     width: 100px;
     height: 100px;
 }
+
+@media (min-device-width: 1200px) and (-webkit-min-device-pixel-ratio: 1) { 
+    .summoner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
