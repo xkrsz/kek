@@ -51,20 +51,30 @@ body {
 .summoner-row {
     margin-top: 5%;
 }
-.summoner-icon-container {
+.summoner-container {
+    display: inline-block;
+}
+.summoner-icon {
     background: url('http://ddragon.leagueoflegends.com/cdn/6.8.1/img/profileicon/588.png') center / cover;
     width: 128px;
     height: 128px;
     float: left;
-    margin-right: 10px;
     border-radius: 10px 10px 10px 10px;
     -moz-border-radius: 10px 10px 10px 10px;
     -webkit-border-radius: 10px 10px 10px 10px;
     border: 1px groove #000000;
+    margin-right: 5px;
 }
-.summoner-icon {
-    float: left;
-    margin: 0px 15px 15px 0px;
+.summoner-info {
+    margin-top: 5%;
+}
+.summoner-nick {
+    font-size: 2.5em;
+    font-weight: bold;
+}
+.summoner-region {
+    font-size: 1.5em;
+    font-weight: lighter;
 }
 
 /* OVERVIEW STYLES */
