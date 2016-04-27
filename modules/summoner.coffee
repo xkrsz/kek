@@ -28,58 +28,6 @@ exports.findChampion = (id, callback) ->
 		else
 			callback {success: false, message: 'Champion not found.'}
 
-exports.roleScores = (championMastery, callback) ->
-	Champion.find {}, (e, champions) ->
-		if e
-			log.error e
-			callback {success: false, message: e}
-		else if champions
-			roles = {
-				"Assassin" 	: 0
-				"Fighter" 	: 0
-				"Mage" 		: 0
-				"Support" 	: 0
-				"Tank"		: 0
-				"Marksman" 	: 0
-			}
-			totalPoints = 0
-			for mastery in championMastery.champions				# loop through all saved champion masteries
-				for champion in champions 							# loop through all champions to find matching one
-					if champion.id == mastery.championId			# found champion
-						for tag in champion.tags					# loop through champion tags and assign score
-							roles[tag] += mastery.championPoints
-				totalPoints += mastery.championPoints
-			callback {
-				success: true
-				championMastery	: {
-					totalPoints		: totalPoints
-					rolesPoints		: roles
-				}
-			}
-		else
-			callback {success: false, message: 'No champions found in database.'}
-
-exports.platinumCardCompletePremiumBundle = (identity, callback) -> # identity = {id, region}
-
-exports.apiSummonerOverview = (identity, callback) -> # identity = {id, region}
-	exports.updateChampionMastery identity, (r) ->
-		if r.success
-			# roles
-			rolesPoints = r.championMastery.rolesPoints.toObject()
-			rolesArray = Object.keys(rolesPoints).map (key) -> [key, rolesPoints[key]]
-			rolesArray.sort (a, b) -> b[1] - a[1]
-			rolesPoints = {}
-			rolesPoints[role[0]] = role[1] for role in rolesArray # that's why I like CoffeeScript
-
-			# top 3 champions
-			topChampions = r.championMastery.champions.slice 0, 3
-
-			callback {
-				success: true
-				roles: rolesPoints
-				topChampions: topChampions
-			}
-
 exports.updateSummoner = (identity, callback) -> # identity = {key || id, region}
 	log.info 'Updating summoner identity...'
 	if identity.region
@@ -271,3 +219,71 @@ exports.updateChampionMastery = (identity, callback) ->
 			exports.updateSummoner {id: identity.id, region: identity.region}, (r) ->
 				if r.success
 					exports.updateChampionMastery {id: identity.id, region: identity.region}, callback
+
+exports.roleScores = (championMastery, callback) ->
+	Champion.find {}, (e, champions) ->
+		if e
+			log.error e
+			callback {success: false, message: e}
+		else if champions
+			roles = {
+				"Assassin" 	: 0
+				"Fighter" 	: 0
+				"Mage" 		: 0
+				"Support" 	: 0
+				"Tank"		: 0
+				"Marksman" 	: 0
+			}
+			totalPoints = 0
+			for mastery in championMastery.champions				# loop through all saved champion masteries
+				for champion in champions 							# loop through all champions to find matching one
+					if champion.id == mastery.championId			# found champion
+						for tag in champion.tags					# loop through champion tags and assign score
+							roles[tag] += mastery.championPoints
+				totalPoints += mastery.championPoints
+			callback {
+				success: true
+				championMastery	: {
+					totalPoints		: totalPoints
+					rolesPoints		: roles
+				}
+			}
+		else
+			callback {success: false, message: 'No champions found in database.'}
+
+exports.platinumCardCompletePremiumBundle = (identity, callback) -> # identity = {id, region}
+
+exports.apiSummonerOverview = (identity, callback) -> # identity = {id, region}
+	exports.updateChampionMastery identity, (r) ->
+		if r.success
+			# roles
+			rolesPoints = r.championMastery.rolesPoints.toObject()
+			rolesArray = Object.keys(rolesPoints).map (key) -> [key, rolesPoints[key]]
+			rolesArray.sort (a, b) -> b[1] - a[1]
+			rolesPoints = {}
+			rolesPoints[role[0]] = role[1] for role in rolesArray # that's why I like CoffeeScript
+
+			# top 3 champions
+			topChampions = r.championMastery.champions.slice 0, 3
+
+			callback {
+				success: true
+				roles: rolesPoints
+				totalPoints: r.championMastery.totalPoints
+				topChampions: topChampions
+			}
+
+exports.apiSummonerChampions = (identity, callback) ->
+	if !identity.id || !identity.region
+		callback {
+			success: false
+			message: ''
+		}
+	exports.updateChampionMastery identity, (r) ->
+		if r.success
+			champions = r.championMastery.champions
+
+			callback {
+				success: true
+				champions: champions
+			}
