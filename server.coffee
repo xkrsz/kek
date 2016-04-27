@@ -57,6 +57,10 @@ request 'https://global.api.pvp.net/api/lol/static-data/eune/v1.2/champion?champ
 						log.error e
 					if champions
 						log.info 'Champions saved.'
+					else
+						log.error 'Error while saving champions. Something\'s wrong.'
+		else
+			log.error 'An error occurred while updating champions: ' + r.statusCode
 
 # Server listener
 http.listen port, ->
