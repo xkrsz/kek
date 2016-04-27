@@ -183,18 +183,20 @@ exports.getChampionMasteries = (identity, callback) -> # identity = {id, region}
 			exports.platinumCardCompletePremiumBundle {id: identity.id, region: identity.region}, (r) ->
 				callback r
 exports.toPlatform = (region) ->
-	switch region
-		when 'eune' 	then return 'EUN1'
-		when 'euw' 		then return 'EUW1'
-		when 'br'		then return 'BR1'
-		when 'jp'		then return 'JP1'
-		when 'kr' 		then return 'KR'
-		when 'lan' 		then return 'LA1'
-		when 'las' 		then return 'LA2'
-		when 'na' 		then return 'NA1'
-		when 'oce' 		then return 'OC1'
-		when 'ru' 		then return 'RU'
-		when 'tr'		then return 'TR1'
+	platforms = {
+		eune	: 'EUN1'
+		euw		: 'EUW1'
+		br 		: 'BR1'
+		jp 		: 'JP1'
+		kr 		: 'KR'
+		lan 	: 'LA1'
+		las 	: 'LA2'
+		na 		: 'NA1'
+		oce 	: 'OC1'
+		ru 		: 'RU'
+		tr 		: 'TR1'
+	}
+	return platforms[region]
 
 exports.findChampion = (id, callback) ->
 	Champion.findOne {id: id}, (e, champion) ->
