@@ -19,7 +19,9 @@ body {
 }
 
 /* NAVBAR STYLES */
-
+.mdl-layout__header {
+    background: #333333;
+}
 
 /* SEARCH STYLES */
 .form-container {

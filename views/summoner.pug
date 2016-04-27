@@ -2,39 +2,55 @@ extends base
 block vars
     - var title = 'Summoner'
 block body
-    .container.layout
-        .row
-            .col-lg-12
-                .col-lg-4
-                    img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/profileicon/588.png', class='summoner-icon') 
-                    h1 Nick
-                .col-lg-4
-                
-                .col-lg-4
-        .row
-            .col-lg-12
-                div(class='mdl-tabs mdl-js-tabs')
-                    div(class='mdl-tabs__tab-bar')
-                        a(href='#overview' class='mdl-tabs__tab is-active') Overview
-                        a(href='#champions' class='mdl-tabs__tab') Champions
-                    div(class='mdl-tabs__panel is-active' id='overview')
-                        .container
-                            .row
-                                .col-lg-12.role-centered
-                                    h1 You are Assasin
-                                .col-lg-12.role-centered
-                                    h2 100000
-                                .col-lg-12.icons-container
-                                    .outer-icon.icon
-                                        img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png')
-                                        h3 Atrox
-                                        h4 346346
-                                    .big-icon.icon
-                                        img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png')
-                                        h3 Atrox
-                                        h4 1215
-                                    .outer-icon.icon
-                                        img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png')
-                                        h3 Atrox
-                                        h4 20000
-                    div(class='mdl-tabs__panel' id='champions')
+    .mdl-layout.mdl-js-layout.mdl-layout--no-desktop-drawer-button.mdl-layout--fixed-header
+      header.mdl-layout__header
+        .mdl-layout__header-row
+          span.mdl-layout-title Kek
+          .mdl-layout-spacer
+          nav.mdl-navigation.mdl-layout--large-screen-only
+            a.mdl-navigation__link(href='') Home
+            a.mdl-navigation__link(href='') Ranking
+      .mdl-layout__drawer
+        span.mdl-layout-title Kek
+        nav.mdl-navigation
+          a.mdl-navigation__link(href='') Home
+          a.mdl-navigation__link(href='') Ranking
+
+      main.mdl-layout__content
+        .page-content
+            .container.layout
+                .row
+                    .col-lg-12
+                        .col-lg-4
+                            img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/profileicon/588.png', class='summoner-icon') 
+                            h1 Nick
+                        .col-lg-4
+                        
+                        .col-lg-4
+                .row
+                    .col-lg-12
+                        div(class='mdl-tabs mdl-js-tabs')
+                            div(class='mdl-tabs__tab-bar')
+                                a(href='#overview' class='mdl-tabs__tab is-active') Overview
+                                a(href='#champions' class='mdl-tabs__tab') Champions
+                            div(class='mdl-tabs__panel is-active' id='overview')
+                                .container
+                                    .row
+                                        .col-lg-12.role-centered
+                                            h1 You are Assasin
+                                        .col-lg-12.role-centered
+                                            h2 100000
+                                        .col-lg-12.icons-container
+                                            .outer-icon.icon
+                                                img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png')
+                                                h3 Atrox
+                                                h4 346346
+                                            .big-icon.icon
+                                                img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png')
+                                                h3 Atrox
+                                                h4 1215
+                                            .outer-icon.icon
+                                                img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png')
+                                                h3 Atrox
+                                                h4 20000
+                            div(class='mdl-tabs__panel' id='champions')
