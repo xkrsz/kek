@@ -1,0 +1,76 @@
+/* GENERAL STYLES */
+html{
+    position: relative;
+}
+body {
+    background: url('http://eune.leagueoflegends.com/sites/default/files/upload/bbviahri-banner.jpg') center / cover;
+    background-attachment: fixed;
+    color: white;
+}
+.layout {
+    background: #222222;
+    border-radius: 0px 0px 10px 10px;
+    -moz-border-radius: 0px 0px 10px 10px;
+    -webkit-border-radius: 0px 0px 10px 10px;
+    border: 0px solid #000000;
+    -webkit-box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.75);
+}
+
+/* NAVBAR STYLES */
+.mdl-layout__header {
+    background: #333333;
+}
+
+/* SEARCH STYLES */
+.form-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.mdl-select {
+    position: relative;
+    font-size: 16px;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 300px;
+    max-width: 100%;
+    margin: 0;
+    padding: 20px 0;
+}
+.region-dropdown {
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    margin-left: 5%;
+    padding: 4px 0;
+}
+
+/* SUMMONER STYLES */
+.summoner-icon{
+    float: left;
+    margin: 0px 15px 15px 0px;
+}
+.role-centered {
+    text-align: center;
+}
+.icons-container {
+    text-align: center;
+    margin-top: 5%;
+}
+.icon {
+    display: inline-block;
+}
+.big-icon {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.big-icon img {
+    width: 120px;
+    height: 120px;
+}
+.outer-icon img {
+    width: 100px;
+    height: 100px;
+}

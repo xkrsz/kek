@@ -33,6 +33,9 @@ app.use '/', require('./routes/index')(router)
 app.use '/', require('./routes/summoner')(router)
 app.use '/', require('./routes/api-summoner')(router)
 
+# Static files
+app.use '/static', express.static('public')
+
 # Initial jobs
 request 'https://global.api.pvp.net/api/lol/static-data/eune/v1.2/champion?champData=tags&api_key=' + process.env.KEY, (e, r, b) ->
 	if e
