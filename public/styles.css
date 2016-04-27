@@ -6,6 +6,10 @@ body {
     background: url('http://eune.leagueoflegends.com/sites/default/files/upload/bbviahri-banner.jpg') center / cover;
     background-attachment: fixed;
     color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
 }
 .layout {
     background: #222222;
@@ -47,11 +51,41 @@ body {
     padding: 4px 0;
 }
 
-/* SUMMONER STYLES */
-.summoner-icon{
-    float: left;
-    margin: 0px 15px 15px 0px;
+/* PROFILE STYLES */
+.summoner-row {
+    margin-top: 5%;
 }
+.summoner-icon {
+    background: url('http://ddragon.leagueoflegends.com/cdn/6.8.1/img/profileicon/588.png') center / cover;
+    width: 128px;
+    height: 128px;
+    float: left;
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 1px groove #000000;
+    margin-right: 5px;
+}
+.summoner-info {
+    margin-top: 5%;
+}
+.main-info {
+    font-size: 2.5em;
+    font-weight: bold;
+}
+.sub-info {
+    font-size: 1.5em;
+    font-weight: lighter;
+}
+.division {
+    text-align: center;
+}
+.division img {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* OVERVIEW STYLES */
 .role-centered {
     text-align: center;
 }
