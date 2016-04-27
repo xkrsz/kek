@@ -5,11 +5,14 @@ summonerModule = require '../modules/summoner'
 module.exports = (router) ->
 	router.route('/summoner/:region/:key')
 	.get (req, res) ->
-		summonerModule.find {
+		summonerModule.updateSummoner {
 			key: req.params.key
 			region: req.params.region
 		}, (r) ->
-			res.render 'summoner.pug', r
+			if r.success
+				res.render 'summoner.pug', r
+			else
+				res.json r
 
 	router.route('/summoners')
 	.get (req, res) ->

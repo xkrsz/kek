@@ -3,125 +3,6 @@ log 					= bunyan.createLogger {name: 'kek/modules/summoner'}
 request 				= require 'request'
 moment 					= require 'moment'
 
-exports.find = (identity, callback) -> # identity = {key, region}
-	log.info 'Finding summoner...'
-	identity.key = identity.key.toLowerCase().replace ' ', ''
-	identity.region = identity.region.toLowerCase().replace ' ', ''
-
-	request 'https://' + identity.region + '.api.pvp.net/api/lol/' + identity.region + '/v1.4/summoner/by-name/' + identity.key + '?api_key=' + process.env.KEY, (e, r, b) ->
-		if e
-			log.error e
-			callback {
-				success		: false
-				message		: e
-			}
-		else if r.statusCode == 200
-			b = JSON.parse(b)[identity.key]
-			log.info 'Got summoner.'
-			identity = {
-				key 			: identity.key
-				name 			: b.name
-				id 				: b.id
-				profileIconId	: b.profileIconId
-				summonerLevel 	: b.summonerLevel
-				region 			: identity.region
-				platform 		: exports.toPlatform identity.region
-			}
-			Summoner.findOne {
-				"identity.id"		: identity.id
-				"identity.region"	: identity.region
-			}, (e, cachedSummoner) ->
-				if e
-					log.error e
-				else
-					if cachedSummoner
-						log.info 'Found summoner in database.'
-						cachedSummoner.identity.key = identity.key
-						cachedSummoner.identity.name = identity.name
-						cachedSummoner.identity.profileIconId = identity.profileIconId
-						cachedSummoner.identity.summonerLevel = identity.summonerLevel
-						now = moment()
-						cachedSummoner.identity.updatedAt = now
-						cachedSummoner.updatedAt = now
-						cachedSummoner.save (e, cachedSummoner) ->
-							if e
-								if e.code == 11000
-									log.error 'Summoner already exists in database.'
-									callback {
-										success: false
-										message: e
-									}
-								else
-									log.error e
-							if cachedSummoner
-								callback {
-								    success     : true
-								    summoner    : cachedSummoner
-								}
-					else
-						log.info 'Summoner not found in database.'
-						now = moment() # that's to ensure createdAt and updatedAt are the same
-						identity.createdAt = now
-						identity.updatedAt = now
-						summoner = {
-							identity 	: identity
-							createdAt 	: now
-							updatedAt 	: now
-						}
-						newSummoner = new Summoner summoner
-						newSummoner.save (e, newSummoner) ->
-							if e
-								if e.code == 11000
-									log.error 'Summoner already exists in database.'
-								else
-									log.error e
-							else
-								log.info 'New summoner saved.'
-								callback {
-								    success     : true
-								    summoner    : newSummoner
-								}
-		else if r.statusCode == 429
-			Summoner.findOne {
-				"identity.id" : identity.id
-				"identity.region" : identity.region
-			}, (e, cachedSummoner) ->
-				if e
-					log.error e
-				if cachedSummoner
-					log.info 'Found summoner in database.'
-					callback {
-						success 		: true
-						summoner 		: cachedSummoner
-						message 		: 'Rate limit exceeded.'
-					}
-				else
-					callback {
-						success: false
-						message: 'Rate limit exceeded.'
-						statusCode: r.statusCode
-					}
-		else
-			Summoner.findOne {
-				"identity.id" : identity.id
-				"identity.region" : identity.region
-			}, (e, cachedSummoner) ->
-				if e
-					log.error e
-				if cachedSummoner
-					log.info 'Found summoner in database.'
-					callback {
-						success 		: true
-						summoner 		: cachedSummoner
-						message 		: 'An error occured while updating from API.'
-						statusCode 		: r.statusCode
-					}
-				else
-					callback {
-						success: false
-						message: 'An error occured. Please try again later.'
-						statusCode: r.statusCode
-					}
 exports.getChampionMasteries = (identity, callback) -> # identity = {id, region}
 	log.info 'Processing champion masteries request...'
 	Summoner.findOne {
@@ -258,3 +139,127 @@ exports.apiSummonerOverview = (identity, callback) -> # identity = {id, region}
 				roles: rolesPoints
 				topChampions: topChampions
 			}
+
+exports.updateSummoner = (identity, callback) -> # identity = {key || id, region}
+	log.info 'Updating summoner identity...'
+	if identity.region
+		if identity.key
+			identity.key = identity.key.toLowerCase().replace ' ', ''
+			link = 'https://' + identity.region + '.api.pvp.net/api/lol/' + identity.region + '/v1.4/summoner/by-name/' +
+				identity.key + '?api_key=' + process.env.KEY
+		else if identity.id
+			link = 'https://' + identity.region + '.api.pvp.net/api/lol/' + identity.region + '/v1.4/summoner/' +
+				identity.id + '?api_key=' + process.env.KEY
+	request link, (e, r, b) ->
+		if e
+			log.error e
+			callback {
+				success		: false
+				message		: e
+			}
+		else if r.statusCode == 200
+			b = JSON.parse(b)[identity.key || identity.id]
+			identity = {
+				key 			: identity.key || b.name.toLowerCase().replace ' ', ''
+				name 			: b.name
+				id 				: b.id
+				profileIconId	: b.profileIconId
+				summonerLevel 	: b.summonerLevel
+				region 			: identity.region
+				platform 		: exports.toPlatform identity.region
+			}
+			Summoner.findOne {
+				"identity.id"		: identity.id
+				"identity.region"	: identity.region
+			}, (e, cachedSummoner) ->
+				if e
+					log.error e
+				else
+					if cachedSummoner
+						log.info 'Found summoner in database.'
+						cachedSummoner.identity.key = identity.key
+						cachedSummoner.identity.name = identity.name
+						cachedSummoner.identity.profileIconId = identity.profileIconId
+						cachedSummoner.identity.summonerLevel = identity.summonerLevel
+						now = moment()
+						cachedSummoner.identity.updatedAt = now
+						cachedSummoner.updatedAt = now
+						cachedSummoner.save (e, cachedSummoner) ->
+							if e
+								if e.code == 11000
+									log.error 'Summoner already exists in database. ' + e
+									callback {
+										success: false
+										message: e
+									}
+								else
+									log.error e
+							if cachedSummoner
+								callback {
+								    success     : true
+								    summoner    : cachedSummoner
+								}
+					else
+						log.info 'Summoner not found in database.'
+						now = moment() # that's to ensure createdAt and updatedAt are the same
+						identity.createdAt = now
+						identity.updatedAt = now
+						summoner = {
+							identity 	: identity
+							createdAt 	: now
+							updatedAt 	: now
+						}
+						newSummoner = new Summoner summoner
+						newSummoner.save (e, newSummoner) ->
+							if e
+								if e.code == 11000
+									log.error 'Summoner already exists in database.'
+								else
+									log.error e
+							else
+								log.info 'New summoner saved.'
+								callback {
+								    success     : true
+								    summoner    : newSummoner
+								}
+		else if r.statusCode == 429
+			Summoner.findOne {
+				"identity.id" : identity.id
+				"identity.region" : identity.region
+			}, (e, cachedSummoner) ->
+				if e
+					log.error e
+				if cachedSummoner
+					log.info 'Found summoner in database.'
+					callback {
+						success 		: true
+						summoner 		: cachedSummoner
+						message 		: 'Rate limit exceeded.'
+					}
+				else
+					callback {
+						success: false
+						message: 'Rate limit exceeded.'
+						statusCode: r.statusCode
+					}
+		else
+			Summoner.findOne {
+				"identity.id" : identity.id
+				"identity.region" : identity.region
+			}, (e, cachedSummoner) ->
+				if e
+					log.error e
+				if cachedSummoner
+					log.info 'Found summoner in database.'
+					callback {
+						success 		: true
+						summoner 		: cachedSummoner
+						message 		: 'An error occured while updating from API.'
+						statusCode 		: r.statusCode
+					}
+				else
+					callback {
+						success: false
+						message: 'An error occured. Please try again later.'
+						statusCode: r.statusCode
+					}
