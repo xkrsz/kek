@@ -1,6 +1,21 @@
 mongoose 		= require 'mongoose'
 Schema 			= mongoose.Schema
 
+ChampionRanked = new Schema {
+	id: Number
+	stats:
+		totalSessionsPlayed: Number
+		totalSessionsLost: Number
+		totalSessionsWon: Number
+		totalChampionKills: Number
+		totalDeathsPerSession: Number # this is NOT a number of deaths per game, but a TOTAL amount of deaths. Naming in API is wrong and I just want to keep variables intact.
+		totalAssists: Number
+		totalMinionKills: Number
+		totalGoldEarned: Number
+		maxChampionsKilled: Number
+		maxNumDeaths: Number
+}
+
 ChampionMastery = new Schema {
 	championId 		:
 		type 			: Number
@@ -51,6 +66,10 @@ Summoner = new Schema {
 				Tank 			: Number
 			createdAt 		: Date
 			updatedAt		: Date
+		statsRanked		:
+			champions 		: [ChampionRanked]
+			createdAt 		: Date
+			updatedAt 		: Date
 	createdAt		: Date
 	updatedAt 		: Date
 }

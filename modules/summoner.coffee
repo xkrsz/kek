@@ -168,8 +168,7 @@ exports.updateChampionMastery = (identity, callback) ->
 			log.error e
 		if cachedSummoner
 			log.info 'Found summoner in database.'
-			timeDiff = moment().diff(moment(cachedSummoner.data.championMastery.updatedAt), 'minutes') || 0
-			if timeDiff > 30 || !cachedSummoner.data.championMastery.updatedAt
+			if checkDiff(cachedSummoner.data.championMastery.updatedAt)
 				log.info 'Summoner eligible for update.'
 				request 'https://' + cachedSummoner.identity.region + '.api.pvp.net/championmastery/location/' + cachedSummoner.identity.platform + '/player/' + cachedSummoner.identity.id + '/champions?api_key=' + process.env.KEY, (e, r, b) ->
 					if e
@@ -220,6 +219,70 @@ exports.updateChampionMastery = (identity, callback) ->
 				if r.success
 					exports.updateChampionMastery {id: identity.id, region: identity.region}, callback
 
+exports.updateStatsRanked = (identity, callback) -> # identity = {id, region}
+	if !identity.id || !identity.region
+		log.error 'Missing data in updateStatsRanked request.'
+		callback {
+			success: false
+			message: 'dood 1 need mor d8a.'
+		}
+
+	Summoner.findOne {
+		"identity.id": identity.id
+		"identity.region": identity.region
+	}, 'data.statsRanked', (e, cachedSummoner) ->
+		if e
+			log.error e
+		if cachedSummoner
+			log.info 'Summoner found in database'
+			if checkDiff(cachedSummoner.data.statsRanked.updatedAt)
+				request 'https://' + identity.region + '.api.pvp.net/api/lol/' + identity.region + '/v1.3/stats/by-summoner/' + identity.id + '/ranked?season=SEASON2016&api_key=' + process.env.KEY, (e, r, b) ->
+					if e
+						log.error e
+					else
+						if r.statusCode == 200
+							log.info 'Got statsRanked'
+							b = JSON.parse(b).champions
+							cachedSummoner.data.statsRanked.champions = b
+							cachedSummoner.save (e, cachedSummoner) ->
+								if e
+									log.error e
+								if cachedSummoner
+									log.info 'statsRanked saved.'
+									callback {
+										success: true
+										statsRanked: cachedSummoner.data.statsRanked
+									}
+								else
+									log.error 'statsRanked not saved, something\'s wrong.'
+									callback {
+										success: false
+										message: 'statsRanked couldn\'t be saved.'
+									}
+			else
+				log.info 'Not updating statsRanked, too soon.'
+				callback {
+					success: true
+					statsRanked: cachedSummoner.data.statsRanked
+				}
+		else
+			log.info 'Summoner not found in database.'
+			exports.updateEverything identity, (r) ->
+				if r.success
+					exports.updateStatsRanked identity, callback
+
+exports.updateEverything = (identity, callback) -> # identity = {id, region}
+	exports.updateSummoner identity, (r) ->
+		if r.success
+			exports.updateChampionMastery identity, (r) ->
+				if r.success
+					exports.updateStatsRanked identity, (r) ->
+					if r.success
+						log.info 'Complete update finished with no errors.'
+						callback {
+							success: true
+						}
+
 exports.roleScores = (championMastery, callback) ->
 	Champion.find {}, (e, champions) ->
 		if e
@@ -250,8 +313,6 @@ exports.roleScores = (championMastery, callback) ->
 			}
 		else
 			callback {success: false, message: 'No champions found in database.'}
-
-exports.platinumCardCompletePremiumBundle = (identity, callback) -> # identity = {id, region}
 
 exports.apiSummonerOverview = (identity, callback) -> # identity = {id, region}
 	exports.updateChampionMastery identity, (r) ->
@@ -290,3 +351,10 @@ exports.apiSummonerChampions = (identity, callback) ->
 			}
 		else
 			log.error 'Something\'s wrong with apiSummonerChampions: ' + r.message
+
+checkDiff = (date) ->
+	timeDiff = moment().diff(moment(date), 'minutes') || 0
+	if timeDiff > 30 || !date
+		true
+	else
+		false
