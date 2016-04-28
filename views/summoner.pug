@@ -1,25 +1,26 @@
 extends base
 block vars
     - var title = 'Summoner'
+append block head
+    script(src='/static/scripts/responsive.js' async)
 block body
             include ./includes/navbar.pug
                 .container.layout
                     .row.summoner-row
-                        .col-lg-12
-                            .col-lg-4.division
+                        .col-md-12
+                            .col-md-4.division
                                 span.main-info Gold III
                                 img(src='http://vignette1.wikia.nocookie.net/leagueoflegends/images/7/77/GoldBadgeSeason2.png/revision/latest?cb=20130928162204')
                                 p
                                     span.sub-info Maestro Yi's Agents
-                            .col-lg-4.summoner
+                            .col-md-8.summoner
                                 .summoner-icon.summoner-container
                                 p.summoner-info
                                     span.main-info Nick 30
                                     br
                                     span.sub-info EUNE
-                            .col-lg-4
                     .row
-                        .col-lg-12
+                        .col-md-12
                             div(class='mdl-tabs mdl-js-tabs')
                                 div(class='mdl-tabs__tab-bar')
                                     a(href='#overview' class='mdl-tabs__tab is-active') Overview
@@ -27,11 +28,11 @@ block body
                                 div(class='mdl-tabs__panel is-active' id='overview')
                                     .container
                                         .row
-                                            .col-lg-12.role-centered
+                                            .col-md-12.role-centered
                                                 h1 You are Assasin
-                                            .col-lg-12.role-centered
+                                            .col-md-12.role-centered
                                                 h2 100000
-                                            .col-lg-12.icons-container
+                                            .col-md-12.icons-container
                                                 .outer-icon.icon
                                                     img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png' class='img-responsive')
                                                     h3 Atrox

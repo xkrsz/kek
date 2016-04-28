@@ -113,11 +113,20 @@ a:focus, a:hover {
     height: 100px;
 }
 
-@media (min-device-width: 1200px) and (-webkit-min-device-pixel-ratio: 1) { 
+@media (max-device-width: 767px) {
+    .summoner {
+        margin-top: 5%;
+    }
+    .division {
+        margin-top: 25%;
+    }
+}
+
+@media (min-device-width: 1200px) { 
     .summoner {
         position: absolute;
         top: 50%;
-        left: 50%;
+        left: 70%;
         transform: translate(-50%, -50%);
     }
 }
