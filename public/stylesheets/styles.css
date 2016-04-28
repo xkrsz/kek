@@ -128,10 +128,17 @@ a:focus, a:hover {
 .big-icon img {
     width: 120px;
     height: 120px;
+    border: 4px groove #FFD700;
 }
 .outer-icon img {
     width: 100px;
     height: 100px;
+}
+.silver img {
+    border: 4px groove #C0C0C0;
+}
+.bronze img {
+    border: 4px groove #965A38;
 }
 
 @media (max-device-width: 767px) {
