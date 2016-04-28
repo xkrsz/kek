@@ -27,6 +27,12 @@ a:focus, a:hover {
     -moz-box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.75);
     box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.75);
 }
+.mdl-tabs__tab {
+    color: white !important;
+}
+.is-active {
+    color: white;
+}
 
 /* NAVBAR STYLES */
 .mdl-layout__header {
@@ -86,7 +92,22 @@ a:focus, a:hover {
 .division img {
     margin-left: auto;
     margin-right: auto;
-    max-width: 50%;
+    max-width: 40%;
+}
+.stats {
+    font-size: 1.3em;
+    background: #595959;
+    margin-top: 5%;
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000;
+}
+.stats-info {
+    margin-top: 8px;
+}
+.stats-right {
+    float: right;
 }
 
 /* OVERVIEW STYLES */
