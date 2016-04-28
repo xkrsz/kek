@@ -259,6 +259,18 @@ exports.updateStatsRanked = (identity, callback) -> # identity = {id, region}
 										success: false
 										message: 'statsRanked couldn\'t be saved.'
 									}
+						else if r.statusCode == 429
+							log.error 'updateStatsRanked: rate limit exceeded.'
+							callback {
+								success: true
+								statsRanked: cachedSummoner.data.statsRanked
+							}
+						else
+							log.error 'updateStatsRanked: problem with API: ' + r.statusCode
+							callback {
+								success: true
+								statsRanked: cachedSummoner.data.statsRanked
+							}
 			else
 				log.info 'Not updating statsRanked, too soon.'
 				callback {
