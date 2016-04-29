@@ -64,16 +64,17 @@ a:focus, a:hover {
 }
 
 /* PROFILE STYLES */
-.summoner-icon {
-    background: url('http://ddragon.leagueoflegends.com/cdn/6.8.1/img/profileicon/588.png') center / cover;
-    width: 128px;
-    height: 128px;
+.summoner-row {
+    padding-top: 10px;
+}
+.summoner img {
+    max-height: 100%;
     float: left;
-    border-radius: 10px 10px 10px 10px;
-    -moz-border-radius: 10px 10px 10px 10px;
-    -webkit-border-radius: 10px 10px 10px 10px;
-    border: 1px groove #000000;
     margin-right: 5px;
+    border: 1px groove black;
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
 }
 .summoner-info {
     margin-top: 5%;
