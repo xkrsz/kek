@@ -355,14 +355,38 @@ exports.apiSummonerChampions = (identity, callback) ->
 		}
 	exports.updateChampionMastery identity, (r) ->
 		if r.success
-			champions = r.championMastery.champions
-
-			callback {
-				success: true
-				champions: champions
-			}
-		else
-			log.error 'Something\'s wrong with apiSummonerChampions: ' + r.message
+			champions = r.championMastery.champions.toObject()
+			exports.updateStatsRanked identity, (r) ->
+				if r.success
+					statsRanked = r.statsRanked.champions.toObject()
+					for champion in champions
+						delete champion._id
+						for stat in statsRanked
+							if stat.id == champion.championId
+								games = stat.stats.totalSessionsPlayed
+								k = Number((stat.stats.totalChampionKills / games).toFixed(2))
+								d = Number((stat.stats.totalDeathsPerSession / games).toFixed(2))
+								a = Number((stat.stats.totalAssists / games).toFixed(2))
+								kda = Number(((k + a) / d).toFixed(2))
+								g = Number((stat.stats.totalGoldEarned / games).toFixed(0))
+								m = Number((stat.stats.totalMinionKills / games).toFixed(0))
+								w = stat.stats.totalSessionsWon
+								l = stat.stats.totalSessionsLost
+								wr = Number((w / games).toFixed(2))
+								champion.games = games
+								champion.kills = k
+								champion.deaths = d
+								champion.assists = a
+								champion.kda = kda
+								champion.gold = g
+								champion.minions = m
+								champion.winrate = wr
+					callback {
+						success: true
+						champions: champions
+					}
+				else
+					log.error 'Something\'s wrong with apiSummonerChampions: ' + r.message
 
 checkDiff = (date) ->
 	timeDiff = moment().diff(moment(date), 'minutes') || 0
