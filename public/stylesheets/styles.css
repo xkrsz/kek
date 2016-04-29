@@ -143,6 +143,14 @@ a:focus, a:hover {
 .bronze img {
     border: 4px groove #965A38;
 }
+.roles-ranking {
+    margin-top: 10%;
+    font-size: 2em;
+}
+.position {
+    margin-top: 25px;
+    padding-right: 5px;
+}
 
 @media (max-device-width: 767px) {
     .summoner {
