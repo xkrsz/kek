@@ -11,6 +11,12 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', sans-serif;
 }
+a:link {
+  text-decoration: none;
+}
+a:focus, a:hover {
+    color: #23527c !important;
+}
 .layout {
     background: #222222;
     border-radius: 0px 0px 10px 10px;
@@ -20,6 +26,12 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.75);
     box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.75);
+}
+.mdl-tabs__tab {
+    color: white !important;
+}
+.is-active {
+    color: white;
 }
 
 /* NAVBAR STYLES */
@@ -52,9 +64,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* PROFILE STYLES */
-.summoner-row {
-    margin-top: 5%;
-}
 .summoner-icon {
     background: url('http://ddragon.leagueoflegends.com/cdn/6.8.1/img/profileicon/588.png') center / cover;
     width: 128px;
@@ -83,15 +92,34 @@ h1, h2, h3, h4, h5, h6 {
 .division img {
     margin-left: auto;
     margin-right: auto;
+    max-width: 40%;
+}
+.stats {
+    font-size: 1.3em;
+    background: #595959;
+    margin-top: 5%;
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000;
+}
+.stats-info {
+    margin-top: 8px;
+}
+.stats-right {
+    float: right;
 }
 
 /* OVERVIEW STYLES */
 .role-centered {
     text-align: center;
 }
+.ranking-position {
+    font-size: 1.5em;
+}
 .icons-container {
     text-align: center;
-    margin-top: 5%;
+    margin-top: 10%;
 }
 .icon {
     display: inline-block;
@@ -101,10 +129,44 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: 5%;
 }
 .big-icon img {
-    width: 120px;
-    height: 120px;
+    width: 128px;
+    height: 128px;
+    border: 4px groove #FFD700;
 }
 .outer-icon img {
     width: 100px;
     height: 100px;
 }
+.silver img {
+    border: 4px groove #C0C0C0;
+}
+.bronze img {
+    border: 4px groove #965A38;
+}
+.roles-ranking {
+    margin-top: 10%;
+    font-size: 2em;
+}
+.position {
+    margin-top: 25px;
+    padding-right: 5px;
+}
+
+@media (max-device-width: 767px) {
+    .summoner {
+        margin-top: 5%;
+    }
+    .division {
+        margin-top: 25%;
+    }
+}
+
+@media (min-device-width: 1200px) { 
+    .summoner {
+        position: absolute;
+        top: 50%;
+        left: 70%;
+        transform: translate(-50%, -50%);
+    }
+}
+
