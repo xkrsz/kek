@@ -114,9 +114,12 @@ a:focus, a:hover {
 .role-centered {
     text-align: center;
 }
+.ranking-position {
+    font-size: 1.5em;
+}
 .icons-container {
     text-align: center;
-    margin-top: 5%;
+    margin-top: 10%;
 }
 .icon {
     display: inline-block;
@@ -126,8 +129,8 @@ a:focus, a:hover {
     margin-right: 5%;
 }
 .big-icon img {
-    width: 120px;
-    height: 120px;
+    width: 128px;
+    height: 128px;
     border: 4px groove #FFD700;
 }
 .outer-icon img {
