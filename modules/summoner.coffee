@@ -244,6 +244,9 @@ exports.updateStatsRanked = (identity, callback) -> # identity = {id, region}
 							log.info 'Got statsRanked'
 							b = JSON.parse(b).champions
 							cachedSummoner.data.statsRanked.champions = b
+							now = moment()
+							cachedSummoner.data.statsRanked.createdAt = now if !cachedSummoner.data.statsRanked.createdAt
+							cachedSummoner.data.statsRanked.updatedAt = now
 							cachedSummoner.save (e, cachedSummoner) ->
 								if e
 									log.error e
