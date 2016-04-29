@@ -3,9 +3,14 @@ log 					= bunyan.createLogger {name: 'kek/routes/api-summoner'}
 summonerModule 			= require '../modules/summoner'
 
 module.exports = (router) ->
-	router.route('/api/summoner/champion-mastery/:region/:id')
+	router.route('/api/summoner/overview/:region/:id')
 	.get (req, res) ->
-		summonerModule.getChampionMasteries {id: req.params.id, region: req.params.region}, (r) ->
+		summonerModule.apiSummonerOverview {id: req.params.id, region: req.params.region}, (r) ->
+			res.json r
+
+	router.route('/api/summoner/champions/:region/:id')
+	.get (req, res) ->
+		summonerModule.apiSummonerChampions {id: req.params.id, region: req.params.region}, (r) ->
 			res.json r
 
 	return router

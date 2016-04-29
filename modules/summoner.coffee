@@ -3,12 +3,42 @@ log 					= bunyan.createLogger {name: 'kek/modules/summoner'}
 request 				= require 'request'
 moment 					= require 'moment'
 
-exports.find = (identity, callback) -> # identity = {key, region}
-	log.info 'Finding summoner...'
-	identity.key = identity.key.toLowerCase().replace ' ', ''
-	identity.region = identity.region.toLowerCase().replace ' ', ''
+exports.toPlatform = (region) ->
+	return {
+		eune	: 'EUN1'
+		euw		: 'EUW1'
+		br 		: 'BR1'
+		jp 		: 'JP1'
+		kr 		: 'KR'
+		lan 	: 'LA1'
+		las 	: 'LA2'
+		na 		: 'NA1'
+		oce 	: 'OC1'
+		ru 		: 'RU'
+		tr 		: 'TR1'
+	}[region]
 
-	request 'https://' + identity.region + '.api.pvp.net/api/lol/' + identity.region + '/v1.4/summoner/by-name/' + identity.key + '?api_key=' + process.env.KEY, (e, r, b) ->
+exports.findChampion = (id, callback) ->
+	Champion.findOne {id: id}, (e, champion) ->
+		if e
+			log.error e
+			callback {success: false, message: e}
+		if champion
+			callback {success: true, champion: champion}
+		else
+			callback {success: false, message: 'Champion not found.'}
+
+exports.updateSummoner = (identity, callback) -> # identity = {key || id, region}
+	log.info 'Updating summoner identity...'
+	if identity.region
+		if identity.key
+			identity.key = identity.key.toLowerCase().replace ' ', ''
+			link = 'https://' + identity.region + '.api.pvp.net/api/lol/' + identity.region + '/v1.4/summoner/by-name/' +
+				identity.key + '?api_key=' + process.env.KEY
+		else if identity.id
+			link = 'https://' + identity.region + '.api.pvp.net/api/lol/' + identity.region + '/v1.4/summoner/' +
+				identity.id + '?api_key=' + process.env.KEY
+	request link, (e, r, b) ->
 		if e
 			log.error e
 			callback {
@@ -16,10 +46,9 @@ exports.find = (identity, callback) -> # identity = {key, region}
 				message		: e
 			}
 		else if r.statusCode == 200
-			b = JSON.parse(b)[identity.key]
-			log.info 'Got summoner.'
+			b = JSON.parse(b)[identity.key || identity.id]
 			identity = {
-				key 			: identity.key
+				key 			: identity.key || b.name.toLowerCase().replace ' ', ''
 				name 			: b.name
 				id 				: b.id
 				profileIconId	: b.profileIconId
@@ -46,7 +75,7 @@ exports.find = (identity, callback) -> # identity = {key, region}
 						cachedSummoner.save (e, cachedSummoner) ->
 							if e
 								if e.code == 11000
-									log.error 'Summoner already exists in database.'
+									log.error 'Summoner already exists in database. ' + e
 									callback {
 										success: false
 										message: e
@@ -122,8 +151,15 @@ exports.find = (identity, callback) -> # identity = {key, region}
 						message: 'An error occured. Please try again later.'
 						statusCode: r.statusCode
 					}
-exports.getChampionMasteries = (identity, callback) -> # identity = {id, region}
-	log.info 'Processing champion masteries request...'
+
+exports.updateChampionMastery = (identity, callback) ->
+	log.info 'Updating champion mastery...'
+	if !identity.id || !identity.region
+		log.info 'Data missing, can\'t update champion mastery.'
+		callback {
+			success: false
+			message: 'y u no gib data m9'
+		}
 	Summoner.findOne {
 			"identity.id" 		: identity.id
 			"identity.region" 	: identity.region
@@ -132,8 +168,7 @@ exports.getChampionMasteries = (identity, callback) -> # identity = {id, region}
 			log.error e
 		if cachedSummoner
 			log.info 'Found summoner in database.'
-			timeDiff = moment().diff(moment(cachedSummoner.data.championMastery.updatedAt), 'minutes') || 0
-			if timeDiff > 30 || !cachedSummoner.data.championMastery.updatedAt
+			if checkDiff(cachedSummoner.data.championMastery.updatedAt)
 				log.info 'Summoner eligible for update.'
 				request 'https://' + cachedSummoner.identity.region + '.api.pvp.net/championmastery/location/' + cachedSummoner.identity.platform + '/player/' + cachedSummoner.identity.id + '/champions?api_key=' + process.env.KEY, (e, r, b) ->
 					if e
@@ -180,31 +215,88 @@ exports.getChampionMasteries = (identity, callback) -> # identity = {id, region}
 				}
 		else
 			log.info 'Summoner not found in database.'
-			exports.platinumCardCompletePremiumBundle {id: identity.id, region: identity.region}, (r) ->
-				callback r
-exports.toPlatform = (region) ->
-	switch region
-		when 'eune' 	then return 'EUN1'
-		when 'euw' 		then return 'EUW1'
-		when 'br'		then return 'BR1'
-		when 'jp'		then return 'JP1'
-		when 'kr' 		then return 'KR'
-		when 'lan' 		then return 'LA1'
-		when 'las' 		then return 'LA2'
-		when 'na' 		then return 'NA1'
-		when 'oce' 		then return 'OC1'
-		when 'ru' 		then return 'RU'
-		when 'tr'		then return 'TR1'
+			exports.updateSummoner {id: identity.id, region: identity.region}, (r) ->
+				if r.success
+					exports.updateChampionMastery {id: identity.id, region: identity.region}, callback
 
-exports.findChampion = (id, callback) ->
-	Champion.findOne {id: id}, (e, champion) ->
+exports.updateStatsRanked = (identity, callback) -> # identity = {id, region}
+	if !identity.id || !identity.region
+		log.error 'Missing data in updateStatsRanked request.'
+		callback {
+			success: false
+			message: 'dood 1 need mor d8a.'
+		}
+
+	Summoner.findOne {
+		"identity.id": identity.id
+		"identity.region": identity.region
+	}, 'data.statsRanked', (e, cachedSummoner) ->
 		if e
 			log.error e
-			callback {success: false, message: e}
-		if champion
-			callback {success: true, champion: champion}
+		if cachedSummoner
+			log.info 'Summoner found in database'
+			if checkDiff(cachedSummoner.data.statsRanked.updatedAt)
+				request 'https://' + identity.region + '.api.pvp.net/api/lol/' + identity.region + '/v1.3/stats/by-summoner/' + identity.id + '/ranked?season=SEASON2016&api_key=' + process.env.KEY, (e, r, b) ->
+					if e
+						log.error e
+					else
+						if r.statusCode == 200
+							log.info 'Got statsRanked'
+							b = JSON.parse(b).champions
+							cachedSummoner.data.statsRanked.champions = b
+							now = moment()
+							cachedSummoner.data.statsRanked.createdAt = now if !cachedSummoner.data.statsRanked.createdAt
+							cachedSummoner.data.statsRanked.updatedAt = now
+							cachedSummoner.save (e, cachedSummoner) ->
+								if e
+									log.error e
+								if cachedSummoner
+									log.info 'statsRanked saved.'
+									callback {
+										success: true
+										statsRanked: cachedSummoner.data.statsRanked
+									}
+								else
+									log.error 'statsRanked not saved, something\'s wrong.'
+									callback {
+										success: false
+										message: 'statsRanked couldn\'t be saved.'
+									}
+						else if r.statusCode == 429
+							log.error 'updateStatsRanked: rate limit exceeded.'
+							callback {
+								success: true
+								statsRanked: cachedSummoner.data.statsRanked
+							}
+						else
+							log.error 'updateStatsRanked: problem with API: ' + r.statusCode
+							callback {
+								success: true
+								statsRanked: cachedSummoner.data.statsRanked
+							}
+			else
+				log.info 'Not updating statsRanked, too soon.'
+				callback {
+					success: true
+					statsRanked: cachedSummoner.data.statsRanked
+				}
 		else
-			callback {success: false, message: 'Champion not found.'}
+			log.info 'Summoner not found in database.'
+			exports.updateEverything identity, (r) ->
+				if r.success
+					exports.updateStatsRanked identity, callback
+
+exports.updateEverything = (identity, callback) -> # identity = {id, region}
+	exports.updateSummoner identity, (r) ->
+		if r.success
+			exports.updateChampionMastery identity, (r) ->
+				if r.success
+					exports.updateStatsRanked identity, (r) ->
+					if r.success
+						log.info 'Complete update finished with no errors.'
+						callback {
+							success: true
+						}
 
 exports.roleScores = (championMastery, callback) ->
 	Champion.find {}, (e, champions) ->
@@ -237,4 +329,71 @@ exports.roleScores = (championMastery, callback) ->
 		else
 			callback {success: false, message: 'No champions found in database.'}
 
-exports.platinumCardCompletePremiumBundle = (identity, callback) -> # identity = {id, region}
+exports.apiSummonerOverview = (identity, callback) -> # identity = {id, region}
+	exports.updateChampionMastery identity, (r) ->
+		if r.success
+			# roles
+			rolesPoints = r.championMastery.rolesPoints.toObject()
+			rolesArray = Object.keys(rolesPoints).map (key) -> [key, rolesPoints[key]]
+			rolesArray.sort (a, b) -> b[1] - a[1]
+			rolesPoints = {}
+			rolesPoints[role[0]] = role[1] for role in rolesArray # that's why I like CoffeeScript
+
+			# top 3 champions
+			topChampions = r.championMastery.champions.slice 0, 3
+
+			callback {
+				success: true
+				roles: rolesPoints
+				totalPoints: r.championMastery.totalPoints
+				topChampions: topChampions
+			}
+
+exports.apiSummonerChampions = (identity, callback) ->
+	if !identity.id || !identity.region
+		log.error 'Data missing in apiSummonerChampions request.'
+		callback {
+			success: false
+			message: 'U no gib enough data dude come on.'
+		}
+	exports.updateChampionMastery identity, (r) ->
+		if r.success
+			champions = r.championMastery.champions.toObject()
+			exports.updateStatsRanked identity, (r) ->
+				if r.success
+					statsRanked = r.statsRanked.champions.toObject()
+					for champion in champions
+						delete champion._id
+						for stat in statsRanked
+							if stat.id == champion.championId
+								games = stat.stats.totalSessionsPlayed
+								k = Number((stat.stats.totalChampionKills / games).toFixed(2))
+								d = Number((stat.stats.totalDeathsPerSession / games).toFixed(2))
+								a = Number((stat.stats.totalAssists / games).toFixed(2))
+								kda = Number(((k + a) / d).toFixed(2))
+								g = Number((stat.stats.totalGoldEarned / games).toFixed(0))
+								m = Number((stat.stats.totalMinionKills / games).toFixed(0))
+								w = stat.stats.totalSessionsWon
+								l = stat.stats.totalSessionsLost
+								wr = Number((w / games).toFixed(2))
+								champion.games = games
+								champion.kills = k
+								champion.deaths = d
+								champion.assists = a
+								champion.kda = kda
+								champion.gold = g
+								champion.minions = m
+								champion.winrate = wr
+					callback {
+						success: true
+						champions: champions
+					}
+				else
+					log.error 'Something\'s wrong with apiSummonerChampions: ' + r.message
+
+checkDiff = (date) ->
+	timeDiff = moment().diff(moment(date), 'minutes') || 0
+	if timeDiff > 30 || !date
+		true
+	else
+		false
