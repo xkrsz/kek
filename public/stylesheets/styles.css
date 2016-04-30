@@ -103,12 +103,18 @@ a:focus, a:hover {
     -moz-border-radius: 10px 10px 10px 10px;
     -webkit-border-radius: 10px 10px 10px 10px;
     border: 0px solid #000000;
+    -webkit-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
 }
 .stats-info {
     margin-top: 8px;
 }
 .stats-right {
     float: right;
+}
+.last {
+    margin-bottom: 8px;
 }
 
 /* OVERVIEW STYLES */
@@ -153,6 +159,24 @@ a:focus, a:hover {
     padding-right: 5px;
 }
 
+/* CHAMPIONS STYLES */
+.champions-table-row {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.champions-table {
+    margin: 0 auto;
+    background: #595959;
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000;
+}
+.mdl-data-table tbody tr:hover {
+    background-color: #404040;
+}
+
+/* MEDIA QUERIES */
 @media (max-device-width: 767px) {
     .summoner {
         margin-top: 5%;
