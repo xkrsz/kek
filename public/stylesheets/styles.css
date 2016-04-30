@@ -110,6 +110,9 @@ a:focus, a:hover {
 .stats-right {
     float: right;
 }
+.last {
+    margin-bottom: 8px;
+}
 
 /* OVERVIEW STYLES */
 .role-centered {
