@@ -7,17 +7,15 @@ block body
             include ./includes/navbar.pug
                 .container.layout
                     .row.summoner-row
-                        .col-md-12
-                            .col-md-6.division
-                                span.main-info Gold III
-                                img(src='http://vignette1.wikia.nocookie.net/leagueoflegends/images/7/77/GoldBadgeSeason2.png/revision/latest?cb=20130928162204' alt='Division Icon')
-                                span.sub-info Maestro Yi's Agents
+
                             .col-md-6.summoner
-                                img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/profileicon/588.png' alt='Summoner Icon')
-                                p.summoner-info
-                                    span.main-info Nick 30
-                                    br
-                                    span.sub-info EUNE
+                                    img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/profileicon/588.png' alt='Summoner Icon')
+                                    p.summoner-info
+                                        span.main-info Nick 30
+                                        br
+                                        span.sub-info EUNE
+                                        br
+                                        span.sub-info Gold III
                     .row
                         .col-md-12
                             div(class='mdl-tabs mdl-js-tabs')
@@ -30,6 +28,9 @@ block body
                                             .col-md-12.role-centered
                                                 h1 100000
                                                 span.ranking-position #124 in global ranking
+                                            .col-md-12.role-centered.mastery
+                                                h3 MASTERY SCORE
+                                                h3 123
                                             .col-md-6.champions-list
                                                 ul
                                                     li.first Bard 
