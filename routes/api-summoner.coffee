@@ -13,4 +13,9 @@ module.exports = (router) ->
 		summonerModule.apiSummonerChampions {id: req.params.id, region: req.params.region}, (r) ->
 			res.json r
 
+	router.route('/api/summoner/league/:region/:id')
+	.get (req, res) ->
+		summonerModule.apiSummonerLeague {id: req.params.id, region: req.params.region}, (r) ->
+			res.json r
+
 	return router

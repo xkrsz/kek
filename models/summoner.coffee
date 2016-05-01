@@ -51,7 +51,6 @@ Summoner = new Schema {
 			type			: Number
 		profileIconId	:
 			type			: Number
-		createdAt 		: Date
 		updatedAt	 	: Date
 	data			:
 		championMastery	:
@@ -64,12 +63,18 @@ Summoner = new Schema {
 				Marksman 		: Number
 				Support 		: Number
 				Tank 			: Number
-			createdAt 		: Date
 			updatedAt		: Date
 		statsRanked		:
 			champions 		: [ChampionRanked]
-			createdAt 		: Date
 			updatedAt 		: Date
+		league 			:
+			name 			: String
+			tier 			: String
+			division 		: String
+			leaguePoints 	: Number
+			wins 			: Number
+			losses 			: Number
+			updatedAt		: Date
 	createdAt		: Date
 	updatedAt 		: Date
 }

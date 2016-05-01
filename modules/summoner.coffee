@@ -190,7 +190,6 @@ exports.updateChampionMastery = (identity, callback) ->
 										for prop of r.championMastery
 											championMastery[prop] = r.championMastery[prop]
 										now = moment()
-										championMastery.createdAt = now
 										championMastery.updatedAt = now
 										cachedSummoner.data.championMastery = championMastery
 										cachedSummoner.updatedAt = now
@@ -244,9 +243,7 @@ exports.updateStatsRanked = (identity, callback) -> # identity = {id, region}
 							log.info 'Got statsRanked'
 							b = JSON.parse(b).champions
 							cachedSummoner.data.statsRanked.champions = b
-							now = moment()
-							cachedSummoner.data.statsRanked.createdAt = now if !cachedSummoner.data.statsRanked.createdAt
-							cachedSummoner.data.statsRanked.updatedAt = now
+							cachedSummoner.data.statsRanked.updatedAt = moment()
 							cachedSummoner.save (e, cachedSummoner) ->
 								if e
 									log.error e
@@ -286,6 +283,72 @@ exports.updateStatsRanked = (identity, callback) -> # identity = {id, region}
 				if r.success
 					exports.updateStatsRanked identity, callback
 
+exports.updateLeague = (identity, callback) -> # identity = {id, region}
+	if !identity.id || !identity.region
+		log.info 'updateLeague: Missing data.'
+		callback {
+			success: false
+			message: 'i need know wat u want 2 upd8 m8.'
+		}
+	Summoner.findOne {
+		"identity.id": identity.id
+		"identity.region": identity.region
+	}, 'data.league', (e, cachedSummoner) ->
+		if e
+			log.error e
+		if cachedSummoner
+			log.info 'updateLeague: Summoner found in database.'
+			if checkDiff(cachedSummoner.data.league.updatedAt)
+				request 'https://' + identity.region + '.api.pvp.net/api/lol/' + identity.region + '/v2.5/league/by-summoner/' + identity.id + '/entry?api_key=' + process.env.KEY, (e, r, b) ->
+					if e
+						log.error e
+					else
+						if r.statusCode == 200
+							log.info 'updateLeague: Got league.'
+							b = JSON.parse(b)[identity.id][0]
+							league = {
+								name: b.name
+								tier: b.tier
+								division: b.entries[0].division
+								leaguePoints: b.entries[0].leaguePoints
+								wins: b.entries[0].wins
+								losses: b.entries[0].losses
+								updatedAt: moment()
+							}
+							cachedSummoner.data.league = league
+							cachedSummoner.save (e, cachedSummoner) ->
+								if e
+									log.error e
+								if cachedSummoner
+									log.info 'updateLeague: Summoner updated.'
+									callback {
+										success: true
+										league: cachedSummoner.data.league
+									}
+						else if r.statusCode == 429
+							log.info 'updateLeague: Rate limit exceeded.'
+							callback {
+								success: true
+								league: cachedSummoner.data.league
+							}
+						else
+							log.info 'updateLeague: An error occurred: ' + r.statusCode
+							callback {
+								success: true
+								league: cachedSummoner.data.league
+							}
+			else
+				log.info 'updateLeague: Not updating, too soon.'
+				callback {
+					success: true
+					league: cachedSummoner.data.league
+				}
+		else
+			log.info 'updateLeague: Summoner not found in database, calling updateEverything.'
+			exports.updateEverything identity, (r) ->
+				if r.success
+					exports.updateLeague identity, callback
+
 exports.updateEverything = (identity, callback) -> # identity = {id, region}
 	exports.updateSummoner identity, (r) ->
 		if r.success
@@ -293,10 +356,12 @@ exports.updateEverything = (identity, callback) -> # identity = {id, region}
 				if r.success
 					exports.updateStatsRanked identity, (r) ->
 					if r.success
-						log.info 'Complete update finished with no errors.'
-						callback {
-							success: true
-						}
+						exports.updateLeague identity, (r) ->
+							if r.success
+								log.info 'Complete update finished with no errors.'
+								callback {
+									success: true
+								}
 
 exports.roleScores = (championMastery, callback) ->
 	Champion.find {}, (e, champions) ->
@@ -390,6 +455,26 @@ exports.apiSummonerChampions = (identity, callback) ->
 					}
 				else
 					log.error 'Something\'s wrong with apiSummonerChampions: ' + r.message
+
+exports.apiSummonerLeague = (identity, callback) -> # identity = {id, region}
+	if !identity.id || !identity.region
+		log.info 'apiSummonerLeague: missing data in api call.'
+		callback {
+			success: false
+			message: 'u sur haz mor d8a gib me it adn i will w0rk.'
+		}
+	exports.updateLeague identity, (r) ->
+		if r.success
+			callback {
+				success: true
+				league: r.league
+			}
+		else
+			log.error 'apiSummonerLeague: updateLeague didn\'t succeed.'
+			callback {
+				success: false
+				message: 'An error occurred while updating summoner league.'
+			}
 
 checkDiff = (date) ->
 	timeDiff = moment().diff(moment(date), 'minutes') || 0
