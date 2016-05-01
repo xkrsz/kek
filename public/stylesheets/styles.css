@@ -42,7 +42,7 @@ a:focus, a:hover {
 /* SEARCH STYLES */
 .form-container {
     position: relative;
-    height: 100vh;
+    height: 90vh;
     text-align: center;
 }
 .search {
