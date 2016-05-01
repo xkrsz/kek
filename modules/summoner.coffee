@@ -465,9 +465,12 @@ exports.apiSummonerLeague = (identity, callback) -> # identity = {id, region}
 		}
 	exports.updateLeague identity, (r) ->
 		if r.success
+			league = r.league.toObject()
+			wr = Number((league.wins / (league.wins + league.losses)).toFixed(2))
+			league.winrate = wr
 			callback {
 				success: true
-				league: r.league
+				league: league
 			}
 		else
 			log.error 'apiSummonerLeague: updateLeague didn\'t succeed.'
