@@ -99,6 +99,7 @@ a:focus, a:hover {
     font-size: 1.3em;
     background: #595959;
     margin-top: 5%;
+    margin-bottom: 5%;
     border-radius: 10px 10px 10px 10px;
     -moz-border-radius: 10px 10px 10px 10px;
     -webkit-border-radius: 10px 10px 10px 10px;
@@ -147,15 +148,15 @@ a:focus, a:hover {
     margin-right: 10px;
     margin-left: 10px;
 }
-.second-row {
-    margin-top: 10%;
-}
-.second-row ul {
+.first-row ul {
     list-style-type: none;
     font-size: 1.5em;
 }
-.second-row li {
+.first-row li {
     margin: 0 0 10px 0;
+}
+.champions-list, .roles-list {
+    margin-top: 5%;
 }
 .icon-responsive {
     max-width: 5%;
@@ -168,6 +169,24 @@ a:focus, a:hover {
 }
 .roles-list span {
     float: right;
+}
+.first {
+    
+}
+.second {
+    
+}
+.third {
+    
+}
+.first:hover {
+    
+}
+.second:hover {
+    
+}
+.third:hover {
+    
 }
 
 /* CHAMPIONS STYLES */

@@ -7,7 +7,7 @@ block body
             include ./includes/navbar.pug
                 .container.layout
                     .row.summoner-row
-                        .col-md-8
+                        .col-md-12
                             .col-md-6.division
                                 span.main-info Gold III
                                 img(src='http://vignette1.wikia.nocookie.net/leagueoflegends/images/7/77/GoldBadgeSeason2.png/revision/latest?cb=20130928162204' alt='Division Icon')
@@ -18,26 +18,6 @@ block body
                                     span.main-info Nick 30
                                     br
                                     span.sub-info EUNE
-                        .col-md-4
-                            .col-md-12.stats
-                                div.stats-info
-                                    span 1231
-                                    span.stats-right Games Played
-                                div.stats-info
-                                    span 436 
-                                    span.stats-right Wins
-                                div.stats-info
-                                    span 1231
-                                    span.stats-right Games Played
-                                div.stats-info
-                                    span 436 
-                                    span.stats-right Wins
-                                div.stats-info
-                                    span 1231
-                                    span.stats-right Games Played
-                                div.stats-info.last
-                                    span 436 
-                                    span.stats-right Wins
                     .row
                         .col-md-12
                             div(class='mdl-tabs mdl-js-tabs')
@@ -48,28 +28,17 @@ block body
                                     .container.overview
                                         .row.first-row
                                             .col-md-12.role-centered
-                                                h1 You are Assasin
-                                            .col-md-12.role-centered
-                                                h2 100000
+                                                h1 100000
                                                 span.ranking-position #124 in global ranking
-                                            .col-md-12.role-centered.best-champ-column
-                                                .big-icon.icon
-                                                    span Aatrox
-                                                    img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png')
-                                                    span 12523
-                                            .col-md-12.more-stats
-                                                button(class='mdl-button mdl-js-button mdl-button--icon' id='scroll')
-                                                    i.material-icons keyboard_arrow_down
-                                        .row.second-row
                                             .col-md-6.champions-list
                                                 ul
-                                                    li Bard 
+                                                    li.first Bard 
                                                         img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png' class='icon-responsive') 
                                                         span 324958
-                                                    li Aatrox
+                                                    li.second Aatrox
                                                         img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png' class='icon-responsive') 
                                                         span 324958
-                                                    li Soraka
+                                                    li.third Soraka
                                                         img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png' class='icon-responsive') 
                                                         span 324958
                                                     li Yasuo
@@ -80,13 +49,13 @@ block body
                                                         span 324958
                                             .col-md-6.roles-list
                                                 ul
-                                                    li  Assassin
+                                                    li.first  Assassin
                                                         img(src='http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/39/Assassin_icon.jpg/revision/latest/scale-to-width-down/110?cb=20140607013331&format=webp' class='icon-responsive') 
                                                         span 324958
-                                                    li  Tank
+                                                    li.second  Tank
                                                         img(src='http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/39/Assassin_icon.jpg/revision/latest/scale-to-width-down/110?cb=20140607013331&format=webp' class='icon-responsive') 
                                                         span 324958
-                                                    li  Support
+                                                    li.third  Support
                                                         img(src='http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/39/Assassin_icon.jpg/revision/latest/scale-to-width-down/110?cb=20140607013331&format=webp' class='icon-responsive') 
                                                         span 324958
                                                     li  Tank
@@ -95,6 +64,30 @@ block body
                                                     li  Garen
                                                         img(src='http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/39/Assassin_icon.jpg/revision/latest/scale-to-width-down/110?cb=20140607013331&format=webp' class='icon-responsive') 
                                                         span 324958
+                                            .col-md-12.more-stats
+                                                button(class='mdl-button mdl-js-button mdl-button--icon' id='scroll')
+                                                    i.material-icons keyboard_arrow_down
+                                        .row.second-row
+                                            .col-md-4
+                                                .col-md-12.stats
+                                                    div.stats-info
+                                                        span 1231
+                                                        span.stats-right Games Played
+                                                    div.stats-info
+                                                        span 436 
+                                                        span.stats-right Wins
+                                                    div.stats-info
+                                                        span 1231
+                                                        span.stats-right Games Played
+                                                    div.stats-info
+                                                        span 436 
+                                                        span.stats-right Wins
+                                                    div.stats-info
+                                                        span 1231
+                                                        span.stats-right Games Played
+                                                    div.stats-info.last
+                                                        span 436 
+                                                        span.stats-right Wins
                                 div(class='mdl-tabs__panel' id='champions')
                                     .container
                                         .row.champions-table-row
