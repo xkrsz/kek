@@ -5,9 +5,9 @@ block body
     include ./includes/navbar.pug
         .container.form-container
             .row
-                .col-lg-12.page-title
+                .col-md-12.page-title
                     h1 kek
-                .col-lg-12.search
+                .col-md-12.search
                     form(action='/', method='post')
                         input(type='text' name='key' class='search-input' id='key')
                         select(name='region', id='region', class='region-dropdown')
@@ -22,4 +22,6 @@ block body
                             option(value='tr') TR
                         .button
                             input(type='submit', value='Search', class='mdl-button mdl-js-button mdl-button--raised')
-                col-lg-12
+                .col-md-12.more-stats
+                    button(class='mdl-button mdl-js-button mdl-button--icon' id='scroll')
+                        i.material-icons keyboard_arrow_down
