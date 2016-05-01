@@ -5,15 +5,21 @@ block body
     include ./includes/navbar.pug
         .container.form-container
             .row
-                .col-lg-12
+                .col-lg-12.page-title
                     h1 kek
+                .col-lg-12.search
                     form(action='/', method='post')
-                        div(class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label')
-                            input(type='text' name='key', class='mdl-textfield__input', id='key')
-                            label(class='mdl-textfield__label', for='key') Key
-                        div(class='mdl-select')
-                            select(name='region', id='region', class='region-dropdown')
-                                option(value='eune') EUNE
-                                option(value='euw') EUW
-                        div
+                        input(type='text' name='key' class='search-input' id='key')
+                        select(name='region', id='region', class='region-dropdown')
+                            option(value='eune') EUNE
+                            option(value='euw') EUW
+                            option(value='br') BR
+                            option(value='lan') LAN
+                            option(value='las') LAS
+                            option(value='na') NA
+                            option(value='oce') OCE
+                            option(value='ru') RU
+                            option(value='tr') TR
+                        .button
                             input(type='submit', value='Search', class='mdl-button mdl-js-button mdl-button--raised')
+                col-lg-12
