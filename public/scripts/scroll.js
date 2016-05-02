@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $('#scroll').click(function (e) {
         $(".mdl-layout__content").animate({
-            scrollTop: $('.second-row').offset().top
+            scrollTop: $('.row').next().offset().top
         }, 1000);
     });
 });
