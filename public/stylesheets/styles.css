@@ -43,6 +43,12 @@ ul {
 }
 
 /* SEARCH STYLES */
+.general-points {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 .form-container {
     position: relative;
     height: 93vh;
@@ -73,6 +79,7 @@ ul {
 }
 .page-title {
     text-align: center;
+    margin-top: 5%;
 }
 .region-dropdown {
     border: none;
@@ -97,7 +104,10 @@ ul {
     color: white;
     font-family: 'Montserrat', sans-serif;
 }
-
+.list-header {
+    margin-top: 3%;
+    text-align: center;
+}
 
 /* PROFILE STYLES */
 .summoner-row {
