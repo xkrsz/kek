@@ -17,6 +17,9 @@ a:link {
 a:focus, a:hover {
     color: #23527c !important;
 }
+ul {
+    -webkit-padding-start: 0;
+}
 .layout {
     background: #222222;
     border-radius: 0px 0px 10px 10px;
@@ -99,17 +102,22 @@ a:focus, a:hover {
 .summoner-row {
     padding-top: 10px;
 }
+.summoner {
+    float: left;
+}
 .summoner img {
-    max-height: 100%;
+    max-width: 100%;
+    height: auto;
     float: left;
     margin-right: 5px;
     border: 1px groove black;
     border-radius: 5px 5px 5px 5px;
     -moz-border-radius: 5px 5px 5px 5px;
     -webkit-border-radius: 5px 5px 5px 5px;
+    border: 2px groove #FFD700;
 }
 .summoner-info {
-    margin-top: 5%;
+    margin-top: 5px;
 }
 .main-info {
     font-size: 2.5em;
@@ -119,18 +127,11 @@ a:focus, a:hover {
     font-size: 1.5em;
     font-weight: lighter;
 }
-.division {
-    text-align: center;
-}
-.division img {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 40%;
-}
 .stats {
     font-size: 1.3em;
     background: #595959;
     margin-top: 5%;
+    margin-bottom: 5%;
     border-radius: 10px 10px 10px 10px;
     -moz-border-radius: 10px 10px 10px 10px;
     -webkit-border-radius: 10px 10px 10px 10px;
@@ -150,63 +151,78 @@ a:focus, a:hover {
 }
 
 /* OVERVIEW STYLES */
+.overview {
+    width: 100%;
+}
 .first-row {
-    height: 65vh;
+    height: 73vh;
     position: relative;
 }
 .role-centered {
     text-align: center;
 }
 .best-champ-column {
-    margin-top: 5%;
+    margin-top: 7%;
 }
 .more-stats {
     text-align: center;
     position: absolute;
     bottom: 0;
 }
-.ranking-position {
+.first-row ul {
+    list-style-type: none;
     font-size: 1.5em;
 }
-.icons-container {
-    text-align: center;
-    margin-top: 10%;
+.first-row li {
+    margin: 0 0 10px 0;
+    padding-right: 5px;
 }
-.icon {
-    display: inline-block;
+.champions-list, .roles-list {
+    margin-top: 5%;
 }
-.big-icon {
-    margin-left: 5%;
-    margin-right: 5%;
+.icon-responsive {
+    max-width: 5%;
+    height: auto;
+    float: left;
+    margin-right: 5px;
 }
-.big-icon img {
-    width: 128px;
-    height: 128px;
-    border: 4px groove #FFD700;
-    margin-right: 10px;
-    margin-left: 10px;
+.champions-list span {
+    float: right;
 }
-.big-icon span {
-    font-size: 1.5em;
+.roles-list span {
+    float: right;
 }
-.outer-icon img {
-    width: 100px;
-    height: 100px;
+.first {
+    background-color: rgba(255, 215, 0, 0.6);
+    border-radius: 0px 19px 19px 0px;
+    -moz-border-radius: 0px 19px 19px 0px;
+    -webkit-border-radius: 0px 19px 19px 0px;
+    border: 0px solid #000000;
+    -webkit-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
 }
-.silver img {
-    border: 4px groove #C0C0C0;
+.second {
+    background-color: rgba(192, 192, 192, 0.6);
+    border-radius: 0px 19px 19px 0px;
+    -moz-border-radius: 0px 19px 19px 0px;
+    -webkit-border-radius: 0px 19px 19px 0px;
+    border: 0px solid #000000;
+    -webkit-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
 }
-.bronze img {
-    border: 4px groove #965A38;
+.third {
+    background-color: rgba(205, 127, 50, 0.6);
+    border-radius: 0px 19px 19px 0px;
+    -moz-border-radius: 0px 19px 19px 0px;
+    -webkit-border-radius: 0px 19px 19px 0px;
+    border: 0px solid #000000;
+    -webkit-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
 }
-.roles-ranking {
-    margin-top: 10%;
-    font-size: 2em;
-}
-.position {
-    margin-top: 25px;
-    padding-right: 20px;
-}
+
 
 /* CHAMPIONS STYLES */
 .champions-table-row {
@@ -234,13 +250,3 @@ a:focus, a:hover {
         margin-top: 25%;
     }
 }
-
-@media (min-device-width: 1200px) { 
-    .summoner {
-        position: absolute;
-        top: 50%;
-        left: 70%;
-        transform: translate(-50%, -50%);
-    }
-}
-
