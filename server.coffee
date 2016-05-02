@@ -34,6 +34,7 @@ app.use '/', require('./routes/summoner')(router)
 app.use '/', require('./routes/api-summoner')(router)
 app.use '/', require('./routes/ranking')(router)
 app.use '/', require('./routes/api-ranking')(router)
+app.use '/', require('./routes/api-home')(router)
 
 # Static files
 app.use '/static', express.static('public')
