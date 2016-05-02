@@ -214,7 +214,7 @@ exports.updateChampionMastery = (identity, callback) ->
 				}
 		else
 			log.info 'Summoner not found in database.'
-			exports.updateSummoner {id: identity.id, region: identity.region}, (r) ->
+			exports.updateEverything {id: identity.id, region: identity.region}, (r) ->
 				if r.success
 					exports.updateChampionMastery {id: identity.id, region: identity.region}, callback
 
@@ -372,18 +372,24 @@ exports.roleScores = (championMastery, callback) ->
 			roles = {
 				"Assassin" 	: 0
 				"Fighter" 	: 0
-				"Mage" 		: 0
+				"Mage" 			: 0
 				"Support" 	: 0
-				"Tank"		: 0
+				"Tank"			: 0
 				"Marksman" 	: 0
 			}
 			totalPoints = 0
-			for mastery in championMastery.champions				# loop through all saved champion masteries
-				for champion in champions 							# loop through all champions to find matching one
+			for mastery in championMastery.champions			# loop through all saved champion masteries
+				for champion in champions 									# loop through all champions to find matching one
 					if champion.id == mastery.championId			# found champion
-						for tag in champion.tags					# loop through champion tags and assign score
+						for tag in champion.tags								# loop through champion tags and assign score
 							roles[tag] += mastery.championPoints
 				totalPoints += mastery.championPoints
+
+			rolesArray = Object.keys(roles).map (key) -> [key, roles[key]]
+			rolesArray.sort (a, b) -> b[1] - a[1]
+			roles = {}
+			roles[role[0]] = role[1] for role in rolesArray
+
 			callback {
 				success: true
 				championMastery	: {
@@ -399,11 +405,6 @@ exports.apiSummonerOverview = (identity, callback) -> # identity = {id, region}
 		if r.success
 			# roles
 			rolesPoints = r.championMastery.rolesPoints.toObject()
-			rolesArray = Object.keys(rolesPoints).map (key) -> [key, rolesPoints[key]]
-			rolesArray.sort (a, b) -> b[1] - a[1]
-			rolesPoints = {}
-			rolesPoints[role[0]] = role[1] for role in rolesArray # that's why I like CoffeeScript
-
 			# top 3 champions
 			topChampions = r.championMastery.champions.slice 0, 3
 

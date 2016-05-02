@@ -59,7 +59,7 @@ Summoner = new Schema {
 			rolesPoints		:
 				Assassin 		: Number
 				Fighter 		: Number
-				Mage 			: Number
+				Mage 				: Number
 				Marksman 		: Number
 				Support 		: Number
 				Tank 			: Number
