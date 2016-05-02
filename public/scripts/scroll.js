@@ -3,5 +3,6 @@ $(document).ready(function(){
         $(".mdl-layout__content").animate({
             scrollTop: $('.row').next().offset().top
         }, 1000);
+        $(this).fadeOut();
     });
 });
