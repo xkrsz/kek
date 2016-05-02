@@ -43,9 +43,15 @@ ul {
 }
 
 /* SEARCH STYLES */
+.general-points {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 .form-container {
     position: relative;
-    height: 90vh;
+    height: 93vh;
     text-align: center;
 }
 .search {
@@ -54,40 +60,18 @@ ul {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.search-input {
-    width: 70%;
-    background-color: #1a1a1a;
-    padding-left: 10px;
-    outline: none;
-    border: none !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-    box-shadow: none !important;
-    font-size: 2.250em;
-    font-weight: bold;
-    border-radius: 15px 0px 0px 15px;
-    -moz-border-radius: 15px 0px 0px 15px;
-    -webkit-border-radius: 15px 0px 0px 15px;
-    border: 0px solid #000000;
-    text-align: center;
-}
 .page-title {
     text-align: center;
+    margin-top: 5%;
 }
-.region-dropdown {
-    border: none;
-    outline: none;
-    background-color: #1a1a1a;
-    outline: none;
-    border: none !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-    box-shadow: none !important;
-    font-size: 2.250em;
-    border-radius: 0px 15px 15px 0px;
-    -moz-border-radius: 0px 15px 15px 0px;
-    -webkit-border-radius: 0px 15px 15px 0px;
-    border: 0px solid #000000;
+.mdl-textfield__input, .region-dropdown {
+    font-family: inherit;
+}
+.getmdl-select {
+    margin-right: -20%;
+}
+.region-dropdown {  
+    width: 20%;
 }
 .button {
     margin-top: 10px;
@@ -96,6 +80,10 @@ ul {
     background-color: #1a1a1a;
     color: white;
     font-family: 'Montserrat', sans-serif;
+}
+.list-header {
+    margin-top: 3%;
+    text-align: center;
 }
 
 /* PROFILE STYLES */

@@ -3,25 +3,61 @@ block vars
     - var title = 'Home'
 block body
     include ./includes/navbar.pug
-        .container.form-container
-            .row
+        .container.layout
+            .row.form-container
                 .col-md-12.page-title
                     h1 kek
                 .col-md-12.search
                     form(action='/', method='post')
-                        input(type='text' name='key' class='search-input' id='key')
-                        select(name='region', id='region', class='region-dropdown')
-                            option(value='eune') EUNE
-                            option(value='euw') EUW
-                            option(value='br') BR
-                            option(value='lan') LAN
-                            option(value='las') LAS
-                            option(value='na') NA
-                            option(value='oce') OCE
-                            option(value='ru') RU
-                            option(value='tr') TR
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--expandable
+                            label.mdl-button.mdl-js-button.mdl-button--icon(for='key')
+                                i.material-icons search
+                            .mdl-textfield__expandable-holder
+                                input.mdl-textfield__input(type='text' name='key' id='key')
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.getmdl-select
+                            input.mdl-textfield__input(value='EUNE' type='text' readonly='' tabindex='-1' name='region' id='region' class='region-dropdown')
+                            ul.mdl-menu.mdl-menu--bottom-left.mdl-js-menu(for='region')
+                                li.mdl-menu__item EUW
+                                li.mdl-menu__item BR
+                                li.mdl-menu__item LAN
+                                li.mdl-menu__item LAS
+                                li.mdl-menu__item NA
+                                li.mdl-menu__item OCE
+                                li.mdl-menu__item RU
+                                li.mdl-menu__item TR
                         .button
                             input(type='submit', value='Search', class='mdl-button mdl-js-button mdl-button--raised')
+                .col-md-12.general-points
+                    h1 1235234
                 .col-md-12.more-stats
                     button(class='mdl-button mdl-js-button mdl-button--icon' id='scroll')
                         i.material-icons keyboard_arrow_down
+            .row.first-row
+                .col-md-6.list-header
+                    h1 BEST CHAMPIONS
+                .col-md-6.champions-list
+                     ul
+                        li.first Bard 
+                            img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png' class='icon-responsive') 
+                            span 324958
+                        li.second Aatrox
+                            img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png' class='icon-responsive') 
+                            span 324958
+                        li.third Soraka
+                            img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png' class='icon-responsive') 
+                            span 324958
+                .col-md-6.roles-list
+                    ul
+                        li.first  Assassin
+                            img(src='http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/39/Assassin_icon.jpg/revision/latest/scale-to-width-down/110?cb=20140607013331&format=webp' class='icon-responsive') 
+                            span 324958
+                        li.second  Tank
+                            img(src='http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/39/Assassin_icon.jpg/revision/latest/scale-to-width-down/110?cb=20140607013331&format=webp' class='icon-responsive') 
+                            span 324958
+                        li.third  Support
+                            img(src='http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/39/Assassin_icon.jpg/revision/latest/scale-to-width-down/110?cb=20140607013331&format=webp' class='icon-responsive') 
+                            span 1254235
+                .col-md-6.list-header
+                    h1 BEST ROLES
+                .col-md-12
+                    h1 A TUTAJ GRAFY TYLKO DANYCH POTRZEBUJE
