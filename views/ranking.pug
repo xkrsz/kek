@@ -1,1 +1,49 @@
-h1 elo
+extends base
+block vars
+    - var title = 'Summoner'
+block body
+    include ./includes/navbar.pug
+        .container.layout
+                                        .row.champions-table-row
+                                            .col-md-12.role-centered
+                                                h1 SUMMONERS RANKING
+                                            .col-md-12
+                                                table.mdl-data-table.mdl-js-data-table.champions-table
+                                                    thead
+                                                        tr
+                                                            th #
+                                                            th.mdl-data-table__cell--non-numeric Name
+                                                            th.mdl-data-table__cell--non-numeric Best Role
+                                                            th.mdl-data-table__cell--non-numeric Best Champion
+                                                            th Points
+                                                            th Games Played
+                                                            th Winrate
+                                                            th KDA
+                                                    tbody
+                                                        tr
+                                                            td 1
+                                                            td.mdl-data-table__cell--non-numeric Summoner
+                                                            td.mdl-data-table__cell--non-numeric Assassin
+                                                            td.mdl-data-table__cell--non-numeric Champion
+                                                            td 12545
+                                                            td 10
+                                                            td 65%
+                                                            td 10.5
+                                                        tr
+                                                            td 2
+                                                            td.mdl-data-table__cell--non-numeric Summoner
+                                                            td.mdl-data-table__cell--non-numeric Assassin
+                                                            td.mdl-data-table__cell--non-numeric Champion
+                                                            td 12545
+                                                            td 10
+                                                            td 65%
+                                                            td 10.5
+                                                        tr
+                                                            td 3
+                                                            td.mdl-data-table__cell--non-numeric Summoner
+                                                            td.mdl-data-table__cell--non-numeric Assassin
+                                                            td.mdl-data-table__cell--non-numeric Champion
+                                                            td 12545
+                                                            td 10
+                                                            td 65%
+                                                            td 10.5
