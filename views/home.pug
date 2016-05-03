@@ -2,6 +2,7 @@ extends base
 block vars
     - var title = 'Home'
 block body
+    script(src='/static/scripts/home.js' async)
     include ./includes/navbar.pug
         .container.layout
             .row.form-container
@@ -28,7 +29,8 @@ block body
                         .button
                             input(type='submit', value='Search', class='mdl-button mdl-js-button mdl-button--raised')
                 .col-md-12.general-points
-                    h1 1235234
+                    h2#total
+                      .mdl-spinner.mdl-js-spinner.is-active
                 .col-md-12.more-stats
                     button(class='mdl-button mdl-js-button mdl-button--icon' id='scroll')
                         i.material-icons keyboard_arrow_down
@@ -37,25 +39,25 @@ block body
                     h1 BEST CHAMPIONS
                 .col-md-6.champions-list
                      ul
-                        li.first Bard 
-                            img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png' class='icon-responsive') 
+                        li.first Bard
+                            img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png' class='icon-responsive')
                             span 324958
                         li.second Aatrox
-                            img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png' class='icon-responsive') 
+                            img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png' class='icon-responsive')
                             span 324958
                         li.third Soraka
-                            img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png' class='icon-responsive') 
+                            img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png' class='icon-responsive')
                             span 324958
                 .col-md-6.roles-list
                     ul
                         li.first  Assassin
-                            img(src='http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/39/Assassin_icon.jpg/revision/latest/scale-to-width-down/110?cb=20140607013331&format=webp' class='icon-responsive') 
+                            img(src='http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/39/Assassin_icon.jpg/revision/latest/scale-to-width-down/110?cb=20140607013331&format=webp' class='icon-responsive')
                             span 324958
                         li.second  Tank
-                            img(src='http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/39/Assassin_icon.jpg/revision/latest/scale-to-width-down/110?cb=20140607013331&format=webp' class='icon-responsive') 
+                            img(src='http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/39/Assassin_icon.jpg/revision/latest/scale-to-width-down/110?cb=20140607013331&format=webp' class='icon-responsive')
                             span 324958
                         li.third  Support
-                            img(src='http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/39/Assassin_icon.jpg/revision/latest/scale-to-width-down/110?cb=20140607013331&format=webp' class='icon-responsive') 
+                            img(src='http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/39/Assassin_icon.jpg/revision/latest/scale-to-width-down/110?cb=20140607013331&format=webp' class='icon-responsive')
                             span 1254235
                 .col-md-6.list-header
                     h1 BEST ROLES
