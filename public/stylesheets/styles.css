@@ -36,6 +36,9 @@ ul {
 .is-active {
     color: white;
 }
+.mdl-textfield__label {
+    color: white;    
+}
 
 /* NAVBAR STYLES */
 .mdl-layout__header {
@@ -43,22 +46,9 @@ ul {
 }
 
 /* SEARCH STYLES */
-.general-points {
-    position: absolute;
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
 .form-container {
     position: relative;
-    height: 93vh;
     text-align: center;
-}
-.search {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 .page-title {
     text-align: center;
@@ -142,10 +132,7 @@ ul {
 .overview {
     width: 100%;
 }
-.first-row {
-    height: 73vh;
-    position: relative;
-}
+
 .role-centered {
     text-align: center;
 }
@@ -236,5 +223,27 @@ ul {
     }
     .division {
         margin-top: 25%;
+    }
+}
+
+@media (min-width:961px) { 
+    .form-container {
+        height: 93vh;
+    }
+    .general-points {
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .search {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .first-row {
+        height: 73vh;
+        position: relative;
     }
 }

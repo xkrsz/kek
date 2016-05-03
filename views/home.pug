@@ -9,14 +9,13 @@ block body
                     h1 kek
                 .col-md-12.search
                     form(action='/', method='post')
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--expandable
-                            label.mdl-button.mdl-js-button.mdl-button--icon(for='key')
-                                i.material-icons search
-                            .mdl-textfield__expandable-holder
-                                input.mdl-textfield__input(type='text' name='key' id='key')
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            input#key.mdl-textfield__input(type='text' name='key')   
+                            label.mdl-textfield__label(for='key') SUMMONER NAME
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.getmdl-select
                             input.mdl-textfield__input(value='EUNE' type='text' readonly='' tabindex='-1' name='region' id='region' class='region-dropdown')
                             ul.mdl-menu.mdl-menu--bottom-left.mdl-js-menu(for='region')
+                                li.mdl-menu__item EUNE
                                 li.mdl-menu__item EUW
                                 li.mdl-menu__item BR
                                 li.mdl-menu__item LAN
