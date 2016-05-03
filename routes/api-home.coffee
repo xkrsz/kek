@@ -8,4 +8,9 @@ module.exports = (router) ->
     homeModule.total (r) ->
       res.json r
 
+  router.route('/api/home/champions')
+  .get (req, res) ->
+    homeModule.champions (r) ->
+      res.json r
+
   return router

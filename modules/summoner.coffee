@@ -107,8 +107,8 @@ exports.updateSummoner = (identity, callback) -> # identity = {key || id, region
 							else
 								log.info 'New summoner saved.'
 								callback {
-								    success     : true
-								    summoner    : newSummoner
+									success: true
+									summoner: newSummoner
 								}
 		else if r.statusCode == 429
 			Summoner.findOne {
