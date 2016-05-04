@@ -9,9 +9,9 @@ block body
                             .col-md-6.summoner
                                     img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/profileicon/588.png' alt='Summoner Icon')
                                     p.summoner-info
-                                        span.main-info Nick 30
+                                        span.main-info #{summoner.identity.name}
                                         br
-                                        span.sub-info EUNE
+                                        span.sub-info #{summoner.identity.region.toUpperCase()}
                                         br
                                         span.sub-info Gold III
                     .row
