@@ -53,3 +53,29 @@ exports.champions = (callback) ->
         success: true
         total: 0
       }
+
+exports.roles = (callback) ->
+  Summoner.find {}, (e, summoners) ->
+    if e
+      log.error e
+    if summoners.length
+      roles = {}
+      for summoner in summoners
+        summoner = summoner.toObject()
+        cachedRoles = summoner.data.championMastery.rolesPoints
+        cachedRolesArray = Object.keys(summoner.data.championMastery.rolesPoints)
+        for i of cachedRolesArray
+          if roles[cachedRolesArray[i]]
+            roles[cachedRolesArray[i]] += cachedRoles[cachedRolesArray[i]]
+          else
+            roles[cachedRolesArray[i]] = cachedRoles[cachedRolesArray[i]]
+
+      rolesArray = Object.keys(roles).map (key) -> [key, roles[key]]
+      rolesArray.sort (a, b) -> b[1] - a[1]
+      roles = {}
+      roles[role[0]] = role[1] for role in rolesArray
+
+      callback {
+        success: true
+        roles: roles
+      }
