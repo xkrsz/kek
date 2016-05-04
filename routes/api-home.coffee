@@ -13,4 +13,9 @@ module.exports = (router) ->
     homeModule.champions (r) ->
       res.json r
 
+  router.route('/api/home/roles')
+  .get (req, res) ->
+    homeModule.roles (r) ->
+      res.json r
+
   return router

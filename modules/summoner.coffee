@@ -1,5 +1,5 @@
 bunyan 					= require 'bunyan'
-log 					= bunyan.createLogger {name: 'kek/modules/summoner'}
+log 						= bunyan.createLogger {name: 'kek/modules/summoner'}
 request 				= require 'request'
 moment 					= require 'moment'
 
@@ -46,70 +46,74 @@ exports.updateSummoner = (identity, callback) -> # identity = {key || id, region
 				message		: e
 			}
 		else if r.statusCode == 200
-			b = JSON.parse(b)[identity.key || identity.id]
-			identity = {
-				key 			: identity.key || b.name.toLowerCase().replace ' ', ''
-				name 			: b.name
-				id 				: b.id
-				profileIconId	: b.profileIconId
-				summonerLevel 	: b.summonerLevel
-				region 			: identity.region
-				platform 		: exports.toPlatform identity.region
-			}
-			Summoner.findOne {
-				"identity.id"		: identity.id
-				"identity.region"	: identity.region
-			}, (e, cachedSummoner) ->
-				if e
-					log.error e
-				else
-					if cachedSummoner
-						log.info 'Found summoner in database.'
-						cachedSummoner.identity.key = identity.key
-						cachedSummoner.identity.name = identity.name
-						cachedSummoner.identity.profileIconId = identity.profileIconId
-						cachedSummoner.identity.summonerLevel = identity.summonerLevel
-						now = moment()
-						cachedSummoner.identity.updatedAt = now
-						cachedSummoner.updatedAt = now
-						cachedSummoner.save (e, cachedSummoner) ->
-							if e
-								if e.code == 11000
-									log.error 'Summoner already exists in database. ' + e
-									callback {
-										success: false
-										message: e
-									}
-								else
-									log.error e
-							if cachedSummoner
-								callback {
-								    success     : true
-								    summoner    : cachedSummoner
-								}
+			try
+				b = JSON.parse(b)[identity.key || identity.id]
+				identity = {
+					key 			: identity.key || b.name.toLowerCase().replace ' ', ''
+					name 			: b.name
+					id 				: b.id
+					profileIconId	: b.profileIconId
+					summonerLevel 	: b.summonerLevel
+					region 			: identity.region
+					platform 		: exports.toPlatform identity.region
+				}
+				Summoner.findOne {
+					"identity.id"		: identity.id
+					"identity.region"	: identity.region
+				}, (e, cachedSummoner) ->
+					if e
+						log.error e
 					else
-						log.info 'Summoner not found in database.'
-						now = moment() # that's to ensure createdAt and updatedAt are the same
-						identity.createdAt = now
-						identity.updatedAt = now
-						summoner = {
-							identity 	: identity
-							createdAt 	: now
-							updatedAt 	: now
-						}
-						newSummoner = new Summoner summoner
-						newSummoner.save (e, newSummoner) ->
-							if e
-								if e.code == 11000
-									log.error 'Summoner already exists in database.'
+						if cachedSummoner
+							log.info 'Found summoner in database.'
+							cachedSummoner.identity.key = identity.key
+							cachedSummoner.identity.name = identity.name
+							cachedSummoner.identity.profileIconId = identity.profileIconId
+							cachedSummoner.identity.summonerLevel = identity.summonerLevel
+							now = moment()
+							cachedSummoner.identity.updatedAt = now
+							cachedSummoner.updatedAt = now
+							cachedSummoner.save (e, cachedSummoner) ->
+								if e
+									if e.code == 11000
+										log.error 'Summoner already exists in database. ' + e
+										callback {
+											success: false
+											message: e
+										}
+									else
+										log.error e
+								if cachedSummoner
+									callback {
+									    success     : true
+									    summoner    : cachedSummoner
+									}
+						else
+							log.info 'Summoner not found in database.'
+							now = moment() # that's to ensure createdAt and updatedAt are the same
+							identity.createdAt = now
+							identity.updatedAt = now
+							summoner = {
+								identity 	: identity
+								createdAt 	: now
+								updatedAt 	: now
+							}
+							newSummoner = new Summoner summoner
+							newSummoner.save (e, newSummoner) ->
+								if e
+									if e.code == 11000
+										log.error 'Summoner already exists in database.'
+									else
+										log.error e
 								else
-									log.error e
-							else
-								log.info 'New summoner saved.'
-								callback {
-									success: true
-									summoner: newSummoner
-								}
+									log.info 'New summoner saved.'
+									exports.updateEverything identity, (r) ->
+										callback {
+											success: true
+											summoner: newSummoner
+										}
+			catch e
+				log.error 'updateSummoner: ' + e
 		else if r.statusCode == 429
 			Summoner.findOne {
 				"identity.id" : identity.id
