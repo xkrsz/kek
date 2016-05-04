@@ -5,6 +5,7 @@ block body
             script(type='text/javascript').
                 var summonerData = !{JSON.stringify(summoner)};
             script(src='/static/scripts/summoner.js' async)
+            script(src='/static/scripts/overview.js' async)
             include ./includes/navbar.pug
                 .container.layout
                     .row.summoner-row
@@ -26,8 +27,8 @@ block body
                                     .container.overview
                                         .row.first-row
                                             .col-md-12.role-centered
-                                                h1 100000
-                                                span.ranking-position #124 in global ranking
+                                                h1#totalPoints
+                                                span.ranking-position#global
                                             .col-md-12.role-centered.mastery
                                                 h3 MASTERY SCORE
                                                 h3 123
