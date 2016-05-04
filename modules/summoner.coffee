@@ -1,5 +1,5 @@
 bunyan 					= require 'bunyan'
-log 					= bunyan.createLogger {name: 'kek/modules/summoner'}
+log 						= bunyan.createLogger {name: 'kek/modules/summoner'}
 request 				= require 'request'
 moment 					= require 'moment'
 

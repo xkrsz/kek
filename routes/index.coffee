@@ -1,5 +1,6 @@
-bunyan 					= require 'bunyan'
+bunyan 				= require 'bunyan'
 log 					= bunyan.createLogger {name: 'kek/routes/index'}
+indexModule = require '../modules/index'
 
 module.exports = (router) ->
 	router.route('/')
@@ -16,5 +17,10 @@ module.exports = (router) ->
 			if e
 				log.error e
 			res.json champions
+
+	router.route('/gib/:region/:id')
+	.get (req, res) ->
+		indexModule.gib {id: req.params.id, region: req.params.region}, (r) ->
+			res.json r
 
 	return router
