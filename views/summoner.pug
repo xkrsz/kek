@@ -2,11 +2,12 @@ extends base
 block vars
     - var title = 'Summoner'
 block body
+            script(type='text/javascript').
+                var summonerData = !{JSON.stringify(summoner)};
             script(src='/static/scripts/summoner.js' async)
             include ./includes/navbar.pug
                 .container.layout
                     .row.summoner-row
-
                             .col-md-6.summoner
                                     img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/profileicon/588.png' alt='Summoner Icon')
                                     p.summoner-info
@@ -14,7 +15,7 @@ block body
                                         br
                                         span.sub-info #{summoner.identity.region.toUpperCase()}
                                         br
-                                        span.sub-info Gold III
+                                        span.sub-info#tier
                     .row
                         .col-md-12
                             div(class='mdl-tabs mdl-js-tabs')
@@ -71,23 +72,23 @@ block body
                                             .col-md-4
                                                 .col-md-12.stats
                                                     div.stats-info
-                                                        span 1231
-                                                        span.stats-right Games Played
+                                                        span Ranked Games Played
+                                                        span.stats-right#played 
                                                     div.stats-info
-                                                        span 436 
-                                                        span.stats-right Wins
+                                                        span Wins
+                                                        span.stats-right#wins 
                                                     div.stats-info
-                                                        span 1231
-                                                        span.stats-right Games Played
+                                                        span Losses
+                                                        span.stats-right#losses 
                                                     div.stats-info
-                                                        span 436 
-                                                        span.stats-right Wins
+                                                        span Winrate
+                                                        span.stats-right#winrate 
                                                     div.stats-info
-                                                        span 1231
-                                                        span.stats-right Games Played
+                                                        span Games Played
+                                                        span.stats-right 
                                                     div.stats-info.last
-                                                        span 436 
-                                                        span.stats-right Wins
+                                                        span Games Played
+                                                        span.stats-right 
                                             .col-md-8
                                                 h1 JAKIE FAJNE GRAFY
                                 div(class='mdl-tabs__panel' id='champions')

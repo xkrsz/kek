@@ -9,7 +9,7 @@ function ranking() {
     dataType: 'json',
     success: function(r) {
       if(r.success) {
-        alert(r);
+          
       }
     }
   });
