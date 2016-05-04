@@ -36,6 +36,9 @@ ul {
 .is-active {
     color: white;
 }
+.mdl-textfield__label {
+    color: white;    
+}
 
 /* NAVBAR STYLES */
 .mdl-layout__header {
@@ -43,22 +46,9 @@ ul {
 }
 
 /* SEARCH STYLES */
-.general-points {
-    position: absolute;
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
 .form-container {
     position: relative;
-    height: 93vh;
     text-align: center;
-}
-.search {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 .page-title {
     text-align: center;
@@ -98,11 +88,10 @@ ul {
     height: auto;
     float: left;
     margin-right: 5px;
-    border: 1px groove black;
     border-radius: 5px 5px 5px 5px;
     -moz-border-radius: 5px 5px 5px 5px;
     -webkit-border-radius: 5px 5px 5px 5px;
-    border: 2px groove #FFD700;
+    border: 5px groove #CFB53B;
 }
 .summoner-info {
     margin-top: 5px;
@@ -142,10 +131,7 @@ ul {
 .overview {
     width: 100%;
 }
-.first-row {
-    height: 73vh;
-    position: relative;
-}
+
 .role-centered {
     text-align: center;
 }
@@ -181,7 +167,7 @@ ul {
     float: right;
 }
 .first {
-    background-color: rgba(255, 215, 0, 0.6);
+    background-color: rgba(207, 181, 59, 0.6);
     border-radius: 0px 19px 19px 0px;
     -moz-border-radius: 0px 19px 19px 0px;
     -webkit-border-radius: 0px 19px 19px 0px;
@@ -191,7 +177,7 @@ ul {
     box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
 }
 .second {
-    background-color: rgba(192, 192, 192, 0.6);
+    background-color: rgba(230, 232, 250, 0.6);
     border-radius: 0px 19px 19px 0px;
     -moz-border-radius: 0px 19px 19px 0px;
     -webkit-border-radius: 0px 19px 19px 0px;
@@ -201,7 +187,7 @@ ul {
     box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
 }
 .third {
-    background-color: rgba(205, 127, 50, 0.6);
+    background-color: rgba(150, 90, 56, 0.6);
     border-radius: 0px 19px 19px 0px;
     -moz-border-radius: 0px 19px 19px 0px;
     -webkit-border-radius: 0px 19px 19px 0px;
@@ -236,5 +222,27 @@ ul {
     }
     .division {
         margin-top: 25%;
+    }
+}
+
+@media (min-width:961px) { 
+    .form-container {
+        height: 93vh;
+    }
+    .general-points {
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .search {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .first-row {
+        height: 73vh;
+        position: relative;
     }
 }
