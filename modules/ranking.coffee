@@ -12,15 +12,18 @@ exports.apiRankingOverall = (callback) ->
 
 			for summoner in cachedSummoners
 				summoner = summoner.toObject()
-				summoners.push {
-					name: summoner.identity.name
-					totalPoints: summoner.data.championMastery.totalPoints
-					role: Object.keys(summoner.data.championMastery.rolesPoints)[0]
-					tier: summoner.data.league.tier
-					division: summoner.data.league.division
-					winrate: Number((summoner.data.league.wins / (summoner.data.league.wins + summoner.data.league.losses)).toFixed(2))
-					games: summoner.data.league.wins + summoner.data.league.losses
-				}
+				try
+					summoners.push {
+						name: summoner.identity.name
+						totalPoints: summoner.data.championMastery.totalPoints
+						role: Object.keys(summoner.data.championMastery.rolesPoints)[0]
+						tier: summoner.data.league.tier
+						division: summoner.data.league.division
+						winrate: Number((summoner.data.league.wins / (summoner.data.league.wins + summoner.data.league.losses)).toFixed(2))
+						games: summoner.data.league.wins + summoner.data.league.losses
+					}
+				catch e
+					log.error 'apiRankingOverall: ' + e
 			callback {
 				success: true
 				summoners: summoners
