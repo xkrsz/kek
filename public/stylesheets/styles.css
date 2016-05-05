@@ -210,6 +210,13 @@ ul {
     -moz-border-radius: 10px 10px 10px 10px;
     -webkit-border-radius: 10px 10px 10px 10px;
     border: 0px solid #000000;
+    width: 100%;
+    font-size: 1em;
+}
+.champions-table img {
+    max-width: 15%;
+    height: auto;
+    margin-right: 5px;
 }
 .mdl-data-table tbody tr:hover {
     background-color: #404040;
