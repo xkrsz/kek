@@ -9,6 +9,7 @@ function total() {
     dataType: 'json',
     success: function(r) {
       if(r.success) {
+        console.log(r.total);
         $('#total').text(r.total);
       }
     },
