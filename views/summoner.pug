@@ -12,7 +12,7 @@ block body
                             .col-md-6.summoner
                                     img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/profileicon/' + summoner.identity.profileIconId + '.png' alt='Summoner Icon')
                                     p.summoner-info
-                                        span.main-info #{summoner.identity.name}
+                                        span.main-info #{summoner.identity.name} #{summoner.identity.summonerLevel}
                                         br
                                         span.sub-info #{summoner.identity.region.toUpperCase()}
                                         br
