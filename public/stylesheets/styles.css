@@ -11,11 +11,17 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', sans-serif;
 }
+a {
+    color: rgb(255,255,255);
+}
 a:link {
   text-decoration: none;
 }
 a:focus, a:hover {
     color: #23527c !important;
+}
+#summoners a:hover, a:focus {
+    color: rgb(255,255,255);
 }
 ul {
     -webkit-padding-start: 0;
@@ -213,6 +219,11 @@ ul {
 }
 .mdl-data-table tbody tr:hover {
     background-color: #404040;
+}
+
+/* RANKING STYLES */
+.tr-link:hover {
+    cursor: pointer;
 }
 
 /* MEDIA QUERIES */
