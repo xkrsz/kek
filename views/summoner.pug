@@ -6,6 +6,7 @@ block body
                 var summonerData = !{JSON.stringify(summoner)};
             script(src='/static/scripts/summoner.js' async)
             script(src='/static/scripts/overview.js' async)
+            script(src='/static/scripts/champions.js' async)
             include ./includes/navbar.pug
                 .container.layout
                     .row.summoner-row
@@ -22,7 +23,7 @@ block body
                             div(class='mdl-tabs mdl-js-tabs')
                                 div(class='mdl-tabs__tab-bar')
                                     a(href='#overview' class='mdl-tabs__tab is-active') Overview
-                                    a(href='#champions' class='mdl-tabs__tab') Champions
+                                    a(href='#champions' class='mdl-tabs__tab' id='championsTab') Champions
                                 div(class='mdl-tabs__panel is-active' id='overview')
                                     .container.overview
                                         .row.first-row
@@ -58,41 +59,17 @@ block body
                                             .col-md-8
                                                 h1 JAKIE FAJNE GRAFY
                                 div(class='mdl-tabs__panel' id='champions')
-                                    .container
+                                    .container.overview
                                         .row.champions-table-row
                                             .col-md-12
-                                                table.mdl-data-table.mdl-js-data-table.champions-table
+                                                table.mdl-data-table.mdl-js-data-table.champions-table#championsTable
                                                     thead
                                                         tr
                                                             th #
                                                             th.mdl-data-table__cell--non-numeric Name
-                                                            th.mdl-data-table__cell--non-numeric Roles
+                                                            th Level
                                                             th Points
                                                             th Games Played
                                                             th Winrate
                                                             th KDA
-                                                    tbody
-                                                        tr
-                                                            td 1
-                                                            td.mdl-data-table__cell--non-numeric Bard
-                                                            td.mdl-data-table__cell--non-numeric Assassin
-                                                            td 12545
-                                                            td 10
-                                                            td 65%
-                                                            td 10.5
-                                                        tr
-                                                            td 2
-                                                            td.mdl-data-table__cell--non-numeric Bard
-                                                            td.mdl-data-table__cell--non-numeric Assassin
-                                                            td 12545
-                                                            td 10
-                                                            td 65%
-                                                            td 10.5
-                                                        tr
-                                                            td 3
-                                                            td.mdl-data-table__cell--non-numeric Bard
-                                                            td.mdl-data-table__cell--non-numeric Assassin
-                                                            td 12545
-                                                            td 10
-                                                            td 65%
-                                                            td 10.5
+                                                    tbody#championsTable
