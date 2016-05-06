@@ -157,20 +157,19 @@ ul {
     margin: 0 0 10px 0;
     padding-right: 5px;
 }
+.mdl-list__item {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    color: white;
+}
 .champions-list, .roles-list {
     margin-top: 5%;
 }
 .icon-responsive {
-    max-width: 4.5%;
+    max-width: 10%;
     height: auto;
     float: left;
     margin-right: 5px;
-}
-.champions-list span {
-    float: right;
-}
-.roles-list span {
-    float: right;
 }
 .first {
     background-color: rgba(207, 181, 59, 0.6);
