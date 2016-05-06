@@ -2,8 +2,7 @@ extends base
 block vars
     - var title = 'Summoner'
 block body
-    script(src='/static/scripts/ranking.js')
-    script(src='/static/scripts/tr.js')
+    script(src='/static/scripts/ranking.js' async)
     include ./includes/navbar.pug
         .container.layout
           .row.champions-table-row

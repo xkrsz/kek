@@ -225,7 +225,7 @@ ul {
     width: 100%;
     font-size: 1em;
 }
-.champions-table img {
+.champions-table-img {
     max-width: 15%;
     height: auto;
     margin-right: 5px;
@@ -237,6 +237,11 @@ ul {
 /* RANKING STYLES */
 .tr-link:hover {
     cursor: pointer;
+}
+.ranking-img {
+    max-width: 25%;
+    height: auto;
+    margin-right: 5px;
 }
 
 /* MEDIA QUERIES */
