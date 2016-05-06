@@ -9,7 +9,9 @@ exports.total = (callback) ->
     if summoners.length
       log.info 'total: Found summoners in database.'
       total = 0
-      total += summoner.data.championMastery.totalPoints if summoner.data.championMastery.totalPoints for summoner in summoners
+      for summoner in summoners
+        if summoner.data.championMastery.totalPoints
+          total += summoner.data.championMastery.totalPoints
       callback {
         success: true
         total: total
