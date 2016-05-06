@@ -194,6 +194,11 @@ exports.updateChampionMastery = (identity, callback) ->
 									if r.success
 										for prop of r.championMastery
 											championMastery[prop] = r.championMastery[prop]
+										# calculate mastery score (it has it's own api route, but it's faster to just do it like that)
+										championMastery.masteryScore = 0
+										for champion in championMastery.champions
+											championMastery.masteryScore += champion.championLevel
+
 										now = moment()
 										championMastery.updatedAt = now
 										cachedSummoner.data.championMastery = championMastery
