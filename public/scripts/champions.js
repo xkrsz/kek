@@ -13,9 +13,11 @@ function champions() {
       if(r.success) {
           var counter = 1;
           $.each(r.champions, function (index, value) {
-                var name = value.championName.replace(/[^a-z0-9\s]/gi, '');
-                console.log(name);
-              $('#championsTable').append('<tr><td>' + counter + '</td> <td class="mdl-data-table__cell--non-numeric"> <img src="http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/' + name + '.png">' + value.championName + '</td> <td>' + value.championLevel + '</td> <td>' + value.championPoints + '</td> <td>' + value.games + '</td> <td>' + value.winrate + '</td><td>' + value.kda + '</td></tr>');
+              if(value.games === undefined){
+                $('#championsTable').append('<tr><td>' + counter + '</td> <td class="mdl-data-table__cell--non-numeric"> <img src="http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/' + name + '.png">' + value.championName + '</td> <td>' + value.championLevel + '</td> <td>' + value.championPoints + '</td> <td colspan="3" style="text-align: center;"> 0 RANKED GAMES PLAYED </td></tr>');
+              } else {
+                $('#championsTable').append('<tr><td>' + counter + '</td> <td class="mdl-data-table__cell--non-numeric"> <img src="http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/' + name + '.png">' + value.championName + '</td> <td>' + value.championLevel + '</td> <td>' + value.championPoints + '</td> <td>' + value.games + '</td> <td>' + value.winrate + '</td><td>' + value.kda + '</td></tr>');
+              }
               counter++;
           });
       }
