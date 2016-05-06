@@ -97,7 +97,7 @@ ul {
     border-radius: 5px 5px 5px 5px;
     -moz-border-radius: 5px 5px 5px 5px;
     -webkit-border-radius: 5px 5px 5px 5px;
-    border: 5px groove #CFB53B;
+    border: 7px groove;
 }
 .summoner-info {
     margin-top: 5px;
@@ -157,20 +157,19 @@ ul {
     margin: 0 0 10px 0;
     padding-right: 5px;
 }
+.mdl-list__item {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    color: white;
+}
 .champions-list, .roles-list {
     margin-top: 5%;
 }
 .icon-responsive {
-    max-width: 4.5%;
+    max-width: 10%;
     height: auto;
     float: left;
     margin-right: 5px;
-}
-.champions-list span {
-    float: right;
-}
-.roles-list span {
-    float: right;
 }
 .first {
     background-color: rgba(207, 181, 59, 0.6);
@@ -202,7 +201,14 @@ ul {
     -moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
 }
-
+.roles-chart {
+    text-align: center;
+    margin-top: 10px;
+}
+#rolesChart {
+    max-width: 350px;
+    height: auto;
+}
 
 /* CHAMPIONS STYLES */
 .champions-table-row {

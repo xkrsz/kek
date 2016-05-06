@@ -13,7 +13,9 @@ block body
                             .col-md-6.summoner
                                     img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/profileicon/' + summoner.identity.profileIconId + '.png' alt='Summoner Icon')
                                     p.summoner-info
-                                        span.main-info #{summoner.identity.name}
+                                        span.main-info #{summoner.identity.name} 
+                                        br
+                                        span.lvl Level #{summoner.identity.summonerLevel}
                                         br
                                         span.sub-info #{summoner.identity.region.toUpperCase()}
                                         br
@@ -35,9 +37,9 @@ block body
                                                 h3 MASTERY SCORE
                                                 h3 123
                                             .col-md-6.champions-list
-                                                ul.champions
+                                                ul.champions.mdl-list
                                             .col-md-6.roles-list
-                                                ul.roles
+                                                ul.roles.mdl-list
                                             .col-md-12.more-stats
                                                 button(class='mdl-button mdl-js-button mdl-button--icon' id='scroll')
                                                     i.material-icons keyboard_arrow_down
@@ -56,8 +58,8 @@ block body
                                                     div.stats-info.last
                                                         span Winrate
                                                         span.stats-right#winrate 
-                                            .col-md-8
-                                                h1 JAKIE FAJNE GRAFY
+                                            .col-md-8.roles-chart
+                                                canvas(id="rolesChart" width="200" height="200")
                                 div(class='mdl-tabs__panel' id='champions')
                                     .container.overview
                                         .row.champions-table-row
