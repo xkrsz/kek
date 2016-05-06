@@ -38,3 +38,42 @@ exports.apiRankingOverall = (callback) ->
 				success: false
 				message: 'No summoners found in database.'
 			}
+
+exports.apiRankingChampions = (callback) ->
+	Summoner.find {}, 'data.championMastery.champions', (e, cachedSummoners) ->
+		if e
+			log.error e
+		if cachedSummoners.length
+			championsPoints = {}
+			for cachedSummoner in cachedSummoners
+				for cachedChampion in cachedSummoner.data.championMastery.champions
+					if championsPoints[cachedChampion.championName]
+						championsPoints[cachedChampion.championName] += cachedChampion.championPoints
+					else
+						championsPoints[cachedChampion.championName] = cachedChampion.championPoints
+
+			Champion.find {}, (e, cachedChampions) ->
+				if e
+					log.error e
+				if cachedChampions.length
+					champions = []
+					for key of championsPoints
+						for champion in cachedChampions
+							if champion.name == key
+								champions.push {
+									name: key
+									key: champion.key
+									points: championsPoints[key]
+								}
+					champions.sort (a, b) -> b.points - a.points
+
+					callback {
+						success: true
+						champions: champions
+					}
+				else
+					log.error 'apiRankingChampions: No champions found in databse.'
+					callback {
+						success: false
+						message: 'No champions found in database, something\'s wrong.'
+					}

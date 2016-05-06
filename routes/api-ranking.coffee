@@ -8,4 +8,9 @@ module.exports = (router) ->
     rankingModule.apiRankingOverall (r) ->
       res.json r
 
+  router.route('/api/ranking/champions')
+  .get (req, res) ->
+    rankingModule.apiRankingChampions (r) ->
+      res.json r
+
   return router
