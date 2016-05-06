@@ -24,6 +24,7 @@ exports.apiRankingOverall = (callback) ->
 						winrate: Number((summoner.data.league.wins / (summoner.data.league.wins + summoner.data.league.losses)).toFixed(2))
 						games: summoner.data.league.wins + summoner.data.league.losses
 						champion: summoner.data.championMastery.champions[0].championName
+						championKey: summoner.data.championMastery.champions[0].championKey
 					}
 				catch e
 					log.error 'apiRankingOverall: ' + e

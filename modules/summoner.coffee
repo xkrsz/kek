@@ -188,6 +188,7 @@ exports.updateChampionMastery = (identity, callback) ->
 									for champion in champions
 										if champion.id == mastery.championId
 											mastery.championName = champion.name
+											mastery.championKey = champion.key
 								championMastery = {champions: b}
 								exports.roleScores championMastery, (r) ->
 									if r.success
@@ -412,25 +413,13 @@ exports.apiSummonerOverview = (identity, callback) -> # identity = {id, region}
 			rolesPoints = r.championMastery.rolesPoints.toObject()
 			# top 3 champions
 			topChampionsDoc = r.championMastery.champions.slice 0, 3
-			topChampions = []
-			for champion in topChampionsDoc
-				topChampions.push champion.toObject()
 
-			Champion.find {}, (e, champions) ->
-				if e
-					log.error e
-				if champions.length
-					for topChampion in topChampions
-						for champion in champions
-							if champion.id == topChampion.championId
-								topChampion.championKey = champion.key
-
-					callback {
-						success: true
-						roles: rolesPoints
-						totalPoints: r.championMastery.totalPoints
-						topChampions: topChampions
-					}
+			callback {
+				success: true
+				roles: rolesPoints
+				totalPoints: r.championMastery.totalPoints
+				topChampions: topChampionsDoc
+			}
 
 exports.apiSummonerChampions = (identity, callback) ->
 	if !identity.id || !identity.region

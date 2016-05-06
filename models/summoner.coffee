@@ -21,6 +21,8 @@ ChampionMastery = new Schema {
 		type 			: Number
 	championName 	:
 		type			: String
+	championKey 	:
+		type			: String
 	championLevel 	:
 		type 			: Number
 	championPoints 	:
