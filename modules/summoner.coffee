@@ -34,7 +34,7 @@ exports.updateSummoner = (identity, callback) -> # identity = {key || id, region
 		if identity.key
 			identity.key = identity.key.toLowerCase().replace ' ', ''
 			link = 'https://' + identity.region + '.api.pvp.net/api/lol/' + identity.region + '/v1.4/summoner/by-name/' +
-				identity.key + '?api_key=' + process.env.KEY
+				encodeURIComponent(identity.key) + '?api_key=' + process.env.KEY
 		else if identity.id
 			link = 'https://' + identity.region + '.api.pvp.net/api/lol/' + identity.region + '/v1.4/summoner/' +
 				identity.id + '?api_key=' + process.env.KEY
@@ -194,6 +194,11 @@ exports.updateChampionMastery = (identity, callback) ->
 									if r.success
 										for prop of r.championMastery
 											championMastery[prop] = r.championMastery[prop]
+										# calculate mastery score (it has it's own api route, but it's faster to just do it like that)
+										championMastery.masteryScore = 0
+										for champion in championMastery.champions
+											championMastery.masteryScore += champion.championLevel
+
 										now = moment()
 										championMastery.updatedAt = now
 										cachedSummoner.data.championMastery = championMastery

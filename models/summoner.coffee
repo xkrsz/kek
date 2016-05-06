@@ -65,6 +65,7 @@ Summoner = new Schema {
 				Marksman 		: Number
 				Support 		: Number
 				Tank 			: Number
+			masteryScore 	: Number
 			updatedAt		: Date
 		statsRanked		:
 			champions 		: [ChampionRanked]
