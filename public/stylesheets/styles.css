@@ -243,6 +243,13 @@ ul {
     height: auto;
     margin-right: 5px;
 }
+.tier-data {
+    text-align: right !important;
+}
+.tier-img {
+    max-width: 40%;
+    height: auto;
+}
 
 /* MEDIA QUERIES */
 @media (max-device-width: 767px) {
