@@ -83,9 +83,6 @@ function overview() {
             type: 'pie',
             data: roles
         });
-        
-        
-    
     }
   });
 }

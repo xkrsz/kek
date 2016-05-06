@@ -97,7 +97,7 @@ ul {
     border-radius: 5px 5px 5px 5px;
     -moz-border-radius: 5px 5px 5px 5px;
     -webkit-border-radius: 5px 5px 5px 5px;
-    border: 5px groove #CFB53B;
+    border: 7px groove;
 }
 .summoner-info {
     margin-top: 5px;
