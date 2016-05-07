@@ -35,7 +35,7 @@ block body
                                                 span.ranking-position#global
                                             .col-md-12.role-centered.mastery
                                                 h3 MASTERY SCORE
-                                                h3 123
+                                                h3#masteryScore
                                             .col-md-6.champions-list
                                                 ul.champions.mdl-list
                                             .col-md-6.roles-list
@@ -58,8 +58,10 @@ block body
                                                     div.stats-info.last
                                                         span Winrate
                                                         span.stats-right#winrate 
-                                            .col-md-8.roles-chart
+                                            .col-md-4.roles-chart
                                                 canvas(id="rolesChart" width="200" height="200")
+                                            .col-md-4.champions-chart
+                                                canvas(id="championsChart" width="200" height="200")
                                 div(class='mdl-tabs__panel' id='champions')
                                     .container.overview
                                         .row.champions-table-row
