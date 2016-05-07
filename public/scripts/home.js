@@ -21,7 +21,7 @@ function total() {
 }
 
 function champions() {
-    var counter, positions;
+    var counter, positions, labels, points;
     $.ajax({
         url: '/api/home/champions',
         type: 'GET',
@@ -40,6 +40,45 @@ function champions() {
                     if(counter > 2){
                         return false;
                     }
+                });
+                
+                counter = 0;
+                labels = [];
+                points = [];
+                $.each(r.champions, function(key, value) {
+                   labels.push(value.name);
+                   points.push(value.points);
+                   counter++;
+                   if(counter >= 10){
+                       return false;
+                   }
+                });
+                console.log(labels.length);
+                var ctx = $("#championsChart");
+                
+                var champions = {
+                    labels: labels,
+                    datasets: [
+                        {
+                            data: points,
+                            backgroundColor: [
+                               "#c6b7b7",
+                                "#4f4f4f",
+                               "#636363",
+                                "#213380" ,
+                                "#384474" ,
+                                "#4f5568",
+                               "#66655c",
+                                "#7d7650" ,
+                                "#948644", 
+                                "#ab9638"    
+                            ]
+                        }]
+                };
+                
+                var chempionsChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: champions
                 });
             }
         }
