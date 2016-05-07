@@ -417,7 +417,7 @@ exports.apiSummonerOverview = (identity, callback) -> # identity = {id, region}
 			# roles
 			rolesPoints = r.championMastery.rolesPoints.toObject()
 			# top 3 champions
-			topChampionsDoc = r.championMastery.champions.slice 0, 3
+			topChampionsDoc = r.championMastery.champions.slice 0, 5
 
 			Summoner.find({}, 'identity.id identity.region data.championMastery.totalPoints')
 			.sort({"data.championMastery.totalPoints": -1}).exec (e, summoners) ->
