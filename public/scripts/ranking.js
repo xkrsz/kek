@@ -8,7 +8,7 @@
       dataType: 'json',
       url: '/api/ranking/overall',
       success: function(r) {
-        var e, error, i, j, len, ref, results, summoner, roles;
+        var e, error, i, j, len, ref, results, summoner, roles, winrateClass;
         if (r.success) {
             console.log(r);
           ref = r.summoners;
@@ -16,7 +16,8 @@
           for (i = j = 0, len = ref.length; j < len; i = ++j) {
             summoner = ref[i];
             try {
-              results.push($('#summoners').append('<tr class="tr-link" data-href="/summoner/' + summoner.region + '/' + summoner.key + '">' + summoner.name + '" <td>' + Number(i + 1) + '</td>' + '<td class="mdl-data-table__cell--non-numeric">' + summoner.name + '</td>' + '<td class="mdl-data-table__cell--non-numeric">' + summoner.region.toUpperCase() + '</td>' + '<td class="mdl-data-table__cell--non-numeric"><img src="/static/roles/' + summoner.role.toLowerCase() + '.png" class="tier-img"> ' + summoner.role + '</td>' + '<td class="mdl-data-table__cell--non-numeric"><img src="http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/' + summoner.championKey + '.png" class="ranking-img">' + summoner.champion + '</td>' + '<td>' + summoner.totalPoints + '</td>' + '<td>' + summoner.games + '</td>' + '<td>' + (summoner.winrate * 100).toFixed(0) + '%</td>' + '<td class="mdl-data-table__cell--non-numeric tier-data">' + summoner.division + '<img src="/static/tiers/' + summoner.tier.toLowerCase() + '.png" class="tier-img"></td></tr>'));
+              winrateClass = (summoner.winrate > 0.50) ? "winrate-positive" : "winrate-negative";
+              results.push($('#summoners').append('<tr class="tr-link" data-href="/summoner/' + summoner.region + '/' + summoner.key + '">' + summoner.name + '" <td>' + Number(i + 1) + '</td>' + '<td class="mdl-data-table__cell--non-numeric">' + summoner.name + '</td>' + '<td class="mdl-data-table__cell--non-numeric">' + summoner.region.toUpperCase() + '</td>' + '<td class="mdl-data-table__cell--non-numeric"><img src="/static/roles/' + summoner.role.toLowerCase() + '.png" class="tier-img"> ' + summoner.role + '</td>' + '<td class="mdl-data-table__cell--non-numeric"><img src="http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/' + summoner.championKey + '.png" class="ranking-img">' + summoner.champion + '</td>' + '<td>' + summoner.totalPoints + '</td>' + '<td>' + summoner.games + '</td>' + '<td class="' + winrateClass + '">' + (summoner.winrate * 100).toFixed(0) + '%</td>' + '<td class="mdl-data-table__cell--non-numeric tier-data">' + summoner.division + '<img src="/static/tiers/' + summoner.tier.toLowerCase() + '.png" class="tier-img"></td></tr>'));
             } catch (error) {
               e = error;
               results.push(console.log(e));
