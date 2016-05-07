@@ -16,7 +16,7 @@ module.exports = (router) ->
 
 	router.route('/summoners')
 	.get (req, res) ->
-		Summoner.find {}, (e, summoners) ->
+		Summoner.find {}, 'identity', (e, summoners) ->
 			if e
 				log.error e
 			else if summoners.length > 0
