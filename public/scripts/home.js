@@ -1,6 +1,7 @@
 $(document).ready(function() {
   total();
-  champions();
+  //champions();
+  roles();
 });
 
 function total() {
@@ -45,4 +46,24 @@ function champions() {
             }
         }
     });
+}
+
+function roles() {
+    var counter, positions;
+    $.ajax({
+        url: '/api/home/roles',
+        type: 'GET',
+        dataType: 'json',
+        success: function (r) {
+            counter = 0;
+            positions = {
+                0: "first",
+                1: "second",
+                2: "third"
+            };
+            if(r.success){
+                console.log(r);
+            }
+        }
+    });    
 }
