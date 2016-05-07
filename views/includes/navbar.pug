@@ -2,11 +2,19 @@
     header.mdl-layout__header
         .mdl-layout-icon
         .mdl-layout__header-row
-            span.mdl-layout__title Kek
+            a(href='/')
+                span.mdl-layout__title Kek
             .mdl-layout-spacer
             nav.mdl-navigation.mdl-layout--large-screen-only
                 a.mdl-navigation__link(href='/') Home
-                a.mdl-navigation__link(href='/ranking') Ranking
+                button#demo-menu-lower-right.mdl-button.mdl-js-button.mdl-button--raised  Ranking
+                ul.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect(for='demo-menu-lower-right')
+                  a(href='/ranking') 
+                    li.mdl-menu__item Summoners
+                  a(href='')
+                    li.mdl-menu__item Champions
+                  li.mdl-menu__item(disabled='') Disabled Action
+                  li.mdl-menu__item Yet Another Action
     .mdl-layout__drawer
         span.mdl-layout__title Kek
         nav.mdl-navigation
