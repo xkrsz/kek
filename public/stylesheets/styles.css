@@ -208,9 +208,15 @@ ul {
     text-align: center;
     margin-top: 10px;
 }
+.champions-chart {
+    text-align: center;
+}
 #rolesChart {
     max-width: 350px;
     height: auto;
+}
+#championsChart {
+    max-width: 350px;
 }
 
 /* CHAMPIONS STYLES */

@@ -28,6 +28,9 @@ function overview() {
           }
               $('.champions').append("<li class='role mdl-list__item " + css + "'><span class='mdl-list__item-primary-content'><img src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/" + value.championKey + ".png' class='icon-responsive'> " + value.championName + "</span><span>" + value.championPoints + "</span></li>");
               counter++;
+              if(counter > 2){
+                  return false;
+              }
           });
           
           counter = 0;
@@ -91,6 +94,35 @@ function overview() {
         var rolesChart = new Chart(ctx, {
             type: 'pie',
             data: roles
+        });
+        console.log(r.topChampions);
+        var labelsChampions = [];
+        var pointsChampions = [];
+        $.each(r.topChampions, function(key, value){
+        console.log(value.championName);
+           labelsChampions.push(value.championName); 
+           pointsChampions.push(value.championPoints);
+        });
+        var ctx2 = $("#championsChart");
+        
+        var champions = {
+            labels: labelsChampions,
+            datasets: [
+                {
+                    data: pointsChampions,
+                    backgroundColor: [
+                        "#917C3B",
+                        "#FBFBFC",
+                        "#68442F",
+                        "#D3FF93",
+                        "#56727C"
+                    ]
+                }]
+        };
+        
+        var championsChart = new Chart(ctx2, {
+            type: 'pie',
+            data: champions
         });
     }
   });
