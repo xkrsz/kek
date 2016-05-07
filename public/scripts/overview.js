@@ -9,10 +9,13 @@ function overview() {
     dataType: 'json',
     success: function(r) {
       if(r.success) {
+          console.log(r);
           var counter = 0;
           var css = '';
           //$('#spinner').fadeOut();
           $('#totalPoints').text(r.totalPoints);
+          $('#global').text("#" + r.rank + " out of " + r.rankCount + " in global ranking.");
+          $('#masteryScore').text(r.masteryScore);
           $.each(r.topChampions, function (index, value) {
             switch (counter) {
               case 0:
@@ -25,7 +28,7 @@ function overview() {
                       css = 'third';
                       break;
           }
-              $('.champions').append("<li class='role mdl-list__item " + css + "'><span class='mdl-list__item-primary-content'><img src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/" + value.championName + ".png' class='icon-responsive'> " + value.championName + "</span><span>" + value.championPoints + "</span></li>");
+              $('.champions').append("<li class='role mdl-list__item " + css + "'><span class='mdl-list__item-primary-content'><img src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/" + value.championKey + ".png' class='icon-responsive'> " + value.championName + "</span><span>" + value.championPoints + "</span></li>");
               counter++;
           });
           
@@ -44,7 +47,7 @@ function overview() {
             default: 
                  css = '';
           }
-              $('.roles').append("<li class='role mdl-list__item " + css + "'><span class='mdl-list__item-primary-content'>" + key + "</span><span>" + value + "</span></li>");
+              $('.roles').append("<li class='role mdl-list__item " + css + "'><span class='mdl-list__item-primary-content'><img src='/static/roles/" + key.toLowerCase() + ".png' class='icon-role icon-responsive'>" + key + "</span><span>" + value + "</span></li>");
               counter++;
               if(counter > 2){
                   return false;
