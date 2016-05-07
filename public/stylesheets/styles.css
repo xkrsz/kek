@@ -77,8 +77,10 @@ ul {
     color: white;
     font-family: 'Montserrat', sans-serif;
 }
-.list-header {
-    margin-top: 3%;
+.mdl-button:hover {
+    background: rgba(158,158,158,.8);
+}
+.header-list {
     text-align: center;
 }
 
@@ -299,8 +301,8 @@ ul {
         left: 50%;
         transform: translate(-50%, -50%);
     }
-    .first-row {
-        height: 73vh;
+    .home-second-row {
+        height: 100vh;
         position: relative;
     }
 }

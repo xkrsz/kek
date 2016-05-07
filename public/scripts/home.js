@@ -1,5 +1,6 @@
 $(document).ready(function() {
   total();
+  champions();
 });
 
 function total() {
@@ -17,4 +18,31 @@ function total() {
       setTimeout(total, 5000);
     }
   });
+}
+
+function champions() {
+    var counter, positions;
+    $.ajax({
+        url: '/api/home/champions',
+        type: 'GET',
+        dataType: 'json',
+        success: function (r) {
+            counter = 0;
+            positions = {
+                0: "first",
+                1: "second",
+                2: "third"
+            };
+            if(r.success){
+                $.each(r.champions, function (key, value) {
+                    console.log(value.name);
+                    $('#champions').append("<li class='role mdl-list__item " + positions[counter] + "'><span class='mdl-list__item-primary-content'><img src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/" + value.key + ".png' class='icon-responsive'> " + value.name + "</span><span>" + value.points + "</span></li>");
+                    counter++;
+                    if(counter > 2){
+                        return false;
+                    }
+                });
+            }
+        }
+    });
 }
