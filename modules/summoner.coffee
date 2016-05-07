@@ -416,6 +416,9 @@ exports.apiSummonerOverview = (identity, callback) -> # identity = {id, region}
 		if r.success
 			# roles
 			rolesPoints = r.championMastery.rolesPoints.toObject()
+			roles = {}
+			Object.keys(rolesPoints).reverse().forEach (key) -> # XD no idea why it's reversed but I need to un-reverse it every time
+				roles[key] = rolesPoints[key]
 			# top 3 champions
 			topChampionsDoc = r.championMastery.champions.slice 0, 5
 
@@ -434,7 +437,7 @@ exports.apiSummonerOverview = (identity, callback) -> # identity = {id, region}
 
 					callback {
 						success: true
-						roles: rolesPoints
+						roles: roles
 						masteryScore: r.championMastery.masteryScore
 						totalPoints: r.championMastery.totalPoints
 						rank: rank
