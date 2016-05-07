@@ -123,3 +123,35 @@ exports.apiRankingRole = (role, callback) ->
 			success: false
 			message: 'Wrong role provided.'
 		}
+
+exports.apiRankingChampion = (champion, callback) ->
+	champion = champion.toLowerCase()
+
+	Summoner.find {}, 'identity.name identity.region data.championMastery.champions data.league',
+	(e, cachedSummoners) ->
+		if e
+			log.error e
+		if cachedSummoners.length
+			summoners = []
+			for summoner in cachedSummoners
+				for cachedChampion in summoner.data.championMastery.champions
+					if cachedChampion.championName.toLowerCase().replace ' ', '' == champion
+						summoners.push {
+							name: summoner.identity.name
+							region: summoner.identity.region
+							points: cachedChampion.championPoints
+							tier: summoner.data.league.tier
+							division: summoner.data.league.division
+						}
+
+			summoners.sort (a, b) -> b.points - a.points
+			if summoners.length
+				callback {
+					success: true
+					summoners: summoners
+				}
+			else
+				callback {
+					success: false
+					message: 'nope.'
+				}
