@@ -52,3 +52,45 @@ exports.roles = (callback) ->
         success: true
         roles: roles
       }
+
+exports.summoners = (callback) ->
+  Summoner.find {}, 'identity.name identity.region data.championMastery.rolesPoints',
+  (e, cachedSummoners) ->
+    if e
+      log.error e
+    if cachedSummoners.length
+      rolesPoints = {
+        "Assassin": 0
+        "Fighter": 0
+        "Mage": 0
+        "Marksman": 0
+        "Tank": 0
+        "Support": 0
+      }
+      rolesSummoners = {}
+
+      for summoner in cachedSummoners
+        try
+          roles = summoner.data.championMastery.rolesPoints
+          for role in Object.keys(roles)
+            if roles[role] > rolesPoints[role]
+              rolesSummoners[role] = {
+                name: summoner.identity.name
+                region: summoner.identity.region
+              }
+              rolesPoints[role] = roles[role]
+        catch e
+          log.error e
+
+      roles = {}
+      for role in Object.keys(rolesPoints)
+        roles[role] = {
+          name: rolesSummoners[role].name
+          region: rolesSummoners[role].region
+          points: rolesPoints[role]
+        }
+
+      callback {
+        success: true
+        roles: roles
+      }
