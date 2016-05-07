@@ -243,6 +243,12 @@ ul {
 .mdl-data-table tbody tr:hover {
     background-color: #404040;
 }
+.winrate-positive {
+    color: #16AB39;
+}
+.winrate-negative {
+    color: #D01919;
+}
 
 /* RANKING STYLES */
 .tr-link:hover {

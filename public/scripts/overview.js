@@ -95,7 +95,6 @@ function overview() {
             type: 'pie',
             data: roles
         });
-        console.log(r.topChampions);
         var labelsChampions = [];
         var pointsChampions = [];
         $.each(r.topChampions, function(key, value){
