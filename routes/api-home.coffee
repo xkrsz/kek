@@ -18,4 +18,9 @@ module.exports = (router) ->
     homeModule.roles (r) ->
       res.json r
 
+  router.route('/api/home/summoners')
+  .get (req, res) ->
+    homeModule.summoners (r) ->
+      res.json r
+
   return router
