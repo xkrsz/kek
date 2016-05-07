@@ -28,6 +28,7 @@ function champions() {
         type: 'GET',
         dataType: 'json',
         success: function (r) {
+            console.log(r);
             counter = 0;
             positions = {
                 0: "first",
@@ -48,7 +49,7 @@ function champions() {
 }
 
 function roles() {
-    var counter, positions;
+    var counter, positions, labels, points;
     $.ajax({
         url: '/api/home/roles',
         type: 'GET',
@@ -68,6 +69,45 @@ function roles() {
                     if(counter > 2){
                         return false;
                     }
+                });
+                labels = [];
+                points = [];
+                $.each(r.roles, function(key, value){
+                   labels.push(key); 
+                   points.push(value);
+                });
+                var ctx = $("#rolesChart");
+                
+                var colors = {
+                    "Assassin": "#681A20",
+                    "Fighter": "#AB8134",
+                    "Mage": "#4661EC",
+                    "Marksman": "#3B5236",
+                    "Support": "#1D615A",
+                    "Tank": "#63655B"
+                };
+                
+                var roles = {
+                    labels: labels,
+                    datasets: [
+                        {
+                            data: points,
+                            backgroundColor: [
+                                colors[labels[0]],
+                                colors[labels[1]],
+                                colors[labels[2]],
+                                colors[labels[3]],
+                                colors[labels[4]],
+                                colors[labels[5]],
+                            ],
+                            hoverBackgroundColor: [
+                            ]
+                        }]
+                };
+                  
+                var rolesChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: roles
                 });
             }
         }
