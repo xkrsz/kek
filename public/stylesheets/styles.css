@@ -210,6 +210,7 @@ ul {
 }
 .champions-chart {
     text-align: center;
+    margin-top: 10px;
 }
 #rolesChart {
     max-width: 350px;
