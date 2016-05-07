@@ -243,11 +243,17 @@ ul {
 .mdl-data-table tbody tr:hover {
     background-color: #404040;
 }
-.winrate-positive {
+.positive {
     color: #16AB39;
 }
-.winrate-negative {
-    color: #D01919;
+.negative {
+    color: #de3b3b;
+}
+.yellow {
+    color: #EAAE00;
+}
+.blue {
+    color: #2185D0;
 }
 
 /* RANKING STYLES */

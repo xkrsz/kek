@@ -14,7 +14,7 @@ function summoner() {
         $('#played').text(played);
         $('#wins').text(r.league.wins);
         $('#losses').text(r.league.losses);
-        var color = (r.league.winrate > 0.50) ? "#16AB39" : "#D01919";
+        var color = (r.league.winrate >= 0.50) ? "#16AB39" : "#D01919";
         $('#winrate').text(r.league.winrate).css('color', color);
         
         var tier = r.league.tier;
