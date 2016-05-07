@@ -435,6 +435,7 @@ exports.apiSummonerOverview = (identity, callback) -> # identity = {id, region}
 					callback {
 						success: true
 						roles: rolesPoints
+						masteryScore: r.championMastery.masteryScore
 						totalPoints: r.championMastery.totalPoints
 						rank: rank
 						rankCount: rankCount
