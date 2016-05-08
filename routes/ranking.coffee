@@ -6,4 +6,16 @@ module.exports = (router) ->
 	.get (req, res) ->
 		res.render 'ranking.pug'
 
+	router.route('/ranking/role/:role')
+	.get (req, res) ->
+		res.render 'ranking-role.pug'
+
+	router.route('/ranking/champion/:champion')
+	.get (req, res) ->
+		res.render 'ranking-champion.pug'
+
+	router.route('/ranking/champions')
+	.get (req, res) ->
+		res.render 'ranking-champions.pug'
+
 	return router
