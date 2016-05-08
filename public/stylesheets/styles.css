@@ -290,6 +290,9 @@ ul {
     max-width: 40%;
     height: auto;
 }
+.champions-ranking-table {
+    font-size: 1.5em;
+}
 
 /* MEDIA QUERIES */
 @media (max-device-width: 767px) {
@@ -298,6 +301,12 @@ ul {
     }
     .division {
         margin-top: 25%;
+    }
+    .champions-table, .champions-ranking-table {
+        border-radius: initial;
+    }
+    .table-responsive {
+        border: 1px solid #404040;
     }
 }
 
