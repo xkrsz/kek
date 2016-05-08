@@ -5,5 +5,4 @@ $(document)
 .ajaxStop(function(){
     $(".ajaxSpinner").removeClass('active');
     $("#load").remove();
-    console.log('hehe');
 });
