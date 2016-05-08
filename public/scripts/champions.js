@@ -27,7 +27,7 @@ function champions() {
               }
               console.log(kdaClass + ' ' + value.kda);
               if(value.games === undefined){
-                $('#championsTable').append('<tr><td>' + counter + '</td> <td class="mdl-data-table__cell--non-numeric"> <img src="http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/' + value.championKey + '.png" class="champions-table-img">' + value.championName + '</td> <td>' + value.championLevel + '</td> <td>' + value.championPoints + '</td> <td colspan="3" style="text-align: center;"> No ranked games found this season </td></tr>');
+                $('#championsTable').append('<tr><td>' + counter + '</td> <td class="mdl-data-table__cell--non-numeric"> <img src="http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/' + value.championKey + '.png" class="champions-table-img">' + value.championName + '</td> <td>' + value.championLevel + '</td> <td>' + value.championPoints + '</td> <td colspan="3" style="text-align: center;"> No ranked games found this season. </td></tr>');
               } else {
                 $('#championsTable').append('<tr><td>' + counter + '</td> <td class="mdl-data-table__cell--non-numeric"> <img src="http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/' + value.championKey + '.png" class="champions-table-img">' + value.championName + '</td> <td>' + value.championLevel + '</td> <td>' + value.championPoints + '</td> <td>' + value.games + '</td> <td class="' + winrateClass + '">' + winrate + '%</td><td class="' + kdaClass + '">' + value.kda + '</td></tr>');
               }
