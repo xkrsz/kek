@@ -8,14 +8,12 @@ block body
           .row.champions-table-row
                 .col-md-12.role-centered
                   h1 Champions Ranking
-                .col-md-12.role-centered
-                  button#demo-menu-lower-left.mdl-button.mdl-js-button.mdl-button--raised Choose Champion
-                  ul.mdl-menu.mdl-menu--bottom-left.mdl-js-menu.mdl-js-ripple-effect#championsDropdown(for='demo-menu-lower-left')
                 .col-md-12
-                  table.mdl-data-table.mdl-js-data-table.champions-table.champions-ranking-table
-                      thead
-                          tr
-                              th #
-                              th.mdl-data-table__cell--non-numeric Name
-                              th Points
-                      tbody#champions
+                    .table-responsive
+                      table.mdl-data-table.mdl-js-data-table.champions-table.champions-ranking-table
+                          thead
+                              tr
+                                  th #
+                                  th.mdl-data-table__cell--non-numeric Name
+                                  th Points
+                          tbody#champions
