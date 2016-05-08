@@ -45,7 +45,7 @@ function roleRanking(role) {
                 $(this).addClass('active').siblings().removeClass('active');
             }).appendTo($pager).addClass('clickable');
         }
-        $pager.insertAfter($table).find('span.page-number:first').addClass('active');
+        $pager.insertAfter('.table-responsive').find('span.page-number:first').addClass('active');
     });
 }
 }
