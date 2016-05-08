@@ -12,10 +12,16 @@
                     ul.dropdown-menu
                         li
                             a(href="/ranking") Summoners
+                        li.divider
                         li
                             a(href="/ranking/champions") Champions
-                        li
-                            a(href="#") Action
+                        li.divider
+                        li.dropdown-submenu
+                            a(tabindex="-1" href="#") Roles
+                            ul.dropdown-menu
+                              li
+                                a(tabindex="-1" href="#") Second level
+                            
                 a.mdl-navigation__link(href='/') Home
     .mdl-layout__drawer
         span.mdl-layout__title Kek
