@@ -20,7 +20,7 @@ function championsList() {
       setTimeout(function() {
         $("#championsDimmer").removeClass('active');
       }, 10);
-        $("#rankings tr").on('click', function (e) {
+        $("tr").on('click', function (e) {
             window.location = $(this).data('href');
         });
         pagination();
@@ -28,7 +28,7 @@ function championsList() {
 }
 
             function pagination() {
-                $('table').each(function() {
+                $('.rankings-table').each(function() {
                     var currentPage = 0;
                     var numPerPage = 10;
                     var $table = $(this);
@@ -58,7 +58,7 @@ function championsList() {
                 $(this).addClass('active').siblings().removeClass('active');
             }).appendTo($pagerBottom).addClass('clickable');
         }
-        $pager.insertBefore('.table-responsive').find('span.page-number:first').addClass('active');
-        $pagerBottom.insertAfter('.table-responsive').find('span.page-number:first').addClass('active');
+        $pager.insertBefore('#responsive').find('span.page-number:first').addClass('active');
+        $pagerBottom.insertAfter('#responsive').find('span.page-number:first').addClass('active');
             });
             }

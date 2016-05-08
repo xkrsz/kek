@@ -12,6 +12,7 @@ function champions() {
     success: function(r) {
       if(r.success) {
           var counter = 1;
+          $('#championsTable').empty();
           $.each(r.champions, function (index, value) {
               var winrate = Number((value.winrate * 100).toFixed(0));
               var winrateClass = (winrate >= 50) ? "positive" : "negative";
