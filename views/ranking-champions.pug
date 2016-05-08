@@ -1,0 +1,24 @@
+extends base
+block vars
+    - var title = 'Champions Ranking'
+block body
+    script(src='/static/scripts/championsRanking.js' async)
+    include ./includes/navbar.pug
+        .container.layout
+          .row.champions-table-row
+              .col-md-12.role-centered
+                  h1 Champions Ranking
+              .col-md-12
+                  table.mdl-data-table.mdl-js-data-table.champions-table
+                      thead
+                          tr
+                              th #
+                              th.mdl-data-table__cell--non-numeric Name
+                              th.mdl-data-table__cell--non-numeric Region
+                              th.mdl-data-table__cell--non-numeric Best Role
+                              th.mdl-data-table__cell--non-numeric Best Champion
+                              th Points
+                              th Games Played
+                              th Winrate
+                              th Division
+                      tbody#summoners
