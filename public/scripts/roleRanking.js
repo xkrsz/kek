@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var role = '';
     role = window.location.pathname.slice(14);
-    $('#header').text(role + ' Ranking');
+    $('#header').text(role.charAt(0).toUpperCase() + role.slice(1) + ' Ranking');
     roleRanking(role);
 });
 

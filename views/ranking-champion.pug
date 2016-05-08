@@ -7,19 +7,15 @@ block body
         .container.layout
           .row.champions-table-row
               .col-md-12.role-centered
-                  h1 Summoners Ranking
+                  h1#header
               .col-md-12
                 .table-responsive
-                  table.mdl-data-table.mdl-js-data-table.champions-table
+                  table.mdl-data-table.mdl-js-data-table.champions-table.champions-ranking-table
                       thead
                           tr
                               th #
                               th.mdl-data-table__cell--non-numeric Name
                               th.mdl-data-table__cell--non-numeric Region
-                              th.mdl-data-table__cell--non-numeric Best Role
-                              th.mdl-data-table__cell--non-numeric Best Champion
                               th Points
-                              th Games Played
-                              th Winrate
                               th Division
-                      tbody#summoners
+                      tbody#singleChampion

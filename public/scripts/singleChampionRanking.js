@@ -1,20 +1,23 @@
 $(document).ready(function() {
-    singleChampionRanking();
+    var champion = '';
+    champion = window.location.pathname.slice(18);
+    $('#header').text(champion.charAt(0).toUpperCase() + champion.slice(1) + ' Ranking');
+    singleChampionRanking(champion);
 });
 
-function singleChampionRanking() {
+function singleChampionRanking(champion) {
     return $.ajax({
       type: 'GET',
       dataType: 'json',
-      url: '/api/ranking/champion/',
+      url: '/api/ranking/champion/' + champion,
       success: function(r) {
         if (r.success) {
             console.log(r);
             var counter = 1;
-            /*$.each(r.champions, function(index, value) {
-               $("#champions").append('<tr><td>' + counter + '</td><td class="mdl-data-table__cell--non-numeric"><img src="http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/' +value.key + '.png" class="ranking-img">' + value.name + '</td><td>' + value.points + '</td></tr>'); 
+            $.each(r.summoners, function(index, value) {
+                $('#singleChampion').append('<tr><td>' + Number(counter) + '</td>' + '<td class="mdl-data-table__cell--non-numeric">' + value.name + '</td>' + '<td class="mdl-data-table__cell--non-numeric">' + value.region.toUpperCase() + '</td><td>' + value.points  + '<td class="mdl-data-table__cell--non-numeric tier-data">' + value.division + '<img src="/static/tiers/' + value.tier.toLowerCase() + '.png" class="tier-img"></td></tr>');
                counter++;
-            });*/
+            });
         }
       }
     }).done(function(){
@@ -42,7 +45,7 @@ function singleChampionRanking() {
                 $(this).addClass('active').siblings().removeClass('active');
             }).appendTo($pager).addClass('clickable');
         }
-        $pager.insertBefore($table).find('span.page-number:first').addClass('active');
+        $pager.insertAfter($table).find('span.page-number:first').addClass('active');
     });
 }
 }
