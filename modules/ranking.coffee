@@ -135,7 +135,7 @@ exports.apiRankingChampion = (champion, callback) ->
 			summoners = []
 			for summoner in cachedSummoners
 				for cachedChampion in summoner.data.championMastery.champions
-					if cachedChampion.championName.toLowerCase().replace ' ', '' == champion
+					if cachedChampion.championName.toLowerCase().replace(' ', '') == champion
 						summoners.push {
 							name: summoner.identity.name
 							region: summoner.identity.region
