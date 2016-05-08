@@ -10,6 +10,7 @@
       success: function(r) {
         var e, error, i, j, len, ref, results, summoner, roles, winrateClass;
         if (r.success) {
+            $("#summoners").empty();
             console.log(r);
           ref = r.summoners;
           results = [];
@@ -53,6 +54,7 @@
         var numRows = $table.find('tbody tr').length;
         var numPages = Math.ceil(numRows / numPerPage);
         var $pager = $('<div class="pager"></div>');
+                var $pagerBottom = $('<div class="pager2"></div>');
         for (var page = 0; page < numPages; page++) {
             $('<span class="page-number mdl-button mdl-js-button mdl-button--raised"></span>').text(page + 1).bind('click', {
                 newPage: page
@@ -62,7 +64,17 @@
                 $(this).addClass('active').siblings().removeClass('active');
             }).appendTo($pager).addClass('clickable');
         }
-        $pager.insertAfter('.table-responsive').find('span.page-number:first').addClass('active');
+        for (var page = 0; page < numPages; page++) {
+            $('<span class="page-number mdl-button mdl-js-button mdl-button--raised"></span>').text(page + 1).bind('click', {
+                newPage: page
+            }, function(event) {
+                currentPage = event.data['newPage'];
+                $table.trigger('repaginate');
+                $(this).addClass('active').siblings().removeClass('active');
+            }).appendTo($pagerBottom).addClass('clickable');
+        }
+        $pager.insertBefore('.table-responsive').find('span.page-number:first').addClass('active');
+        $pagerBottom.insertAfter('.table-responsive').find('span.page-number:first').addClass('active');
     });
 }
 

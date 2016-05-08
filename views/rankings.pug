@@ -17,38 +17,122 @@ block body
             .row
                 .col-md-6.role-centered
                     h3 Pick role to see ranking
-                    ul.roles-list-rankings.mdl-list
-                        li.mdl-list__item 
-                            span.mdl-list__item-primary-content 
-                                a(href='/ranking/role/assassin') Assassin
-                            img(src='/static/roles/assassin.png')
-                        li.mdl-list__item 
-                            span.mdl-list__item-primary-content
-                                a(href='/ranking/role/fighter') Fighter
-                            img(src='/static/roles/fighter.png')
-                        li.mdl-list__item 
-                            span.mdl-list__item-primary-content 
-                                a(href='/ranking/role/marksman') Marksman
-                            img(src='/static/roles/marksman.png')
-                        li.mdl-list__item 
-                            span.mdl-list__item-primary-content
-                                a(href='/ranking/role/Support') Support
-                            img(src='/static/roles/support.png')
-                        li.mdl-list__item 
-                            span.mdl-list__item-primary-content 
-                                a(href='/ranking/role/tank') Tank
-                            img(src='/static/roles/tank.png')
-                        li.mdl-list__item 
-                            span.mdl-list__item-primary-content 
-                                a(href='/ranking/role/mage') Mage
-                            img(src='/static/roles/mage.png')
+                    .table-responsive
+                      table.mdl-data-table.mdl-js-data-table.champions-table#roles
+                          thead
+                              tr
+                                th.mdl-data-table__cell--non-numeric Role
+                          tbody
+                              tr(class="tr-link" data-href="/ranking/role/assassin")
+                                td.mdl-data-table__cell--non-numeric
+                                    img(src='/static/roles/assassin.png')
+                                    span Assassin
+                              tr(class="tr-link" data-href="/ranking/role/fighter")
+                                td.mdl-data-table__cell--non-numeric
+                                    img(src='/static/roles/fighter.png')
+                                    span Fighter
+                              tr(class="tr-link" data-href="/ranking/role/marksman")
+                                td.mdl-data-table__cell--non-numeric
+                                    img(src='/static/roles/marksman.png')
+                                    span Marksman
+                              tr(class="tr-link" data-href="/ranking/role/support")
+                                td.mdl-data-table__cell--non-numeric
+                                    img(src='/static/roles/support.png')
+                                    span Support
+                              tr(class="tr-link" data-href="/ranking/role/tank")
+                                td.mdl-data-table__cell--non-numeric
+                                    img(src='/static/roles/tank.png')
+                                    span Tank
+                              tr(class="tr-link" data-href="/ranking/role/mage")
+                                td.mdl-data-table__cell--non-numeric
+                                    img(src='/static/roles/mage.png')
+                                    span Mage
                 .col-md-6.role-centered
                     h3  Pick champion to see ranking
-                    .table-responsive
+                    .table-responsive#responsive
                       table.mdl-data-table.mdl-js-data-table.champions-table.rankings-table
                           thead
                               tr
                                 th.mdl-data-table__cell--non-numeric Champion
                           tbody#rankings
-                          .ui.active.dimmer#championsDimmer
-                            ui.inverted.loader
+                                                            .ui.large.loader.ajaxSpinner.active
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA

@@ -1,4 +1,3 @@
-/* GENERAL STYLES */
 html{
     position: relative;
 }
@@ -53,13 +52,22 @@ ul {
     margin-right: 5px;
     margin-top: 5px;
 }
-.ui.dimmer {
-    background-color: rgba(0,0,0,1);
+.pager2 {
+    padding-left: 0;
+    margin: 20px 0;
+    text-align: center;
+    list-style: none;
+}
+.pager2 span {
+    margin-right: 5px;
+    margin-top: 5px;
 }
 .mdl-textfield__input {
     font-size: 2.5em;
 }
-
+.v {
+    visibility: hidden;
+}
 /* NAVBAR STYLES */
 .mdl-layout__header {
     background: #333333;
@@ -82,6 +90,7 @@ ul {
 .form-container {
     position: relative;
     text-align: center;
+    color: #1a1a1a;
 }
 .page-title {
     text-align: center;
@@ -317,6 +326,12 @@ ul {
 }
 .rankings-table {
     text-align: center;
+}
+#roles img {
+    margin-right: 5px;
+}
+#rankings img {
+    margin-right: 5px;
 }
 
 /* MEDIA QUERIES */

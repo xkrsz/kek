@@ -8,6 +8,7 @@ function championsList() {
       url: '/api/ranking/champions',
       success: function(r) {
         if (r.success) {
+            $("#rankings").empty();
             console.log(r);
             var counter = 1;
             $.each(r.champions, function(index, value) {
@@ -17,10 +18,7 @@ function championsList() {
         }
       }
     }).done(function(){
-      setTimeout(function() {
-        $("#championsDimmer").removeClass('active');
-      }, 10);
-        $("#rankings tr").on('click', function (e) {
+        $("tr").on('click', function (e) {
             window.location = $(this).data('href');
         });
         pagination();
@@ -28,7 +26,7 @@ function championsList() {
 }
 
             function pagination() {
-                $('table').each(function() {
+                $('.rankings-table').each(function() {
                     var currentPage = 0;
                     var numPerPage = 10;
                     var $table = $(this);
@@ -39,6 +37,7 @@ function championsList() {
                     var numRows = $table.find('tbody tr').length;
                     var numPages = Math.ceil(numRows / numPerPage);
                     var $pager = $('<div class="pager"></div>');
+                            var $pagerBottom = $('<div class="pager2"></div>');
                     for (var page = 0; page < numPages; page++) {
                         $('<span class="page-number mdl-button mdl-js-button mdl-button--raised"></span>').text(page + 1).bind('click', {
                             newPage: page
@@ -48,6 +47,16 @@ function championsList() {
                             $(this).addClass('active').siblings().removeClass('active');
                         }).appendTo($pager).addClass('clickable');
                     }
-                    $pager.insertAfter('.table-responsive').find('span.page-number:first').addClass('active');
+        for (var page = 0; page < numPages; page++) {
+            $('<span class="page-number mdl-button mdl-js-button mdl-button--raised"></span>').text(page + 1).bind('click', {
+                newPage: page
+            }, function(event) {
+                currentPage = event.data['newPage'];
+                $table.trigger('repaginate');
+                $(this).addClass('active').siblings().removeClass('active');
+            }).appendTo($pagerBottom).addClass('clickable');
+        }
+        $pager.insertBefore('#responsive').find('span.page-number:first').addClass('active');
+        $pagerBottom.insertAfter('#responsive').find('span.page-number:first').addClass('active');
             });
             }

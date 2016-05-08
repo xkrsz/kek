@@ -7,8 +7,6 @@ block body
             script(src='/static/scripts/summoner.js' async)
             script(src='/static/scripts/overview.js' async)
             script(src='/static/scripts/champions.js' async)
-            .ui.active.dimmer#siteDimmer
-                .ui.inverted.loader.large
             include ./includes/navbar.pug
                 .container.layout
                     .row.summoner-row
@@ -22,6 +20,7 @@ block body
                                         span.sub-info #{summoner.identity.region.toUpperCase()}
                                         br
                                         span.sub-info#tier
+                                            .mdl-spinner.mdl-js-spinner.ajaxSpinner
                     .row
                         .col-md-12
                             div(class='mdl-tabs mdl-js-tabs')
@@ -33,17 +32,20 @@ block body
                                         .row.first-row
                                             .col-md-12.role-centered
                                                 h1#totalPoints
+                                                .ui.loader.ajaxSpinner
                                                 span.ranking-position#global
+                                                .ui.loader.ajaxSpinner
                                             .col-md-12.role-centered.mastery
                                                 h3 MASTERY SCORE
                                                 h3#masteryScore
+                                                .ui.loader.ajaxSpinner
                                             .col-md-6.champions-list
                                                 ul.champions.mdl-list
+                                                .ui.loader.ajaxSpinner
                                             .col-md-6.roles-list
                                                 ul.roles.mdl-list
+                                                .ui.loader.ajaxSpinner
                                             .col-md-12.more-stats
-                                                button(class='mdl-button mdl-js-button mdl-button--icon' id='scroll')
-                                                    i.material-icons keyboard_arrow_down
                                         .row.second-row
                                             .col-md-4
                                                 .col-md-12.stats
@@ -70,7 +72,7 @@ block body
                                                 .table-responsive
                                                     table.mdl-data-table.mdl-js-data-table.champions-table#championsTable
                                                         thead
-                                                            tr
+                                                            tr.v
                                                                 th #
                                                                 th.mdl-data-table__cell--non-numeric Name
                                                                 th Level
@@ -79,5 +81,86 @@ block body
                                                                 th Winrate
                                                                 th KDA
                                                         tbody#championsTable
-                                                        .ui.active.dimmer#championsDimmer
-                                                            .ui.inverted.loader
+                                                            .ui.large.loader.ajaxSpinner.active
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+                                                            tr.v
+                                                                th #
+                                                                th.mdl-data-table__cell--non-numeric Name
+                                                                th Level
+                                                                th Points
+                                                                th Games Played
+                                                                th Winrate
+                                                                th KDA
+
+

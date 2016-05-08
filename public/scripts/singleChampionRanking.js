@@ -12,6 +12,7 @@ function singleChampionRanking(champion) {
       url: '/api/ranking/champion/' + champion,
       success: function(r) {
         if (r.success) {
+            $('#singleChampion').empty();
             console.log(r);
             var counter = 1;
             $.each(r.summoners, function(index, value) {
@@ -21,9 +22,6 @@ function singleChampionRanking(champion) {
         }
       }
     }).done(function(){
-      setTimeout(function() {
-        $("#championsDimmer").removeClass('active');
-      }, 10);
         pagination();
     });
     
@@ -39,6 +37,7 @@ function singleChampionRanking(champion) {
         var numRows = $table.find('tbody tr').length;
         var numPages = Math.ceil(numRows / numPerPage);
         var $pager = $('<div class="pager"></div>');
+        var $pagerBottom = $('<div class="pager2"></div>');
         for (var page = 0; page < numPages; page++) {
             $('<span class="page-number mdl-button mdl-js-button mdl-button--raised"></span>').text(page + 1).bind('click', {
                 newPage: page
@@ -48,7 +47,17 @@ function singleChampionRanking(champion) {
                 $(this).addClass('active').siblings().removeClass('active');
             }).appendTo($pager).addClass('clickable');
         }
-        $pager.insertAfter('.table-responsive').find('span.page-number:first').addClass('active');
+        for (var page = 0; page < numPages; page++) {
+            $('<span class="page-number mdl-button mdl-js-button mdl-button--raised"></span>').text(page + 1).bind('click', {
+                newPage: page
+            }, function(event) {
+                currentPage = event.data['newPage'];
+                $table.trigger('repaginate');
+                $(this).addClass('active').siblings().removeClass('active');
+            }).appendTo($pagerBottom).addClass('clickable');
+        }
+        $pager.insertBefore('.table-responsive').find('span.page-number:first').addClass('active');
+        $pagerBottom.insertAfter('.table-responsive').find('span.page-number:first').addClass('active');
     });
 }
 }
