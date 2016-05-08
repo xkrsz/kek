@@ -7,6 +7,8 @@ block body
             script(src='/static/scripts/summoner.js' async)
             script(src='/static/scripts/overview.js' async)
             script(src='/static/scripts/champions.js' async)
+            .ui.active.dimmer#siteDimmer
+                .ui.inverted.loader.large
             include ./includes/navbar.pug
                 .container.layout
                     .row.summoner-row
@@ -31,7 +33,6 @@ block body
                                         .row.first-row
                                             .col-md-12.role-centered
                                                 h1#totalPoints
-                                                    .mdl-spinner.mdl-js-spinner.is-active#spinner
                                                 span.ranking-position#global
                                             .col-md-12.role-centered.mastery
                                                 h3 MASTERY SCORE
@@ -78,3 +79,5 @@ block body
                                                                 th Winrate
                                                                 th KDA
                                                         tbody#championsTable
+                                                        .ui.active.dimmer#championsDimmer
+                                                            .ui.inverted.loader
