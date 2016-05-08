@@ -50,6 +50,19 @@ ul {
 .mdl-layout__header {
     background: #333333;
 }
+.dropdown {
+    list-style-type: none;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; 
+}
+.dropdown-submenu{position:relative;}
+.dropdown-submenu>.dropdown-menu{top:0;right:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
+.dropdown-submenu:hover>.dropdown-menu{display:block;}
+.dropdown-submenu>a:after{display:block;content:" ";float:left;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#cccccc;margin-top:5px;margin-right:-10px;}
+.dropdown-submenu:hover>a:after{border-left-color:#ffffff;}
+.dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{right:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
 
 /* SEARCH STYLES */
 .form-container {
@@ -77,8 +90,13 @@ ul {
     color: white;
     font-family: 'Montserrat', sans-serif;
 }
-.list-header {
-    margin-top: 3%;
+.mdl-button:hover {
+    background: rgba(158,158,158,.8);
+}
+.header-list {
+    text-align: center;
+}
+.champions-chart {
     text-align: center;
 }
 
@@ -97,7 +115,7 @@ ul {
     border-radius: 5px 5px 5px 5px;
     -moz-border-radius: 5px 5px 5px 5px;
     -webkit-border-radius: 5px 5px 5px 5px;
-    border: 5px groove #CFB53B;
+    border: 7px groove;
 }
 .summoner-info {
     margin-top: 5px;
@@ -157,23 +175,25 @@ ul {
     margin: 0 0 10px 0;
     padding-right: 5px;
 }
+.mdl-list__item {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    color: white;
+}
 .champions-list, .roles-list {
     margin-top: 5%;
 }
 .icon-responsive {
-    max-width: 4.5%;
+    max-width: 10%;
     height: auto;
     float: left;
-    margin-right: 5px;
+    margin-right: 10px;
 }
-.champions-list span {
-    float: right;
-}
-.roles-list span {
-    float: right;
+.icon-role {
+    max-width: 11%;
 }
 .first {
-    background-color: rgba(207, 181, 59, 0.6);
+    background-color: rgba(218, 184, 76, 0.6);
     border-radius: 0px 19px 19px 0px;
     -moz-border-radius: 0px 19px 19px 0px;
     -webkit-border-radius: 0px 19px 19px 0px;
@@ -202,7 +222,21 @@ ul {
     -moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.75);
 }
-
+.roles-chart {
+    text-align: center;
+    margin-top: 10px;
+}
+.champions-chart {
+    text-align: center;
+    margin-top: 10px;
+}
+#rolesChart {
+    max-width: 350px;
+    height: auto;
+}
+#championsChart {
+    max-width: 350px;
+}
 
 /* CHAMPIONS STYLES */
 .champions-table-row {
@@ -219,7 +253,7 @@ ul {
     width: 100%;
     font-size: 1em;
 }
-.champions-table img {
+.champions-table-img {
     max-width: 15%;
     height: auto;
     margin-right: 5px;
@@ -227,10 +261,37 @@ ul {
 .mdl-data-table tbody tr:hover {
     background-color: #404040;
 }
+.positive {
+    color: #16AB39;
+}
+.negative {
+    color: #de3b3b;
+}
+.yellow {
+    color: #EAAE00;
+}
+.blue {
+    color: #2185D0;
+}
 
 /* RANKING STYLES */
 .tr-link:hover {
     cursor: pointer;
+}
+.ranking-img {
+    max-width: 25%;
+    height: auto;
+    margin-right: 5px;
+}
+.tier-data {
+    text-align: right !important;
+}
+.tier-img {
+    max-width: 40%;
+    height: auto;
+}
+.champions-ranking-table {
+    font-size: 1.5em;
 }
 
 /* MEDIA QUERIES */
@@ -241,9 +302,15 @@ ul {
     .division {
         margin-top: 25%;
     }
+    .champions-table, .champions-ranking-table {
+        border-radius: initial;
+    }
+    .table-responsive {
+        border: 1px solid #404040;
+    }
 }
 
-@media (min-width:961px) { 
+@media (min-width: 768px) { 
     .form-container {
         height: 93vh;
     }
@@ -259,8 +326,8 @@ ul {
         left: 50%;
         transform: translate(-50%, -50%);
     }
-    .first-row {
-        height: 73vh;
+    .home-second-row {
+        height: 100vh;
         position: relative;
     }
 }

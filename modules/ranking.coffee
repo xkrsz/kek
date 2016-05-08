@@ -77,3 +77,81 @@ exports.apiRankingChampions = (callback) ->
 						success: false
 						message: 'No champions found in database, something\'s wrong.'
 					}
+
+exports.apiRankingRole = (role, callback) ->
+	role = role.toLowerCase()
+	role = role.charAt(0).toUpperCase() + role.slice(1)
+
+	if role == 'Assassin' || role == 'Fighter' || role == 'Mage' ||
+	role == 'Marksman' || role == 'Support' || role == 'Tank'
+		sort = {}
+		sort['data.championMastery.rolesPoints.' + role] = -1
+		Summoner.find({}, 'identity.name identity.region data.championMastery.rolesPoints.' + role +
+		' data.championMastery.champions data.league').sort(sort).exec (e, cachedSummoners) ->
+			if e
+				log.error e
+			if cachedSummoners.length
+				summoners = []
+				for summoner in cachedSummoners
+					try
+						games = summoner.data.league.wins + summoner.data.league.losses
+						summoners.push {
+							name: summoner.identity.name
+							region: summoner.identity.region
+							points: summoner.data.championMastery.rolesPoints[role]
+							championName: summoner.data.championMastery.champions[0].championName
+							championKey: summoner.data.championMastery.champions[0].championKey
+							tier: summoner.data.league.tier
+							division: summoner.data.league.division
+							games: games
+							winrate: Number((summoner.data.league.wins / games).toFixed(2))
+						}
+					catch e
+						log.error e
+				if summoners.length
+					callback {
+						success: true
+						summoners: summoners
+					}
+				else
+					callback {
+						success: false
+						message: 'nope'
+					}
+	else
+		callback {
+			success: false
+			message: 'Wrong role provided.'
+		}
+
+exports.apiRankingChampion = (champion, callback) ->
+	champion = champion.toLowerCase()
+
+	Summoner.find {}, 'identity.name identity.region data.championMastery.champions data.league',
+	(e, cachedSummoners) ->
+		if e
+			log.error e
+		if cachedSummoners.length
+			summoners = []
+			for summoner in cachedSummoners
+				for cachedChampion in summoner.data.championMastery.champions
+					if cachedChampion.championName.toLowerCase().replace(' ', '') == champion
+						summoners.push {
+							name: summoner.identity.name
+							region: summoner.identity.region
+							points: cachedChampion.championPoints
+							tier: summoner.data.league.tier
+							division: summoner.data.league.division
+						}
+
+			summoners.sort (a, b) -> b.points - a.points
+			if summoners.length
+				callback {
+					success: true
+					summoners: summoners
+				}
+			else
+				callback {
+					success: false
+					message: 'nope.'
+				}

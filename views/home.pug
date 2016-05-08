@@ -4,7 +4,7 @@ block vars
 block body
     script(src='/static/scripts/home.js' async)
     include ./includes/navbar.pug
-        .container.layout
+        .container
             .row.form-container
                 .col-md-12.page-title
                     h1 kek
@@ -12,7 +12,7 @@ block body
                     form(action='/', method='post')
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             input#key.mdl-textfield__input(type='text' name='key')   
-                            label.mdl-textfield__label(for='key') SUMMONER NAME
+                            label.mdl-textfield__label(for='key') Summoner name
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.getmdl-select
                             input.mdl-textfield__input(value='EUNE' type='text' readonly='' tabindex='-1' name='region' id='region' class='region-dropdown')
                             ul.mdl-menu.mdl-menu--bottom-left.mdl-js-menu(for='region')
@@ -33,32 +33,21 @@ block body
                 .col-md-12.more-stats
                     button(class='mdl-button mdl-js-button mdl-button--icon' id='scroll')
                         i.material-icons keyboard_arrow_down
+        .container-fluid.layout.home-second-row
             .row.first-row
-                .col-md-6.list-header
-                    h1 BEST CHAMPIONS
-                .col-md-6.champions-list
-                     ul
-                        li.first Bard
-                            img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png' class='icon-responsive')
-                            span 324958
-                        li.second Aatrox
-                            img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png' class='icon-responsive')
-                            span 324958
-                        li.third Soraka
-                            img(src='http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/Aatrox.png' class='icon-responsive')
-                            span 324958
-                .col-md-6.roles-list
-                    ul
-                        li.first  Assassin
-                            img(src='http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/39/Assassin_icon.jpg/revision/latest/scale-to-width-down/110?cb=20140607013331&format=webp' class='icon-responsive')
-                            span 324958
-                        li.second  Tank
-                            img(src='http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/39/Assassin_icon.jpg/revision/latest/scale-to-width-down/110?cb=20140607013331&format=webp' class='icon-responsive')
-                            span 324958
-                        li.third  Support
-                            img(src='http://vignette3.wikia.nocookie.net/leagueoflegends/images/3/39/Assassin_icon.jpg/revision/latest/scale-to-width-down/110?cb=20140607013331&format=webp' class='icon-responsive')
-                            span 1254235
-                .col-md-6.list-header
-                    h1 BEST ROLES
-                .col-md-12
-                    h1 A TUTAJ GRAFY TYLKO DANYCH POTRZEBUJE
+                .col-md-6
+                    h3.header-list Best Champions
+                    ul.mdl-list#champions
+                .col-md-6
+                    h3.header-list Best Roles
+                    ul.mdl-list#roles
+            .row
+                .col-md-6.champions-chart
+                    h4 Top Ten Champions
+                    canvas(id="championsChart" width="200" height="200")
+                .col-md-6
+                    .col-md-6
+                        canvas(id="rolesChart" width="200" height="200")
+                    .col-md-6
+                        canvas(id="avgChart" width="200" height="200")
+

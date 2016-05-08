@@ -13,4 +13,14 @@ module.exports = (router) ->
     rankingModule.apiRankingChampions (r) ->
       res.json r
 
+  router.route('/api/ranking/role/:role')
+  .get (req, res) ->
+    rankingModule.apiRankingRole req.params.role, (r) ->
+      res.json r
+
+  router.route('/api/ranking/champion/:champion')
+  .get (req, res) ->
+    rankingModule.apiRankingChampion req.params.champion, (r) ->
+      res.json r
+
   return router
