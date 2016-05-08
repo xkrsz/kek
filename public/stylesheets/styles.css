@@ -45,6 +45,10 @@ ul {
 .mdl-textfield__label {
     color: white;    
 }
+.mdl-button {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+}
 
 /* NAVBAR STYLES */
 .mdl-layout__header {
@@ -292,6 +296,9 @@ ul {
 }
 .champions-ranking-table {
     font-size: 1.5em;
+}
+.roles-table {
+    margin-top: 10px;
 }
 
 /* MEDIA QUERIES */
