@@ -12,12 +12,16 @@ function championsRanking() {
             console.log(r);
             var counter = 1;
             $.each(r.champions, function(index, value) {
-               $("#champions").append('<tr><td>' + counter + '</td><td class="mdl-data-table__cell--non-numeric"><img src="http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/' +value.key + '.png" class="ranking-img">' + value.name + '</td><td>' + value.points + '</td></tr>'); 
+               $("#champions").append('<tr class="tr-link" data-href="/ranking/champion/' + value.key + '"><td>' + counter + '</td><td class="mdl-data-table__cell--non-numeric"><img src="http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/' +value.key + '.png" class="ranking-img">' + value.name + '</td><td>' + value.points + '</td></tr>'); 
+               //$("#championsDropdown").append('<a class="mdl-navigation__link" href="/ranking/champion/' + value.key + '"> <li class="mdl-menu__item">' + value.name + '</li></a>');
                counter++;
             });
         }
       }
     }).done(function(){
+        $("#champions tr").on('click', function (e) {
+            window.location = $(this).data('href');
+        });
         pagination();
     });
     
