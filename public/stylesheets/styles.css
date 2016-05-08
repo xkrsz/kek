@@ -25,6 +25,9 @@ a:focus, a:hover {
 ul {
     -webkit-padding-start: 0;
 }
+.link-rank a {
+    color: #336699!important;
+}
 .layout {
     background: #222222;
     border-radius: 0px 0px 10px 10px;

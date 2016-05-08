@@ -7,16 +7,16 @@ block body
         .container.layout
             .row
                 .col-md-6.role-centered
-                    h1 
-                        a(href='/ranking') Summoners
-                    h3 sub info
+                    .page-header
+                        h1.link-rank 
+                            a(href='/ranking') Summoners
                 .col-md-6.role-centered
-                    h1 
-                        a(href='/ranking/champions') Champions
-                    h3 sub info
+                    .page-header
+                        h1.link-rank 
+                            a(href='/ranking/champions') Champions
             .row
                 .col-md-6.role-centered
-                    h3 Pick role to see ranking
+                    h4 Pick role to see ranking:
                     .table-responsive
                       table.mdl-data-table.mdl-js-data-table.champions-table#roles
                           thead
@@ -48,7 +48,7 @@ block body
                                     img(src='/static/roles/mage.png')
                                     span Mage
                 .col-md-6.role-centered
-                    h3  Pick champion to see ranking
+                    h4  Pick champion to see ranking:
                     .table-responsive#responsive
                       table.mdl-data-table.mdl-js-data-table.champions-table.rankings-table
                           thead
