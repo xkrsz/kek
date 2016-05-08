@@ -2,11 +2,27 @@
     header.mdl-layout__header
         .mdl-layout-icon
         .mdl-layout__header-row
-            span.mdl-layout__title Kek
+            a(href='/')
+                span.mdl-layout__title Kek
             .mdl-layout-spacer
             nav.mdl-navigation.mdl-layout--large-screen-only
+                li.dropdown
+                    a#dropdown(href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Ranking
+                        span.caret
+                    ul.dropdown-menu
+                        li
+                            a(href="/ranking") Summoners
+                        li.divider
+                        li
+                            a(href="/ranking/champions") Champions
+                        li.divider
+                        li.dropdown-submenu
+                            a(tabindex="-1" href="#") Roles
+                            ul.dropdown-menu
+                              li
+                                a(tabindex="-1" href="#") Second level
+                            
                 a.mdl-navigation__link(href='/') Home
-                a.mdl-navigation__link(href='/ranking') Ranking
     .mdl-layout__drawer
         span.mdl-layout__title Kek
         nav.mdl-navigation

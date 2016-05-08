@@ -1,13 +1,13 @@
 extends base
 block vars
-    - var title = 'Summoner'
+    - var title = 'Summoners Ranking'
 block body
     script(src='/static/scripts/ranking.js' async)
     include ./includes/navbar.pug
         .container.layout
           .row.champions-table-row
               .col-md-12.role-centered
-                  h1 SUMMONERS RANKING
+                  h1 Summoners Ranking
               .col-md-12
                   table.mdl-data-table.mdl-js-data-table.champions-table
                       thead
