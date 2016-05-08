@@ -53,7 +53,7 @@ function pagination() {
         var numPages = Math.ceil(numRows / numPerPage);
         var $pager = $('<div class="pager"></div>');
         for (var page = 0; page < numPages; page++) {
-            $('<span class="page-number"></span>').text(page + 1).bind('click', {
+            $('<span class="page-number mdl-button mdl-js-button mdl-button--raised"></span>').text(page + 1).bind('click', {
                 newPage: page
             }, function(event) {
                 currentPage = event.data['newPage'];

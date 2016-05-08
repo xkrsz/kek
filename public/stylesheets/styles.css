@@ -49,6 +49,10 @@ ul {
     font-family: 'Montserrat', sans-serif;
     color: white;
 }
+.pager span {
+    margin-right: 5px;
+    margin-top: 5px;
+}
 
 /* NAVBAR STYLES */
 .mdl-layout__header {
