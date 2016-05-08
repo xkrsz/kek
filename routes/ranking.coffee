@@ -18,4 +18,8 @@ module.exports = (router) ->
 	.get (req, res) ->
 		res.render 'ranking-champions.pug'
 
+	router.route('/rankings')
+	.get (req, res) ->
+		res.render 'rankings.pug'
+
 	return router
