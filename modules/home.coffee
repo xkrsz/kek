@@ -2,27 +2,6 @@ bunyan 					= require 'bunyan'
 log 					= bunyan.createLogger {name: 'kek/modules/home'}
 rankingModule = require './ranking'
 
-exports.total = (callback) ->
-  Summoner.find {}, (e, summoners) ->
-    if e
-      log.error e
-    if summoners.length
-      log.info 'total: Found summoners in database.'
-      total = 0
-      for summoner in summoners
-        if summoner.data.championMastery.totalPoints
-          total += summoner.data.championMastery.totalPoints
-      callback {
-        success: true
-        total: total
-      }
-    else
-      log.info 'total: No summoners found in database.'
-      callback {
-        success: true
-        total: 0
-      }
-
 exports.champions = (callback) ->
   rankingModule.apiRankingChampions (r) ->
     callback r
