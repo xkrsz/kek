@@ -50,6 +50,13 @@ ul {
 .mdl-layout__header {
     background: #333333;
 }
+.dropdown {
+    list-style-type: none;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; 
+}
 
 /* SEARCH STYLES */
 .form-container {
