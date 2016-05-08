@@ -9,6 +9,9 @@ To run it locally you need:
 * node
 * npm
 
+Install `bunyan` and `coffee-script`:
+* `npm install -g bunyan coffee-script` (may need administrator permission)
+
 Run command:
 ```js
 env KEY=<your-league-developer-api-key> coffee server.coffee | bunyan
