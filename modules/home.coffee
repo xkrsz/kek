@@ -14,14 +14,15 @@ exports.roles = (callback) ->
       roles = {}
       for summoner in summoners
         try
-          summoner = summoner.toObject()
-          cachedRoles = summoner.data.championMastery.rolesPoints
-          cachedRolesArray = Object.keys(summoner.data.championMastery.rolesPoints)
-          for i of cachedRolesArray
-            if roles[cachedRolesArray[i]]
-              roles[cachedRolesArray[i]] += cachedRoles[cachedRolesArray[i]]
-            else
-              roles[cachedRolesArray[i]] = cachedRoles[cachedRolesArray[i]]
+          if summoner.data.championMastery.rolesPoints
+            summoner = summoner.toObject()
+            cachedRoles = summoner.data.championMastery.rolesPoints
+            cachedRolesArray = Object.keys(summoner.data.championMastery.rolesPoints)
+            for i of cachedRolesArray
+              if roles[cachedRolesArray[i]]
+                roles[cachedRolesArray[i]] += cachedRoles[cachedRolesArray[i]]
+              else
+                roles[cachedRolesArray[i]] = cachedRoles[cachedRolesArray[i]]
         catch e
           log.error e
 
