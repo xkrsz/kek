@@ -59,7 +59,7 @@
                 $(this).addClass('active').siblings().removeClass('active');
             }).appendTo($pager).addClass('clickable');
         }
-        $pager.insertBefore('.table-responsive').find('span.page-number:first').addClass('active');
+        $pager.insertAfter('.table-responsive').find('span.page-number:first').addClass('active');
     });
 }
 
