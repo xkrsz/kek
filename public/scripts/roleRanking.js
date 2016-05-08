@@ -17,6 +17,7 @@ function roleRanking(role) {
             $.each(r.summoners, function(index, value) {
                 winrateClass = (value.winrate >= 0.50) ? "positive" : "negative";
                 $('#roles').append('<tr><td>' + Number(counter) + '</td>' + '<td class="mdl-data-table__cell--non-numeric">' + value.name + '</td>' + '<td class="mdl-data-table__cell--non-numeric">' + value.region.toUpperCase() + '</td><td class="mdl-data-table__cell--non-numeric"><img src="http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/' + value.championKey + '.png" class="ranking-img">' + value.championName + '</td><td>' + value.points + '</td><td>' + value.games  + '</td><td class="' + winrateClass + '">' + (value.winrate * 100).toFixed(0) + '%</td>' + '<td class="mdl-data-table__cell--non-numeric tier-data">' + value.division + '<img src="/static/tiers/' + value.tier.toLowerCase() + '.png" class="tier-img"></td></tr>');
+                counter++;
             });
         }
       }
