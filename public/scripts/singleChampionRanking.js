@@ -12,6 +12,7 @@ function singleChampionRanking(champion) {
       url: '/api/ranking/champion/' + champion,
       success: function(r) {
         if (r.success) {
+            $('#singleChampion').empty();
             console.log(r);
             var counter = 1;
             $.each(r.summoners, function(index, value) {
@@ -21,9 +22,6 @@ function singleChampionRanking(champion) {
         }
       }
     }).done(function(){
-      setTimeout(function() {
-        $("#championsDimmer").removeClass('active');
-      }, 10);
         pagination();
     });
     

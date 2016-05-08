@@ -4,5 +4,4 @@ $(document)
 })
 .ajaxStop(function(){
     $(".ajaxSpinner").removeClass('active');
-    $("#load").remove();
 });

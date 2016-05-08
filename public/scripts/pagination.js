@@ -8,6 +8,7 @@ function championsList() {
       url: '/api/ranking/champions',
       success: function(r) {
         if (r.success) {
+            $("#rankings").empty();
             console.log(r);
             var counter = 1;
             $.each(r.champions, function(index, value) {
@@ -17,9 +18,6 @@ function championsList() {
         }
       }
     }).done(function(){
-      setTimeout(function() {
-        $("#championsDimmer").removeClass('active');
-      }, 10);
         $("tr").on('click', function (e) {
             window.location = $(this).data('href');
         });

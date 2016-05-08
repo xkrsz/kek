@@ -10,6 +10,7 @@
       success: function(r) {
         var e, error, i, j, len, ref, results, summoner, roles, winrateClass;
         if (r.success) {
+            $("#summoners").empty();
             console.log(r);
           ref = r.summoners;
           results = [];

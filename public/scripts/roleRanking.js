@@ -13,6 +13,7 @@ function roleRanking(role) {
       url: '/api/ranking/role/' + role,
       success: function(r) {
         if (r.success) {
+            $("#roles").empty();
             var counter = 1;
             $.each(r.summoners, function(index, value) {
                 winrateClass = (value.winrate >= 0.50) ? "positive" : "negative";
