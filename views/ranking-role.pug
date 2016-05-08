@@ -1,0 +1,39 @@
+extends base
+block vars
+    - var title = 'Role Ranking'
+block body
+    script(src='/static/scripts/roleRanking.js' async)
+    include ./includes/navbar.pug
+        .container.layout
+          .row.champions-table-row
+                .col-md-12.role-centered
+                    h1#header
+                .col-md-12.role-centered
+                  button#demo-menu-lower-left.mdl-button.mdl-js-button.mdl-button--raised Change Role
+                  ul.mdl-menu.mdl-menu--bottom-left.mdl-js-menu.mdl-js-ripple-effect(for='demo-menu-lower-left')
+                    a.mdl-navigation__link(href='/ranking/role/marksman')
+                        li.mdl-menu__item Marksman
+                    a.mdl-navigation__link(href='/ranking/role/assassin')
+                        li.mdl-menu__item Assassin
+                    a.mdl-navigation__link(href='/ranking/role/fighter')
+                        li.mdl-menu__item Fighter
+                    a.mdl-navigation__link(href='/ranking/role/support')
+                        li.mdl-menu__item Support
+                    a.mdl-navigation__link(href='/ranking/role/tank')
+                        li.mdl-menu__item Tank
+                    a.mdl-navigation__link(href='/ranking/role/mage')
+                        li.mdl-menu__item Mage
+                .col-md-12
+                    .table-responsive
+                      table.mdl-data-table.mdl-js-data-table.champions-table.roles-table
+                          thead
+                              tr
+                                  th #
+                                  th.mdl-data-table__cell--non-numeric Name
+                                  th.mdl-data-table__cell--non-numeric Region
+                                  th.mdl-data-table__cell--non-numeric Best Champion
+                                  th Points
+                                  th Games Played
+                                  th Winrate
+                                  th Division
+                          tbody#roles

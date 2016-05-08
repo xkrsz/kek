@@ -1,27 +1,26 @@
 $(document).ready(function() {
-    championsRanking();
+    var role = '';
+    role = window.location.pathname.slice(14);
+    $('#header').text(role.charAt(0).toUpperCase() + role.slice(1) + ' Ranking');
+    roleRanking(role);
 });
 
-function championsRanking() {
+function roleRanking(role) {
+    var winrateClass;
     return $.ajax({
       type: 'GET',
       dataType: 'json',
-      url: '/api/ranking/champions',
+      url: '/api/ranking/role/' + role,
       success: function(r) {
         if (r.success) {
-            console.log(r);
             var counter = 1;
-            $.each(r.champions, function(index, value) {
-               $("#champions").append('<tr class="tr-link" data-href="/ranking/champion/' + value.key + '"><td>' + counter + '</td><td class="mdl-data-table__cell--non-numeric"><img src="http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/' +value.key + '.png" class="ranking-img">' + value.name + '</td><td>' + value.points + '</td></tr>'); 
-               //$("#championsDropdown").append('<a class="mdl-navigation__link" href="/ranking/champion/' + value.key + '"> <li class="mdl-menu__item">' + value.name + '</li></a>');
-               counter++;
+            $.each(r.summoners, function(index, value) {
+                winrateClass = (value.winrate >= 0.50) ? "positive" : "negative";
+                $('#roles').append('<tr><td>' + Number(counter) + '</td>' + '<td class="mdl-data-table__cell--non-numeric">' + value.name + '</td>' + '<td class="mdl-data-table__cell--non-numeric">' + value.region.toUpperCase() + '</td><td class="mdl-data-table__cell--non-numeric"><img src="http://ddragon.leagueoflegends.com/cdn/6.8.1/img/champion/' + value.championKey + '.png" class="ranking-img">' + value.championName + '</td><td>' + value.points + '</td><td>' + value.games  + '</td><td class="' + winrateClass + '">' + (value.winrate * 100).toFixed(0) + '%</td>' + '<td class="mdl-data-table__cell--non-numeric tier-data">' + value.division + '<img src="/static/tiers/' + value.tier.toLowerCase() + '.png" class="tier-img"></td></tr>');
             });
         }
       }
     }).done(function(){
-        $("#champions tr").on('click', function (e) {
-            window.location = $(this).data('href');
-        });
         pagination();
     });
     
