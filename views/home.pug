@@ -7,7 +7,7 @@ block body
         .container
             .row.form-container
                 .col-md-12.page-title
-                    h1 kek
+                    h1 Powder Kek
                 .col-md-12.search
                     form(action='/', method='post')
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
@@ -27,9 +27,6 @@ block body
                                 li.mdl-menu__item TR
                         .button
                             input(type='submit', value='Search', class='mdl-button mdl-js-button mdl-button--raised')
-                .col-md-12.general-points
-                    h2#total
-                      .mdl-spinner.mdl-js-spinner.is-active
                 .col-md-12.more-stats
                     button(class='mdl-button mdl-js-button mdl-button--icon' id='scroll')
                         i.material-icons keyboard_arrow_down
@@ -50,4 +47,6 @@ block body
                         canvas(id="rolesChart" width="200" height="200")
                     .col-md-6
                         canvas(id="avgChart" width="200" height="200")
+            .ui.active.dimmer#championsDimmer
+                .ui.inverted.loader
 

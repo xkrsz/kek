@@ -1,24 +1,7 @@
 $(document).ready(function() {
-  total();
   champions();
   roles();
 });
-
-function total() {
-  $.ajax({
-    url: '/api/home/total',
-    type: 'GET',
-    dataType: 'json',
-    success: function(r) {
-      if(r.success) {
-        $('#total').text(r.total);
-      }
-    },
-    complete: function() {
-      setTimeout(total, 5000);
-    }
-  });
-}
 
 function champions() {
     var counter, positions, labels, points;
@@ -177,5 +160,9 @@ function roles() {
                 });
             }
         }
+    }).done(function(){
+              setTimeout(function() {
+        $("#championsDimmer").removeClass('active');
+      }, 10);
     });    
 }

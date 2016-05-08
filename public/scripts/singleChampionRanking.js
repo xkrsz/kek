@@ -21,6 +21,9 @@ function singleChampionRanking(champion) {
         }
       }
     }).done(function(){
+      setTimeout(function() {
+        $("#championsDimmer").removeClass('active');
+      }, 10);
         pagination();
     });
     

@@ -124,5 +124,9 @@ function overview() {
             data: champions
         });
     }
+  }).done(function(){
+      setTimeout(function() {
+        $("#siteDimmer").removeClass('active');
+      }, 10);
   });
 }

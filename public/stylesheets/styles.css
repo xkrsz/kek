@@ -53,6 +53,12 @@ ul {
     margin-right: 5px;
     margin-top: 5px;
 }
+.ui.dimmer {
+    background-color: rgba(0,0,0,1);
+}
+.mdl-textfield__input {
+    font-size: 2.5em;
+}
 
 /* NAVBAR STYLES */
 .mdl-layout__header {
@@ -83,9 +89,6 @@ ul {
 }
 .mdl-textfield__input, .region-dropdown {
     font-family: inherit;
-}
-.getmdl-select {
-    margin-right: -20%;
 }
 .region-dropdown {  
     width: 20%;
@@ -330,6 +333,12 @@ ul {
     .table-responsive {
         border: 1px solid #404040;
     }
+    .more-stats {
+        display: none;
+    }
+    .form-container {
+        margin-bottom: 5%;
+    }
 }
 
 @media (min-width: 768px) { 
@@ -352,4 +361,8 @@ ul {
         height: 100vh;
         position: relative;
     }
+    .getmdl-select {
+    margin-right: -20%;
+}
+    .
 }
