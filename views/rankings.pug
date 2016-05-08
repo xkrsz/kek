@@ -1,0 +1,52 @@
+extends base
+block vars
+    - var title = 'Rankings'
+block body
+    script(src="/static/scripts/pagination.js" async)
+    include ./includes/navbar.pug
+        .container.layout
+            .row
+                .col-md-6.role-centered
+                    h1 
+                        a(href='/ranking') Summoners
+                    h3 sub info
+                .col-md-6.role-centered
+                    h1 
+                        a(href='/ranking/champions') Champions
+                    h3 sub info
+            .row
+                .col-md-6.role-centered
+                    h3 Pick role to see ranking
+                    ul.roles-list-rankings.mdl-list
+                        li.mdl-list__item 
+                            span.mdl-list__item-primary-content 
+                                a(href='/ranking/role/assassin') Assassin
+                            img(src='/static/roles/assassin.png')
+                        li.mdl-list__item 
+                            span.mdl-list__item-primary-content
+                                a(href='/ranking/role/fighter') Fighter
+                            img(src='/static/roles/fighter.png')
+                        li.mdl-list__item 
+                            span.mdl-list__item-primary-content 
+                                a(href='/ranking/role/marksman') Marksman
+                            img(src='/static/roles/marksman.png')
+                        li.mdl-list__item 
+                            span.mdl-list__item-primary-content
+                                a(href='/ranking/role/Support') Support
+                            img(src='/static/roles/support.png')
+                        li.mdl-list__item 
+                            span.mdl-list__item-primary-content 
+                                a(href='/ranking/role/tank') Tank
+                            img(src='/static/roles/tank.png')
+                        li.mdl-list__item 
+                            span.mdl-list__item-primary-content 
+                                a(href='/ranking/role/mage') Mage
+                            img(src='/static/roles/mage.png')
+                .col-md-6.role-centered
+                    h3  Pick champion to see ranking
+                    .table-responsive
+                      table.mdl-data-table.mdl-js-data-table.champions-table.rankings-table
+                          thead
+                              tr
+                                th.mdl-data-table__cell--non-numeric Champion
+                          tbody#rankings
