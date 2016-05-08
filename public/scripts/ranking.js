@@ -27,6 +27,9 @@
         }
       }
     }).done(function(){
+      setTimeout(function() {
+        $("#championsDimmer").removeClass('active');
+      }, 10);
         pagination();
         $("#summoners tr").on('click', function (e) {
             window.location = $(this).data('href');

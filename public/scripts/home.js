@@ -160,5 +160,9 @@ function roles() {
                 });
             }
         }
+    }).done(function(){
+              setTimeout(function() {
+        $("#championsDimmer").removeClass('active');
+      }, 10);
     });    
 }

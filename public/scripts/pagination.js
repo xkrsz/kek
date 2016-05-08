@@ -17,11 +17,13 @@ function championsList() {
         }
       }
     }).done(function(){
+      setTimeout(function() {
+        $("#championsDimmer").removeClass('active');
+      }, 10);
         $("#rankings tr").on('click', function (e) {
             window.location = $(this).data('href');
         });
         pagination();
-        
     });
 }
 

@@ -19,6 +19,9 @@ function championsRanking() {
         }
       }
     }).done(function(){
+      setTimeout(function() {
+        $("#championsDimmer").removeClass('active');
+      }, 10);
         $("#champions tr").on('click', function (e) {
             window.location = $(this).data('href');
         });

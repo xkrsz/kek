@@ -36,7 +36,9 @@ function champions() {
       }
     }
   }).done(function(){
-      $('#championsDimmer').removeClass('active');
+      setTimeout(function() {
+        $("#championsDimmer").removeClass('active');
+      }, 10);
       pagination();
   });
 }
